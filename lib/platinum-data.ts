@@ -2484,176 +2484,554 @@ Comment "FREEZER" if you want my full system for building your frozen meal inven
   },
   {
     day: 19,
-    caption: `Saturday brunch at home > expensive restaurant brunch
+    caption: `Saturday brunch at home absolutely DESTROYED the $80 restaurant brunch we used to do.
 
-Just made:
-🥞 Fluffy pancakes
-🥓 Crispy bacon
-🍳 Perfect eggs
-☕ Fresh coffee
+Just made for my partner and me:
 
-Total: $10 for TWO people
+🥞 Fluffy buttermilk pancakes (from scratch - easier than you think)
+🥓 Crispy bacon cooked perfectly in the oven
+🍳 Eggs Benedict with homemade hollandaise (yes, I made it)
+🥑 Fresh avocado toast with everything seasoning
+☕ Pour-over coffee from fresh beans
+🍊 Fresh-squeezed orange juice
 
-Restaurant? Would be $50+`,
-    hashtags: '#brunchathome #saturdaybrunch #homemadebrunch #savemoney #weekendvibes #brunchlife #homecooking #couplescooking #cheapbrunch #brunchgoals',
-    imageDescription: 'Beautiful homemade brunch spread',
+TOTAL COST: $14 for two people
+
+OUR OLD SATURDAY ROUTINE:
+→ Drive to trendy brunch spot
+→ Wait 45 minutes for a table
+→ Order $35 plates each
+→ Coffee is $6 per cup
+→ Tip, tax, parking
+→ TOTAL: $90+ every time
+
+NEW SATURDAY ROUTINE:
+→ Wake up slowly
+→ Make coffee in my robe
+→ Cook together while playing music
+→ Eat in our cozy kitchen
+→ No rush, no crowds
+→ TOTAL: $14 and infinitely better vibes
+
+The experience is not even comparable. Home wins every time.
+
+We turned brunch into a DATE. Cook together, eat together, no distractions. Better than any restaurant could provide.
+
+Plus I get to be the person who casually says "I made hollandaise from scratch" 😂
+
+What is YOUR weekend morning routine? Drop it below! 🍳
+
+Comment "BRUNCH" if you want my exact pancake recipe - they are legendary in this house.`,
+    hashtags: '#brunchathome #saturdaybrunch #homemadebrunch #savemoney #weekendvibes #brunchlife #homecooking #couplescooking #datenight #brunchgoals #couplegoals #weekendmorning #breakfastathome #brunching #pancakes',
+    imageUrl: 'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=1080',
+    imageDescription: 'Beautiful homemade brunch spread on table',
   },
   {
     day: 20,
-    caption: `20 days of home cooking! 
+    caption: `DAY 20 of cooking at home. Let me hit you with the REAL numbers.
 
-Numbers don't lie:
+20 days of tracking everything. No exaggerations. Here is the data:
 
-🍽️ Meals cooked: 60+
-💰 Money saved: ~$400
-⏰ Average cooking time: 20 min
-🥗 Healthy meals: 90%
+MEALS COOKED: 62
+(Three per day, minus a few nights out)
 
-This is sustainable. This is lifestyle change.`,
-    hashtags: '#20days #homecookingjourney #moneysaved #healthylifestyle #sustainablechange #cookinglife #progressupdate #realresults #kitchenwin #lifestylechange',
-    imageDescription: '20 day milestone infographic',
+MONEY SAVED: $437
+(Compared to what I was spending before)
+
+AVERAGE COOKING TIME: 18 minutes per meal
+(Prep days are longer, weekdays are quick)
+
+HEALTHY MEALS: 85%
+(Some days I just wanted pizza, and that is fine)
+
+BEST MEAL: Thai curry that was better than my favorite restaurant
+
+WORST MEAL: Overcooked chicken on day 4 (still ate it)
+
+GROCERY SPEND: $287 total
+(This fed me 62 meals = $4.63 per meal)
+
+OLD FOOD SPENDING: ~$725 for 20 days
+(Takeout, coffee shops, restaurants)
+
+Here is what surprises me most:
+
+This is not hard anymore. It is just... normal.
+
+I do not have to convince myself to cook. I just do it. Like brushing my teeth or taking a shower.
+
+THAT is the real win. Not the money saved (though that is nice). The fact that cooking became automatic.
+
+This is what sustainable change looks like. Not motivation. Not willpower. Just HABIT.
+
+10 more days in this challenge. Anyone still with me?
+
+Drop your Day 20 update in the comments! What are YOUR numbers? 📊`,
+    hashtags: '#day20 #homecookingjourney #moneysaved #habitformed #healthylifestyle #sustainablechange #cookinglife #progressupdate #realresults #kitchenwin #lifestylechange #accountability #realnumbers #challengeupdate #transformation',
+    imageUrl: 'https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=1080',
+    imageDescription: '20 day cooking milestone with stats',
   },
   {
     day: 21,
-    caption: `3 weeks of cooking more. Here's the truth:
+    caption: `3 weeks of cooking more. Time for some radical honesty.
 
-Week 1: Exciting and new
-Week 2: Got into rhythm  
-Week 3: It's just normal now
+WEEK 1: The Honeymoon
+Everything was exciting and new. Bought fresh ingredients. Tried new recipes. Posted about it constantly. Motivation was HIGH.
 
-That's the goal - make it a HABIT, not a chore.
+WEEK 2: The Grind
+Novelty wore off. Some days I did not want to cook. Made simpler meals. Started relying on meal prep more. Motivation dropped but discipline kicked in.
 
-How are you doing?`,
-    hashtags: '#3weeks #habitformation #cookinghabit #progressjourney #truthbomb #makeitaHabit #normallife #kitchenjourney #realTalk #cookinglife',
-    imageDescription: 'Three week journey reflection',
+WEEK 3: The Habit
+Something shifted. I stopped thinking about whether to cook - I just did it. It became automatic. Like brushing my teeth. Not exciting, just... normal.
+
+THIS IS THE GOAL.
+
+Not eternal motivation (that fades).
+Not perfect meals every night (unrealistic).
+Not loving every minute of it (sometimes it is just food).
+
+The goal is making healthy home cooking as automatic as any other daily habit.
+
+Week 3 is where that happens.
+
+If you are in Week 1 enjoying the excitement - great! Ride that wave.
+
+If you are in Week 2 struggling - hang on. Week 3 gets easier, I promise.
+
+If you are in Week 3 or beyond - you get it. This is just life now.
+
+How are YOU doing? What week are you on? Drop your honest update below.
+
+No judgment. This is a support zone. 🙌`,
+    hashtags: '#3weeks #habitformation #cookinghabit #honestupdate #realtalk #makeitahabit #normallife #kitchenjourney #progressjourney #cookinglife #21days #habitbuilding #accountability #truthbomb #keepgoing',
+    imageUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1080',
+    imageDescription: 'Three week cooking journey reflection',
   },
   {
     day: 22,
-    caption: `Monday motivation: Your kitchen is your wealth builder 💰
+    caption: `Monday motivation: Your kitchen is secretly building wealth while you sleep.
 
-Every meal you make at home is:
-→ Money in your pocket
-→ Health in your body
-→ Skills for life
+Hear me out. This is not just about saving money on food.
 
-What are you cooking this week?`,
-    hashtags: '#mondaymotivation #kitchenwisdom #buildwealth #healthyhabits #lifeskills #cookingmotivation #savingmoney #monday #weekPlanning #kitchenlife',
-    imageDescription: 'Motivational Monday kitchen image',
+Every time you cook at home, you are:
+
+💰 BUILDING FINANCIAL FREEDOM
+$10 saved today = $10 invested tomorrow
+$300/month in food savings = $3,600/year
+$3,600/year invested at 7% = $50,000+ in 10 years
+
+Yes, really. Your kitchen is a wealth-building machine.
+
+🥗 INVESTING IN YOUR HEALTH
+Home cooking = control over ingredients
+Control = fewer processed foods
+Fewer processed = lower health costs later
+Health is wealth. Literally.
+
+🧠 DEVELOPING VALUABLE SKILLS
+Cooking is a life skill that never depreciates.
+Feed yourself, feed your family, feed your friends.
+Nobody can take this skill from you.
+
+⏰ CREATING QUALITY TIME
+Cooking with family = memories
+Cooking for yourself = self-care
+Cooking for others = connection
+
+Every meal you make at home is an investment in your future self.
+
+Not just cheaper than takeout.
+BETTER than takeout in every possible way.
+
+Your kitchen is not a chore space. It is a wealth-building, health-improving, life-enriching space.
+
+Start treating it that way.
+
+What are you cooking this week? Drop your meal plan below! 👇
+
+Let us build wealth together. One meal at a time.`,
+    hashtags: '#mondaymotivation #kitchenwisdom #buildwealth #healthyhabits #lifeskills #cookingmotivation #financialfreedom #mealplanning #monday #investinyourself #wealthbuilding #kitchenlife #selfcare #healthiswealth #mindset',
+    imageUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1080',
+    imageDescription: 'Beautiful kitchen representing wealth and health',
   },
   {
     day: 23,
-    caption: `Quick tip: The best kitchen investment isn't always the most expensive one.
+    caption: `Kitchen buying advice that will save you hundreds:
 
-It's the one you'll actually USE.
+Before EVERY kitchen purchase, ask yourself this one question:
 
-Before buying, ask yourself:
-"Will I use this at least 3x per week?"
+"Will I use this at least 3 times per week?"
 
-If not, skip it.`,
-    hashtags: '#kitchentip #smartshopping #kitcheninvestment #practicaladvice #buywisely #useIt #kitchenadvice #moneywise #shoppingtip #kitchenbuying',
-    imageDescription: 'Smart shopping advice for kitchen',
+If the answer is no - DO NOT BUY IT.
+
+Let me explain why this simple rule changed everything:
+
+MY OLD APPROACH:
+→ Saw cool gadget on social media
+→ "That looks useful!"
+→ Bought it impulsively
+→ Used it twice
+→ Now it lives in the drawer of forgotten dreams
+
+RESULT: Hundreds wasted on gadgets I never used.
+
+MY NEW APPROACH:
+→ See something interesting
+→ Wait 1 week (cool-off period)
+→ Ask: "Will I use this 3x per week minimum?"
+→ If yes: Buy quality version
+→ If no: Skip it
+
+RESULT: Fewer items, all get used, zero regret.
+
+Here is the truth:
+
+The best kitchen is not the one with the most gadgets.
+It is the one where EVERYTHING gets used.
+
+My kitchen has maybe 15 items total. I use all of them regularly.
+
+My friend's kitchen has 50+ items. She uses 10 of them.
+
+Quality over quantity. Every time.
+
+The only exception to this rule? Items for safety (fire extinguisher, first aid) or rare but essential tasks (holiday cooking tools).
+
+Everything else? 3x per week minimum or it does not come home with me.
+
+What is the most useless kitchen item you have ever bought? Let us commiserate in the comments! 😂👇`,
+    hashtags: '#kitchentip #smartshopping #minimalistkitchen #kitchenadvice #buywisely #qualityoverquantity #kitchenorganization #savemoney #intentionalliving #lessismore #kitchenhacks #shoppingtips #budgetfriendly #declutter #mindfulspending',
+    imageUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1080',
+    imageDescription: 'Minimal organized kitchen with essential items',
   },
   {
     day: 24,
-    caption: `Cooking confession: I still burn things sometimes 😂
+    caption: `Cooking confession time: I burned dinner LAST NIGHT. 
 
-Perfection isn't the goal.
+The chicken was perfect on the outside. Completely raw in the middle. Had to order pizza at 8 PM. 😂
 
-Progress is.
+Here is what I want you to know:
 
-Anyone else have cooking fails? Share your story! 👇`,
-    hashtags: '#cookingconfession #cookingfails #notperfect #progressoverperfection #relatable #cookinghumor #kitchenfails #reallife #itsokay #learningProcess',
-    imageDescription: 'Lighthearted cooking fails humor',
+I have been cooking regularly for months now. I post about it all the time. People assume I have it figured out.
+
+I DO NOT. Not completely. Not always.
+
+Last week I over-salted a soup so badly we could not eat it.
+Two weeks ago I dropped an entire plate of pasta on the floor.
+I have set off my smoke alarm at least 4 times this month.
+
+And you know what? IT IS ALL OKAY.
+
+Cooking fails are not failures. They are tuition.
+
+Every ruined dish teaches you something:
+→ Check internal temp (lesson from last night)
+→ Taste as you go (lesson from the soup)
+→ Use bigger plates (lesson from the pasta floor incident)
+→ Turn on the vent fan (smoke alarm lesson)
+
+Perfection is not the goal. Progress is.
+
+The people who cook well are not the ones who never mess up. They are the ones who messed up A LOT and kept going anyway.
+
+So if you have been avoiding cooking because you are afraid of failure... stop.
+
+Fail fast. Fail often. Fail forward.
+
+Your best cooking is on the other side of your worst cooking.
+
+What was YOUR worst kitchen fail? I want to hear the disasters! Share below 👇
+
+(Make me feel better about my raw chicken situation 😂)`,
+    hashtags: '#cookingconfession #cookingfails #imperfect #progressnotperfection #relatable #cookinghumor #kitchenfails #keepgoing #itsokay #learningprocess #reallife #behindthescenes #honestcooking #failforward #kitchenlife',
+    imageUrl: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=1080',
+    imageDescription: 'Lighthearted cooking in real kitchen',
   },
   {
     day: 25,
-    caption: `5 days until our cooking challenge ends!
+    caption: `5 days until this challenge ends. Let us check in on the MONEY. 💰
 
-Quick check: How much have you saved this month?
+25 days of cooking more at home. Here are my running totals:
 
-I'm at $450+ in food savings alone.
+MONEY SAVED SO FAR:
 
-That's a nice vacation fund building up! 🏖️`,
-    hashtags: '#5daysleft #savingschallenge #moneysaved #foodsavings #vacationfund #almostthere #challengeupdate #financialwin #cookingtosave #lastweek',
-    imageDescription: 'Savings countdown celebration',
+Old spending (estimated): $875
+→ Based on my habits before this challenge
+
+New spending (actual): $340
+→ Groceries, occasional dining out
+
+TOTAL SAVED: $535 in 25 days
+
+Let me put that in perspective:
+
+$535 = Nice weekend getaway
+$535 = Several months of a streaming subscription
+$535 = Quality kitchen upgrade
+$535 = Solid emergency fund contribution
+$535 = About 30 fancy coffees (priorities 😂)
+
+And this is just ONE MONTH.
+
+If I keep this up:
+→ Monthly savings: ~$650
+→ Yearly savings: ~$7,800
+→ 5 year savings: ~$39,000
+
+FROM COOKING AT HOME. That is it. That is the whole strategy.
+
+Not a complicated investment scheme.
+Not a side hustle.
+Not a get-rich-quick anything.
+
+Just... making food instead of buying food.
+
+The math is wild when you actually track it.
+
+How much have YOU saved this month? Drop your number below - no judgment whether it is $50 or $500.
+
+Every dollar saved is a dollar earned. 🙌`,
+    hashtags: '#5daysleft #moneysaved #cookingchallenge #foodsavings #financialfreedom #savingschallenge #almostthere #budgetwin #moneymindset #challengeupdate #trackingprogress #financialgoals #smartmoney #savingsgoals #finalstretch',
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1080',
+    imageDescription: 'Money savings tracking and celebration',
   },
   {
     day: 26,
-    caption: `What I'm cooking this weekend:
+    caption: `Weekend menu locked in. Total cost: $38 for a family of 4. Let me break it down.
 
-🍕 Homemade pizza (Friday)
-🌮 Taco night (Saturday)
-🍗 Slow cooker Sunday
+FRIDAY: Homemade Pizza Night 🍕
 
-All for about $40 total.
+Everyone makes their own personal pizzas.
+Kids love picking their toppings.
+Way better than $40 delivery.
 
-Family of 4, entire weekend, $40.
+Cost: $12 (dough, sauce, cheese, toppings)
+Time: 40 min total
+Fun factor: 10/10
 
-Drop your weekend menu below!`,
-    hashtags: '#weekendmenu #familymeals #budgetcooking #mealplanning #weekendcooking #familydinner #cheapmeals #menuPlanning #weekendVibes #familyfood',
-    imageDescription: 'Weekend meal planning preview',
+SATURDAY: Taco Bar 🌮
+
+Ground beef, chicken, or beans - everyone chooses.
+All the toppings laid out.
+Leftovers become tomorrow's lunch.
+
+Cost: $14 (proteins, shells, toppings, sides)
+Time: 25 min
+Satisfaction: Maximum
+
+SUNDAY: Slow Cooker Pot Roast 🍖
+
+Throw it in morning, forget about it.
+House smells amazing all day.
+Dinner is ready when we are.
+
+Cost: $12 (chuck roast, potatoes, carrots)
+Time: 15 min active
+Effort: Minimal
+
+TOTAL WEEKEND FOOD COST: $38
+
+This feeds 4 people, 3 dinners, plus leftovers for lunches.
+
+Compare to eating out:
+Friday pizza delivery: $45
+Saturday casual dining: $60
+Sunday restaurant: $80
+TOTAL: $185
+
+I just saved $147 this weekend.
+
+And honestly? The food is BETTER at home. Fresher, exactly how we like it, and made with love.
+
+What is YOUR weekend menu? Share your plans below! 👇
+
+Bonus points if you keep it under $50 for the family!`,
+    hashtags: '#weekendmenu #familymeals #budgetcooking #mealplanning #weekendcooking #familydinner #cheapmeals #familyfood #weekendvibes #budgetfriendly #mealplan #familytime #homecooked #savemoney #familycooking',
+    imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1080',
+    imageDescription: 'Weekend family meal spread',
   },
   {
     day: 27,
-    caption: `The appliance that changed my cooking game:
+    caption: `The kitchen tool that transformed me from "takeout 4x per week" to "takeout maybe once a month."
 
-Before: Takeout 4x per week
-After: Takeout maybe 1x per month
+Let me be clear: This was not about willpower.
 
-It's not about willpower.
-It's about making cooking EASY.
+I did not suddenly develop discipline.
+I did not force myself to cook more.
+I did not white-knuckle through cravings.
 
-What made cooking easier for you?`,
-    hashtags: '#gameChanger #cookingmadeEasy #lesstakeout #kitchenwin #cookingAppliance #lifehack #easycooking #noMoreTakeout #kitchenupgrade #cookingjourney',
-    imageDescription: 'Life changing kitchen appliance',
+I just made cooking EASIER than ordering.
+
+BEFORE:
+→ Come home tired
+→ Think about cooking
+→ "That is too much work"
+→ Order DoorDash
+→ Wait 45 minutes
+→ Eat mediocre food
+→ Feel guilty about spending money
+
+AFTER:
+→ Come home tired
+→ Use my kitchen tool
+→ Dinner is ready in 15-20 minutes
+→ Eat fresh, hot, delicious food
+→ Feel good about my choices
+→ Save $15-20
+
+The tool did not give me motivation. It removed FRICTION.
+
+When cooking is as easy as ordering takeout, you choose cooking.
+When healthy food is as fast as junk food, you choose healthy.
+
+This is behavior design 101. Make the good choice the easy choice.
+
+Stop relying on willpower. It runs out.
+Start building systems that make the right choice automatic.
+
+My kitchen tool is the centerpiece of my system.
+
+What makes cooking easier for YOU? Share your game-changers below! 👇
+
+(And yes, link in bio if you want to know what I use)`,
+    hashtags: '#gamechanger #cookingmadeeasy #lesstakeout #kitchenwin #behaviordesign #systemsnotgoals #easycooking #notakeout #kitchenupgrade #cookingjourney #lifehack #productivitytips #healthychoices #makeitEasy #frictionfree',
+    imageUrl: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=1080',
+    imageDescription: 'Game-changing kitchen appliance in use',
   },
   {
     day: 28,
-    caption: `Almost at the finish line! 
+    caption: `28 days down. 2 to go. Time for reflection.
 
-28 days of cooking more at home.
+When I started this challenge, I genuinely was not sure I could do it.
 
-What I've learned:
-✅ I CAN cook
-✅ It's not as hard as I thought
-✅ The savings are REAL
-✅ I actually enjoy it now
+Cook at home? Every day? For 30 days? ME?
 
-2 more days!`,
-    hashtags: '#28days #almostdone #lessonslearned #cookingjourney #yescanyou #nothard #savings #enjoyIt #finishline #cookingwin',
-    imageDescription: '28 day achievement milestone',
+I had a history of:
+→ Buying groceries that went bad
+→ Starting diets that lasted 3 days
+→ Ordering takeout "just this once" (every day)
+→ Feeling guilty about my food choices
+
+But here we are. Day 28. Still going.
+
+WHAT I HAVE LEARNED:
+
+1. I CAN cook. Like, actually cook.
+Not just microwave things. Real food. From scratch.
+
+2. It is not as hard as I thought.
+Most meals: 20 minutes. That is it.
+
+3. The savings are REAL.
+$500+ this month alone. That is not nothing.
+
+4. I actually ENJOY it now.
+Put on music, cook, decompress. It is self-care.
+
+5. My taste buds changed.
+Takeout tastes... worse now? Weird but true.
+
+6. This is sustainable.
+Not a diet. Not a phase. Just... how I eat now.
+
+TWO MORE DAYS.
+
+If you are still on this journey with me - we are almost there.
+
+If you fell off somewhere - that is okay. You can always restart.
+
+If you have been watching from the sidelines - there is still time to join.
+
+Drop a 🔥 if you have made it this far. I want to see who is still here!`,
+    hashtags: '#day28 #almostdone #lessonslearned #cookingjourney #reflection #youcandoit #finishline #cookingchallenge #growthMindset #selfdiscovery #28days #almostthere #keepgoing #cookingwin #transformation',
+    imageUrl: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=1080',
+    imageDescription: 'Day 28 milestone reflection moment',
   },
   {
     day: 29,
-    caption: `Tomorrow is day 30!
+    caption: `Tomorrow is Day 30. Before we celebrate, let us reflect.
 
-Before we celebrate, I want to know:
+I want to know: What was your FAVORITE meal you made this month?
 
-What was YOUR favorite meal you made this month?
+For me, it was the Thai red curry I made last week.
 
-Mine was [insert meal] - never thought I could make it at home!
+I have ordered Thai curry from restaurants probably 100 times in my life. Never thought I could make it at home.
 
-Share yours! 👇`,
-    hashtags: '#day29 #favoriteMeal #cookingmemories #almostThere #celebrationtime #shareyours #bestmeal #homecooking #cookingsuccess #monthlyReview',
-    imageDescription: 'Day 29 reflection and sharing',
+Then I tried. And it was... BETTER than the restaurant.
+
+Fresher ingredients.
+Exactly the spice level I wanted.
+Cost $4 instead of $16.
+
+I literally texted my friend: "I just made Thai curry and I am never ordering it again."
+
+That moment - when you make something you thought was "restaurant only" and it turns out AMAZING - that is the magic of home cooking.
+
+It is not about the money (though that is nice).
+It is not about the health (though that matters).
+
+It is about the PRIDE. The confidence. The "I made this" feeling.
+
+Every meal you made this month was a win. Even the burned ones. Even the "just okay" ones.
+
+You showed up. You tried. You grew.
+
+What was YOUR favorite thing you made? Share below - I genuinely want to know!
+
+Let us celebrate our wins before the final day! 🎉`,
+    hashtags: '#day29 #favoritemeal #cookingwins #almostthere #reflection #proudcook #celebrateyourself #homemade #bestmeal #monthlyreview #cookingsuccess #shareyourstory #cookingmemories #almostday30 #winningmoment',
+    imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1080',
+    imageDescription: 'Beautiful favorite home cooked meal',
   },
   {
     day: 30,
-    caption: `DAY 30! WE MADE IT! 🎉
+    caption: `🎉 DAY 30! WE MADE IT! 🎉
 
-30 days of cooking more at home.
+30 days of cooking at home. 30 days of showing up. 30 days of choosing ourselves.
 
-Final stats:
-💰 Total saved: $500+
-🍽️ Meals made: 90+
-⭐ New recipes tried: 15+
-❤️ Memories made: Priceless
+FINAL STATS:
 
-Thank you for cooking with me!
+💰 Total Money Saved: $537
+(Tracked every meal I would have ordered)
 
-What's next for you? 🚀`,
-    hashtags: '#day30 #weMadeIt #cookingChallenge #finalStats #moneysaved #newrecipes #memories #thankYou #whatsnext #cookingForever',
-    imageDescription: 'Day 30 grand celebration finale',
+🍽️ Meals Cooked: 92
+(Breakfast, lunch, dinner - most of them!)
+
+⭐ New Recipes Mastered: 18
+(Things I never thought I could make)
+
+🔥 Takeout Orders: 4
+(Down from ~25 in a typical month)
+
+⏰ Average Cooking Time: 19 minutes
+(Way less than I expected)
+
+But the stats do not tell the whole story.
+
+WHAT REALLY CHANGED:
+
+My relationship with food. It is fuel AND joy now.
+My confidence in the kitchen. I can COOK.
+My health. More energy, better sleep, less bloat.
+My bank account. $500+ is not nothing.
+My identity. I am "someone who cooks" now.
+
+If you made it all 30 days - CONGRATULATIONS. You did something most people only talk about.
+
+If you made it some of the days - CONGRATULATIONS. Progress over perfection, always.
+
+If you watched and want to start - THIS is your sign. Day 1 is whenever you decide.
+
+Thank you for being on this journey with me. Your comments, your updates, your support - it all mattered.
+
+This is not the end. This is just the beginning.
+
+What is YOUR next food goal? Share below - let us keep this going! 🚀
+
+Here is to home cooking. Forever. 🍳❤️`,
+    hashtags: '#day30 #wemadeit #challengecomplete #finalstats #celebration #moneysaved #transformation #cookingjourney #thankyou #whatsnext #newchapter #homecooking #cookingforever #grateful #community #accomplished',
+    imageUrl: 'https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?w=1080',
+    imageDescription: 'Celebration day 30 cooking challenge complete',
   },
 ];
 
