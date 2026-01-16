@@ -235,7 +235,7 @@ export default function TrainingPage() {
             </div>
             {allWatched && (
               <p className="text-cash-green font-bold mt-3 text-center">
-                🎉 Training Complete! You're ready!
+                🎉 Training Complete! You&apos;re ready!
               </p>
             )}
           </div>
@@ -288,10 +288,10 @@ export default function TrainingPage() {
           className="glass-card rounded-2xl p-8 text-center border-2 border-cash-green/30"
         >
           <h3 className="text-2xl font-bold text-white mb-3">
-            🎓 You've Completed the Training!
+            🎓 You&apos;ve Completed the Training!
           </h3>
           <p className="text-navy-300 text-lg mb-6">
-            Now it's time to put what you learned into action. Create your first profit page!
+            Now it&apos;s time to put what you learned into action. Create your first profit page!
           </p>
           <Link href="/app/build">
             <button className="btn-gold btn-large inline-flex items-center gap-3">

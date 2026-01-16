@@ -308,7 +308,7 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
             <span className="text-gold-400"><SparkleIcon /></span>
-            Today's Quick Wins
+            Today&apos;s Quick Wins
           </h2>
           <span className="text-sm text-navy-400">
             {dailyTasks.filter(t => t.done).length}/{dailyTasks.length} done

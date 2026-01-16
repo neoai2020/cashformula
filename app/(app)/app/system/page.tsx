@@ -132,7 +132,7 @@ export default function SystemPage() {
           Make Money in <span className="text-cash-green">3 Simple Steps</span>
         </h1>
         <p className="text-navy-300 text-xl">
-          A proven system to generate income with affiliate marketing - even if you've never done this before!
+          A proven system to generate income with affiliate marketing - even if you&apos;ve never done this before!
         </p>
       </div>
 

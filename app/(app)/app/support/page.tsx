@@ -125,7 +125,7 @@ export default function SupportPage() {
               Quick Wins for Guaranteed Results
             </h2>
             <p className="text-navy-300 text-lg">
-              Do these 3 things today and you'll be on your way to earning!
+              Do these 3 things today and you&apos;ll be on your way to earning!
             </p>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function SupportPage() {
         
         <div className="mt-6 pt-6 border-t border-navy-700">
           <p className="text-navy-400 text-center">
-            💡 <span className="text-white font-medium">Remember:</span> Most members who felt stuck just needed to create more pages and keep sharing. You're closer than you think!
+            💡 <span className="text-white font-medium">Remember:</span> Most members who felt stuck just needed to create more pages and keep sharing. You&apos;re closer than you think!
           </p>
         </div>
       </div>
@@ -273,7 +273,7 @@ export default function SupportPage() {
       {/* Encouragement Footer */}
       <div className="text-center p-6 bg-navy-800/30 rounded-2xl">
         <p className="text-navy-300 text-lg">
-          💪 <span className="text-white font-medium">You've got this!</span> Thousands of members started exactly where you are now and are making consistent income.
+          💪 <span className="text-white font-medium">You&apos;ve got this!</span> Thousands of members started exactly where you are now and are making consistent income.
           <br />
           The key is to <span className="text-gold-400">keep creating pages</span> and <span className="text-cash-green">keep sharing</span>!
         </p>

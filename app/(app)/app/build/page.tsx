@@ -427,7 +427,7 @@ export default function BuildPage() {
                   Pick Your Winner! 🏆
                 </h2>
                 <p className="text-navy-300 mt-1">
-                  {products.length} products found for "{searchQuery}"
+                  {products.length} products found for &quot;{searchQuery}&quot;
                 </p>
               </div>
               <Button variant="ghost" onClick={() => goBack('search')} className="text-base">

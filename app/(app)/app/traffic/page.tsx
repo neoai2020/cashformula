@@ -271,7 +271,7 @@ export default function TrafficPage() {
         {shareCount > 0 && (
           <div className="px-5 py-3 bg-cash-green/10 border border-cash-green/20 rounded-xl text-cash-green font-bold flex items-center gap-2">
             <span className="text-2xl">🎉</span>
-            <span>You've shared {shareCount} times!</span>
+            <span>You&apos;ve shared {shareCount} times!</span>
           </div>
         )}
       </div>
