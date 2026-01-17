@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { 
   profitPacks, 
   highTicketProducts, 
@@ -9,11 +10,14 @@ import {
   bestOfLists,
   seasonalCalendar,
   type ProfitPack, 
-  type DayContent 
+  type DayContent,
+  type ComparisonPage,
 } from '@/lib/platinum-data';
 import Button from '@/components/ui/Button';
 import Confetti from '@/components/ui/Confetti';
 import VideoPlaceholder from '@/components/ui/VideoPlaceholder';
+import AffiliateModal from '@/components/ui/AffiliateModal';
+import SuccessModal from '@/components/ui/SuccessModal';
 
 // Icons
 const BoltIcon = () => (
@@ -120,6 +124,7 @@ const trainingVideos = [
 ];
 
 export default function PlatinumPage() {
+  const router = useRouter();
   const [selectedPack, setSelectedPack] = useState<ProfitPack | null>(null);
   const [expandedPack, setExpandedPack] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -127,6 +132,13 @@ export default function PlatinumPage() {
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [activeTab, setActiveTab] = useState<'packs' | 'products' | 'comparisons' | 'bestof' | 'calendar' | 'boosters'>('packs');
   const [visiblePosts, setVisiblePosts] = useState<number>(6);
+  
+  // Modal states
+  const [showAffiliateModal, setShowAffiliateModal] = useState(false);
+  const [selectedComparison, setSelectedComparison] = useState<ComparisonPage | null>(null);
+  const [generating, setGenerating] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [createdPageUrl, setCreatedPageUrl] = useState('');
 
   useEffect(() => {
     const visited = localStorage.getItem('platinum_visited');
@@ -153,6 +165,51 @@ export default function PlatinumPage() {
 
   const loadMorePosts = () => {
     setVisiblePosts(prev => Math.min(prev + 6, 30));
+  };
+
+  const handleOpenComparisonModal = (comparison: ComparisonPage) => {
+    setSelectedComparison(comparison);
+    setShowAffiliateModal(true);
+  };
+
+  const handleGenerateComparison = async (data: {
+    affiliateLink1: string;
+    affiliateLink2?: string;
+    boosters: string[];
+  }) => {
+    if (!selectedComparison) return;
+
+    setGenerating(true);
+
+    try {
+      const response = await fetch('/api/generate/comparison', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          comparisonId: selectedComparison.id,
+          affiliateLink1: data.affiliateLink1,
+          affiliateLink2: data.affiliateLink2,
+          boosters: data.boosters,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to generate page');
+      }
+
+      // Success!
+      setCreatedPageUrl(result.page.url);
+      setShowAffiliateModal(false);
+      setShowSuccessModal(true);
+      setShowConfetti(true);
+    } catch (error) {
+      console.error('Generate comparison error:', error);
+      alert(error instanceof Error ? error.message : 'Failed to generate page');
+    } finally {
+      setGenerating(false);
+    }
   };
 
   return (
@@ -1440,6 +1497,29 @@ export default function PlatinumPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Modals */}
+      <AffiliateModal
+        isOpen={showAffiliateModal}
+        onClose={() => {
+          setShowAffiliateModal(false);
+          setSelectedComparison(null);
+        }}
+        onGenerate={handleGenerateComparison}
+        title={selectedComparison?.title || ''}
+        productName1={selectedComparison?.product1.name || ''}
+        productName2={selectedComparison?.product2.name}
+        type="comparison"
+        loading={generating}
+      />
+
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title="Comparison Page Generated!"
+        message="Your comparison page is ready and published. Share it to start earning commissions on BOTH products!"
+        pageUrl={createdPageUrl}
+      />
     </motion.div>
   );
 }
