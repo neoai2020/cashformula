@@ -824,18 +824,18 @@ export default function PlatinumPage() {
               <div className="flex items-start gap-4">
                 <div className="text-5xl">⚔️</div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-white mb-2">Product Comparison Battle Pages</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">Product Comparison Profit Pages</h3>
                   <p className="text-purple-primary/80 leading-relaxed mb-4">
-                    These are ready-to-use comparison pages that help your audience make buying decisions. People LOVE comparisons because it saves them hours of research. Each page compares two popular products head-to-head with a clear winner recommendation.
+                    Generate complete comparison pages that help your audience make buying decisions. Each comparison is a full 1500-2000 word article comparing two products head-to-head. You earn commissions on BOTH products!
                   </p>
                   <div className="bg-teal-primary/10 p-4 rounded-lg border border-teal-primary/20">
                     <p className="text-sm text-teal-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
                     <ol className="text-sm text-purple-primary/70 space-y-1 list-decimal list-inside">
-                      <li>Click &quot;Copy Comparison&quot; to get the full content</li>
-                      <li>Create a new page using the Build Page feature</li>
-                      <li>Paste the content and add your affiliate links FOR BOTH products</li>
-                      <li>Share on social media with: &quot;Can&apos;t decide? I tested both →&quot;</li>
-                      <li>You earn commissions on BOTH products - winner AND runner-up!</li>
+                      <li>Choose a comparison below</li>
+                      <li>Click &quot;Generate Page&quot;</li>
+                      <li>Add your affiliate links for BOTH products</li>
+                      <li>Select conversion boosters (optional)</li>
+                      <li>Click generate and share your page!</li>
                     </ol>
                   </div>
                 </div>
@@ -843,102 +843,113 @@ export default function PlatinumPage() {
             </div>
 
             {/* Comparison Pages */}
-            {comparisonPages.map((comparison) => (
-              <div key={comparison.id} className="glass-card p-6 rounded-2xl border border-teal-primary/20">
-                <h4 className="text-2xl font-bold text-white mb-6">{comparison.title}</h4>
-                
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
+            {comparisonPages.map((comparison, idx) => (
+              <motion.div
+                key={comparison.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="glass-card p-6 rounded-2xl border border-teal-primary/20 hover:shadow-glow-teal transition-all"
+              >
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex-1">
+                    <h4 className="text-2xl font-bold text-white mb-2">{comparison.title}</h4>
+                    <p className="text-purple-primary/60 text-sm">{comparison.category} • Full comparison article</p>
+                  </div>
+                  <div className="px-4 py-2 bg-teal-primary/10 rounded-lg border border-teal-primary/30">
+                    <p className="text-xs text-teal-primary/70 font-bold">Word Count</p>
+                    <p className="text-lg font-bold text-teal-primary">1,800+</p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
                   {/* Product 1 */}
-                  <div className={`bg-gradient-to-br ${comparison.winner === 1 ? 'from-emerald-primary/20 to-teal-primary/10 border-2 border-emerald-primary/40' : 'from-purple-primary/5 to-transparent border border-purple-primary/20'} rounded-xl p-5`}>
+                  <div className={`relative overflow-hidden rounded-xl p-5 border-2 ${
+                    comparison.winner === 1
+                      ? 'bg-gradient-to-br from-emerald-primary/20 to-teal-primary/10 border-emerald-primary/40'
+                      : 'bg-purple-primary/5 border-purple-primary/20'
+                  }`}>
                     {comparison.winner === 1 && (
-                      <div className="inline-block bg-emerald-primary px-3 py-1 rounded-full text-xs font-bold text-deep-space-black mb-3">
+                      <div className="absolute top-3 right-3 px-3 py-1 bg-emerald-primary rounded-full text-xs font-bold text-deep-space-black">
                         👑 WINNER
                       </div>
                     )}
-                    <img src={comparison.product1.image} alt={comparison.product1.name} className="w-32 h-32 object-contain mx-auto mb-4 rounded-lg" />
-                    <h5 className="font-bold text-white text-lg mb-2">{comparison.product1.name}</h5>
-                    <div className="flex items-center gap-4 mb-3">
-                      <span className="text-2xl font-bold text-purple-primary">{comparison.product1.price}</span>
+                    <img src={comparison.product1.image} alt={comparison.product1.name} className="w-32 h-32 object-contain mx-auto mb-4" />
+                    <h5 className="font-bold text-white text-center mb-2">{comparison.product1.name}</h5>
+                    <div className="flex items-center justify-center gap-3 mb-3">
+                      <span className="text-xl font-bold text-purple-primary">{comparison.product1.price}</span>
                       <div className="flex items-center gap-1 text-emerald-primary text-sm">
                         <StarIcon />
                         <span>{comparison.product1.rating}</span>
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      {comparison.product1.pros.map((pro, idx) => (
-                        <div key={idx} className="flex items-start gap-2 text-sm">
-                          <span className="text-emerald-primary mt-0.5">✓</span>
-                          <span className="text-purple-primary/80">{pro}</span>
-                        </div>
-                      ))}
-                    </div>
+                    <p className="text-xs text-center text-purple-primary/60">{comparison.product1.reviews.toLocaleString()} reviews</p>
                   </div>
 
                   {/* Product 2 */}
-                  <div className={`bg-gradient-to-br ${comparison.winner === 2 ? 'from-emerald-primary/20 to-teal-primary/10 border-2 border-emerald-primary/40' : 'from-purple-primary/5 to-transparent border border-purple-primary/20'} rounded-xl p-5`}>
+                  <div className={`relative overflow-hidden rounded-xl p-5 border-2 ${
+                    comparison.winner === 2
+                      ? 'bg-gradient-to-br from-emerald-primary/20 to-teal-primary/10 border-emerald-primary/40'
+                      : 'bg-purple-primary/5 border-purple-primary/20'
+                  }`}>
                     {comparison.winner === 2 && (
-                      <div className="inline-block bg-emerald-primary px-3 py-1 rounded-full text-xs font-bold text-deep-space-black mb-3">
+                      <div className="absolute top-3 right-3 px-3 py-1 bg-emerald-primary rounded-full text-xs font-bold text-deep-space-black">
                         👑 WINNER
                       </div>
                     )}
-                    <img src={comparison.product2.image} alt={comparison.product2.name} className="w-32 h-32 object-contain mx-auto mb-4 rounded-lg" />
-                    <h5 className="font-bold text-white text-lg mb-2">{comparison.product2.name}</h5>
-                    <div className="flex items-center gap-4 mb-3">
-                      <span className="text-2xl font-bold text-purple-primary">{comparison.product2.price}</span>
+                    <img src={comparison.product2.image} alt={comparison.product2.name} className="w-32 h-32 object-contain mx-auto mb-4" />
+                    <h5 className="font-bold text-white text-center mb-2">{comparison.product2.name}</h5>
+                    <div className="flex items-center justify-center gap-3 mb-3">
+                      <span className="text-xl font-bold text-purple-primary">{comparison.product2.price}</span>
                       <div className="flex items-center gap-1 text-emerald-primary text-sm">
                         <StarIcon />
                         <span>{comparison.product2.rating}</span>
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      {comparison.product2.pros.map((pro, idx) => (
-                        <div key={idx} className="flex items-start gap-2 text-sm">
-                          <span className="text-emerald-primary mt-0.5">✓</span>
-                          <span className="text-purple-primary/80">{pro}</span>
-                        </div>
-                      ))}
-                    </div>
+                    <p className="text-xs text-center text-purple-primary/60">{comparison.product2.reviews.toLocaleString()} reviews</p>
                   </div>
                 </div>
 
-                {/* Verdict */}
-                <div className="bg-purple-primary/10 p-5 rounded-xl border border-purple-primary/20 mb-4">
-                  <p className="text-sm font-bold text-purple-primary mb-2">🏆 THE VERDICT:</p>
-                  <p className="text-white leading-relaxed mb-4">{comparison.verdict}</p>
-                  
-                  <div className="grid md:grid-cols-2 gap-4 mt-4">
-                    <div>
-                      <p className="text-xs font-bold text-emerald-primary mb-2">✅ Choose {comparison.product1.name} if:</p>
-                      <p className="text-sm text-purple-primary/70">{comparison.whenToChoose1}</p>
+                {/* What's Included */}
+                <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20 mb-6">
+                  <p className="text-sm font-bold text-purple-primary mb-3">📄 What&apos;s Included in This Comparison:</p>
+                  <div className="grid md:grid-cols-2 gap-2 text-sm text-purple-primary/70">
+                    <div className="flex items-center gap-2">
+                      <span className="text-emerald-primary">✓</span>
+                      <span>Detailed comparison table</span>
                     </div>
-                    <div>
-                      <p className="text-xs font-bold text-teal-primary mb-2">✅ Choose {comparison.product2.name} if:</p>
-                      <p className="text-sm text-purple-primary/70">{comparison.whenToChoose2}</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-emerald-primary">✓</span>
+                      <span>6 in-depth sections</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-emerald-primary">✓</span>
+                      <span>Pros & cons for each</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-emerald-primary">✓</span>
+                      <span>FAQ section</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-emerald-primary">✓</span>
+                      <span>Final verdict & recommendations</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-emerald-primary">✓</span>
+                      <span>Social media captions</span>
                     </div>
                   </div>
                 </div>
 
                 <Button
                   variant="primary"
-                  onClick={() => {
-                    const content = `${comparison.title}\n\n=== ${comparison.product1.name} ===\nPrice: ${comparison.product1.price}\nPros:\n${comparison.product1.pros.map(p => `- ${p}`).join('\n')}\n\n=== ${comparison.product2.name} ===\nPrice: ${comparison.product2.price}\nPros:\n${comparison.product2.pros.map(p => `- ${p}`).join('\n')}\n\nVERDICT:\n${comparison.verdict}\n\nChoose ${comparison.product1.name} if: ${comparison.whenToChoose1}\n\nChoose ${comparison.product2.name} if: ${comparison.whenToChoose2}`;
-                    navigator.clipboard.writeText(content);
-                    setCopiedId(comparison.id);
-                    setTimeout(() => setCopiedId(null), 2000);
-                  }}
+                  onClick={() => handleOpenComparisonModal(comparison)}
                   className="w-full"
                 >
-                  {copiedId === comparison.id ? (
-                    <>
-                      <CheckIcon /> Copied!
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon /> Copy Full Comparison
-                    </>
-                  )}
+                  <span className="text-xl">🚀</span>
+                  Generate Comparison Page
                 </Button>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         )}
