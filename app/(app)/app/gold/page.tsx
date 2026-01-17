@@ -432,12 +432,13 @@ export default function GoldPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex-shrink-0 w-72 glass-card rounded-2xl overflow-hidden group"
               >
-                <div className="relative aspect-[4/3] bg-white">
+                <div className="relative aspect-square bg-white">
                   {product.hero_image ? (
                     <img
                       src={product.hero_image}
                       alt={product.product_data.title}
-                      className="w-full h-full object-contain p-4"
+                      className="w-full h-full object-contain p-3"
+                      style={{ maxWidth: '180px', maxHeight: '180px', margin: 'auto' }}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-navy-800 text-navy-600">
@@ -555,12 +556,13 @@ export default function GoldPage() {
               className="glass-card rounded-2xl overflow-hidden group"
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] bg-white">
+              <div className="relative aspect-square bg-white flex items-center justify-center">
                 {product.hero_image ? (
                   <img
                     src={product.hero_image}
                     alt={product.product_data.title}
-                    className="w-full h-full object-contain p-4"
+                    className="object-contain p-4"
+                    style={{ maxWidth: '200px', maxHeight: '200px' }}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-navy-800 text-navy-500">

@@ -131,15 +131,16 @@ export default function PublicPageContent({ page }: PublicPageContentProps) {
               animate={{ opacity: 1, y: 0 }}
               className="relative"
             >
-              <div className="relative aspect-square bg-white rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative aspect-square bg-white rounded-2xl overflow-hidden shadow-2xl max-w-sm mx-auto">
                 {hero_image ? (
                   <Image
                     src={hero_image}
                     alt={productTitle || 'Product'}
                     fill
-                    className="object-contain p-6"
+                    className="object-contain p-8"
                     priority
                     unoptimized
+                    sizes="(max-width: 768px) 280px, 320px"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">

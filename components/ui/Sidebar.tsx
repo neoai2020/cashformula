@@ -140,24 +140,24 @@ export default function Sidebar() {
       <Link
         href={item.href}
         onClick={() => setIsMobileOpen(false)}
-        className={`relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${
+        className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-300 group ${
           active
-            ? 'bg-violet-DEFAULT/10 text-violet-DEFAULT'
+            ? 'bg-violet-DEFAULT/15 text-violet-DEFAULT shadow-[0_0_20px_rgba(167,139,250,0.15)]'
             : item.highlight
-            ? 'text-teal-DEFAULT/80 hover:bg-navy-800 hover:text-teal-DEFAULT'
-            : 'text-navy-400 hover:bg-navy-800 hover:text-white'
+            ? 'text-teal-DEFAULT/80 hover:bg-violet-DEFAULT/10 hover:text-violet-DEFAULT hover:shadow-[0_0_15px_rgba(167,139,250,0.1)]'
+            : 'text-navy-400 hover:bg-violet-DEFAULT/10 hover:text-violet-DEFAULT hover:shadow-[0_0_15px_rgba(167,139,250,0.1)]'
         }`}
       >
         {active && (
           <motion.div
             layoutId="nav-active"
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-violet-DEFAULT to-indigo-DEFAULT rounded-r-full"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-7 bg-gradient-to-b from-violet-DEFAULT to-indigo-DEFAULT rounded-r-full shadow-[0_0_10px_rgba(167,139,250,0.5)]"
           />
         )}
         <Icon />
-        <span className="flex-1 text-sm font-medium leading-tight">{item.name}</span>
+        <span className="flex-1 text-base font-medium leading-tight">{item.name}</span>
         {item.badge && (
-          <span className="px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white rounded-full uppercase">
+          <span className="px-2.5 py-1 text-xs font-bold bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white rounded-full uppercase">
             {item.badge}
           </span>
         )}
@@ -199,7 +199,7 @@ export default function Sidebar() {
 
           {/* Menu label */}
           <div className="px-6 py-2">
-            <span className="text-[10px] font-semibold text-navy-500 uppercase tracking-wider">Menu</span>
+            <span className="text-xs font-semibold text-navy-500 uppercase tracking-wider">Menu</span>
           </div>
 
           {/* Navigation */}
@@ -215,7 +215,7 @@ export default function Sidebar() {
 
             {/* Premium Features */}
             <div className="px-4 py-3 mt-6">
-              <span className="text-[10px] font-semibold text-violet-DEFAULT uppercase tracking-wider flex items-center gap-2">
+              <span className="text-xs font-semibold text-violet-DEFAULT uppercase tracking-wider flex items-center gap-2">
                 <GoldIcon />
                 Premium Features
               </span>
@@ -244,10 +244,10 @@ export default function Sidebar() {
           <div className="p-4 border-t border-violet-DEFAULT/8">
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-navy-500 hover:bg-rose-DEFAULT/10 hover:text-rose-DEFAULT transition-all duration-300"
+              className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-navy-500 hover:bg-violet-DEFAULT/10 hover:text-violet-DEFAULT hover:shadow-[0_0_15px_rgba(167,139,250,0.1)] transition-all duration-300"
             >
               <LogoutIcon />
-              <span className="text-sm font-medium">Sign Out</span>
+              <span className="text-base font-medium">Sign Out</span>
             </button>
           </div>
         </div>

@@ -269,6 +269,50 @@ export default function DashboardPage() {
         </Link>
       </motion.div>
 
+      {/* Live Social Proof Banner - Above the Fold */}
+      <motion.div variants={item} className="glass-card rounded-2xl p-4 border border-cash-green/20">
+        <div className="flex items-center gap-4 overflow-hidden">
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="w-3 h-3 bg-cash-green rounded-full animate-pulse" />
+            <span className="text-cash-green font-bold text-base">LIVE</span>
+          </div>
+          <div className="flex-1 overflow-hidden">
+            <div className="flex gap-6 animate-marquee">
+              {liveActivities.map((activity, i) => (
+                <div key={`banner-${activity.name}-${i}`} className="flex items-center gap-3 shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-DEFAULT to-indigo-DEFAULT flex items-center justify-center text-white text-sm font-bold">
+                    {activity.name[0]}
+                  </div>
+                  <span className="text-base">
+                    <span className="font-semibold text-white">{activity.name}</span>
+                    <span className="text-navy-400"> earned </span>
+                    <span className="text-cash-green font-bold">{activity.amount}</span>
+                    <span className="text-navy-500"> · {activity.location}</span>
+                  </span>
+                </div>
+              ))}
+              {/* Duplicate for seamless scroll */}
+              {liveActivities.map((activity, i) => (
+                <div key={`banner2-${activity.name}-${i}`} className="flex items-center gap-3 shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-DEFAULT to-indigo-DEFAULT flex items-center justify-center text-white text-sm font-bold">
+                    {activity.name[0]}
+                  </div>
+                  <span className="text-base">
+                    <span className="font-semibold text-white">{activity.name}</span>
+                    <span className="text-navy-400"> earned </span>
+                    <span className="text-cash-green font-bold">{activity.amount}</span>
+                    <span className="text-navy-500"> · {activity.location}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <span className="shrink-0 px-3 py-1 bg-cash-green/10 text-cash-green text-sm font-bold rounded-full">
+            🔥 847 earning today
+          </span>
+        </div>
+      </motion.div>
+
       {/* Stats Grid - Enhanced with animations */}
       <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {stats.map((stat, i) => {
