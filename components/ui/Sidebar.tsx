@@ -140,24 +140,43 @@ export default function Sidebar() {
       <Link
         href={item.href}
         onClick={() => setIsMobileOpen(false)}
-        className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-300 group ${
+        className={`group relative flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 overflow-hidden ${
           active
-            ? 'bg-violet-DEFAULT/15 text-violet-DEFAULT shadow-[0_0_20px_rgba(167,139,250,0.15)]'
+            ? 'text-white'
             : item.highlight
-            ? 'text-teal-DEFAULT/80 hover:bg-violet-DEFAULT/10 hover:text-violet-DEFAULT hover:shadow-[0_0_15px_rgba(167,139,250,0.1)]'
-            : 'text-navy-400 hover:bg-violet-DEFAULT/10 hover:text-violet-DEFAULT hover:shadow-[0_0_15px_rgba(167,139,250,0.1)]'
+            ? 'text-teal-DEFAULT hover:text-white'
+            : 'text-navy-400 hover:text-white'
         }`}
       >
-        {active && (
-          <motion.div
-            layoutId="nav-active"
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-7 bg-gradient-to-b from-violet-DEFAULT to-indigo-DEFAULT rounded-r-full shadow-[0_0_10px_rgba(167,139,250,0.5)]"
-          />
-        )}
-        <Icon />
-        <span className="flex-1 text-base font-medium leading-tight">{item.name}</span>
+        {/* Background - gradient on active, subtle fill on hover */}
+        <div className={`absolute inset-0 transition-all duration-200 rounded-xl ${
+          active 
+            ? 'bg-gradient-to-r from-violet-DEFAULT/20 via-indigo-DEFAULT/15 to-transparent' 
+            : 'bg-transparent group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent'
+        }`} />
+        
+        {/* Left accent bar */}
+        <div className={`absolute left-0 top-2 bottom-2 w-[3px] rounded-full transition-all duration-200 ${
+          active 
+            ? 'bg-gradient-to-b from-violet-DEFAULT to-teal-DEFAULT opacity-100' 
+            : 'bg-violet-DEFAULT opacity-0 group-hover:opacity-50'
+        }`} />
+        
+        {/* Icon with color */}
+        <div className={`relative z-10 transition-colors duration-200 ${
+          active 
+            ? 'text-violet-light' 
+            : 'group-hover:text-violet-DEFAULT'
+        }`}>
+          <Icon />
+        </div>
+        
+        {/* Text */}
+        <span className="relative z-10 flex-1 text-base font-medium leading-tight">{item.name}</span>
+        
+        {/* Badge */}
         {item.badge && (
-          <span className="px-2.5 py-1 text-xs font-bold bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white rounded-full uppercase">
+          <span className="relative z-10 px-2.5 py-1 text-xs font-bold bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white rounded-full uppercase">
             {item.badge}
           </span>
         )}
@@ -170,7 +189,7 @@ export default function Sidebar() {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
-        className="fixed top-4 left-4 z-50 lg:hidden p-2 rounded-xl bg-navy-800/80 border border-violet-DEFAULT/20 backdrop-blur-sm"
+        className="fixed top-4 left-4 z-50 lg:hidden p-2.5 rounded-xl bg-navy-800/90 border border-white/10 backdrop-blur-sm text-white"
       >
         {isMobileOpen ? <CloseIcon /> : <MenuIcon />}
       </button>
@@ -189,7 +208,7 @@ export default function Sidebar() {
           isMobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="h-full flex flex-col glass-panel border-r border-violet-DEFAULT/8">
+        <div className="h-full flex flex-col glass-panel border-r border-white/5">
           {/* Logo */}
           <div className="p-5">
             <Link href="/app">
@@ -230,7 +249,7 @@ export default function Sidebar() {
             </ul>
 
             {/* Resources */}
-            <div className="my-4 border-t border-violet-DEFAULT/8" />
+            <div className="my-4 mx-4 border-t border-white/5" />
             <ul className="space-y-1">
               {navItems.slice(5).map((item) => (
                 <li key={item.href}>
@@ -241,13 +260,16 @@ export default function Sidebar() {
           </nav>
 
           {/* Sign out */}
-          <div className="p-4 border-t border-violet-DEFAULT/8">
+          <div className="p-4 border-t border-white/5">
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-navy-500 hover:bg-violet-DEFAULT/10 hover:text-violet-DEFAULT hover:shadow-[0_0_15px_rgba(167,139,250,0.1)] transition-all duration-300"
+              className="group relative flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-navy-400 hover:text-rose-DEFAULT transition-colors duration-200 overflow-hidden"
             >
-              <LogoutIcon />
-              <span className="text-base font-medium">Sign Out</span>
+              <div className="absolute inset-0 bg-transparent group-hover:bg-rose-DEFAULT/10 rounded-xl transition-all duration-200" />
+              <div className="relative z-10 group-hover:text-rose-DEFAULT transition-colors duration-200">
+                <LogoutIcon />
+              </div>
+              <span className="relative z-10 text-base font-medium">Sign Out</span>
             </button>
           </div>
         </div>
