@@ -159,7 +159,7 @@ export default function PlatinumPage() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-8"
+      className="space-y-8 pb-20"
     >
       {/* Confetti */}
       <Confetti
@@ -168,86 +168,74 @@ export default function PlatinumPage() {
         colors={['#a855f7', '#9333ea', '#c084fc', '#d8b4fe', '#ffffff']}
       />
 
-      {/* Premium Header */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-purple-500 to-purple-400 rounded-3xl opacity-70 animate-gradient-border" />
-
-        <div className="relative m-[3px] glass-card rounded-3xl p-8 lg:p-10 overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-400/10 rounded-full blur-3xl" />
-
+      {/* Premium Hero Header */}
+      <div className="relative overflow-hidden rounded-3xl">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-primary via-pink-primary to-purple-primary opacity-20 animate-gradient-border" />
+        
+        <div className="relative glass-hero p-8 lg:p-12">
+          {/* Decorative blurs */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-primary/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-primary/10 rounded-full blur-3xl" />
+          
           <div className="relative">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-              <div className="flex items-start gap-5">
-                <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center text-white shadow-2xl shadow-purple-500/40 animate-float">
-                  <BoltIcon />
+            <div className="text-center max-w-4xl mx-auto">
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-primary to-pink-primary rounded-full mb-6 shadow-glow-purple"
+              >
+                <BoltIcon />
+                <span className="text-white font-bold text-lg">PLATINUM PACKAGE</span>
+                <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-bold text-white">
+                  VIP ACCESS
+                </span>
+              </motion.div>
+              
+              <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-4 leading-tight">
+                Your Complete <span className="bg-gradient-to-r from-purple-primary to-pink-primary bg-clip-text text-transparent">6-Figure Blueprint</span>
+              </h1>
+              
+              <p className="text-xl text-purple-primary/80 mb-6 max-w-2xl mx-auto">
+                150+ ready-to-use assets • Zero writing required • Just copy, paste, and earn
+              </p>
+              
+              {/* User Guide CTA */}
+              <motion.a
+                href="/PLATINUM_GUIDE.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-teal-primary to-emerald-primary text-deep-space-black rounded-xl font-bold text-lg shadow-glow-teal transition-all hover:shadow-glow-teal-lg mb-8"
+              >
+                <span className="text-2xl">📖</span>
+                <div className="text-left">
+                  <div className="text-sm opacity-80">NEW USER? START HERE</div>
+                  <div>Complete User Guide</div>
                 </div>
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h1 className="text-3xl sm:text-4xl font-display font-bold text-white">
-                      Platinum Package
-                    </h1>
-                    <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-400 text-sm font-bold">
-                      VIP ACCESS
-                    </span>
-                  </div>
-                  <p className="text-navy-300 text-lg">
-                    120+ ready-to-post content pieces & high-ticket products
-                  </p>
-                  
-                  {/* Help Guide Link */}
-                  <div className="mt-3">
-                    <a 
-                      href="/PLATINUM_GUIDE.md" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-teal-primary/10 hover:bg-teal-primary/20 border border-teal-primary/30 hover:border-teal-primary/50 rounded-lg text-teal-primary text-sm font-bold transition-all"
-                    >
-                      <span className="text-lg">📖</span>
-                      <span>Complete User Guide - Read This First!</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
+              </motion.a>
 
-              {isFirstVisit && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="px-5 py-3 bg-purple-500/10 border border-purple-500/20 rounded-xl text-purple-400 font-bold flex items-center gap-2"
-                >
-                  <SparklesIcon />
-                  Platinum Unlocked!
-                </motion.div>
-              )}
-            </div>
-
-            {/* Stats bar */}
-            <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-sm">
-              <div className="flex items-center gap-2 text-purple-400">
-                <PackageIcon />
-                <span className="font-bold">4 Profit Packs</span>
-              </div>
-              <div className="flex items-center gap-2 text-cash-green">
-                <CalendarIcon />
-                <span className="font-bold">120 Posts</span>
-              </div>
-              <div className="flex items-center gap-2 text-gold-400">
-                <FireIcon />
-                <span className="font-bold">8 High-Ticket</span>
-              </div>
-              <div className="flex items-center gap-2 text-pink-primary">
-                <span className="text-lg">⚔️</span>
-                <span className="font-bold">4 Battles</span>
-              </div>
-              <div className="flex items-center gap-2 text-teal-primary">
-                <span className="text-lg">🏆</span>
-                <span className="font-bold">2 Best-Of</span>
-              </div>
-              <div className="flex items-center gap-2 text-emerald-primary">
-                <span className="text-lg">⚡</span>
-                <span className="font-bold">6 Boosters</span>
+              {/* Feature Stats Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                {[
+                  { icon: '📦', label: '4 Profit Packs', color: 'from-purple-primary to-purple-primary/50' },
+                  { icon: '🔥', label: '8 High-Ticket', color: 'from-pink-primary to-pink-primary/50' },
+                  { icon: '⚔️', label: '4 Battles', color: 'from-teal-primary to-teal-primary/50' },
+                  { icon: '🏆', label: '2 Best-Of', color: 'from-emerald-primary to-emerald-primary/50' },
+                  { icon: '📅', label: '12-Mo Calendar', color: 'from-rose-primary to-rose-primary/50' },
+                  { icon: '⚡', label: '6 Boosters', color: 'from-purple-primary to-pink-primary' },
+                ].map((stat, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className={`glass-card p-4 rounded-xl border border-white/10 bg-gradient-to-br ${stat.color}`}
+                  >
+                    <div className="text-3xl mb-1">{stat.icon}</div>
+                    <div className="text-white font-bold text-sm">{stat.label}</div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
@@ -256,8 +244,8 @@ export default function PlatinumPage() {
 
       {/* Training Videos */}
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-          <span className="text-purple-400"><BoltIcon /></span>
+        <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+          <span className="text-purple-primary"><BoltIcon /></span>
           Platinum Training Vault
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -267,7 +255,7 @@ export default function PlatinumPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="glass-card rounded-2xl overflow-hidden group"
+              className="glass-card rounded-2xl overflow-hidden hover:shadow-glow-purple transition-all"
             >
               <VideoPlaceholder
                 thumbnail={video.thumbnail}
@@ -277,85 +265,210 @@ export default function PlatinumPage() {
                 videoUrl={video.videoUrl}
                 accentColor="purple"
               />
-              <div className="p-4">
-                <h3 className="font-semibold text-white text-lg mb-1 group-hover:text-purple-400 transition-colors">
+              <div className="p-5">
+                <h3 className="font-bold text-white text-lg mb-2">
                   {video.title}
                 </h3>
-                <p className="text-sm text-navy-400">{video.description}</p>
+                <p className="text-sm text-purple-primary/70">{video.description}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Tab Navigation */}
-      <div className="glass-card p-2">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-          <button
+      {/* Feature Navigation - Redesigned */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+          <SparklesIcon />
+          Choose Your Feature
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Feature 1 */}
+          <motion.button
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('packs')}
-            className={`px-4 py-3 rounded-lg font-bold text-sm transition-all ${
+            className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all ${
               activeTab === 'packs'
-                ? 'bg-gradient-to-r from-purple-primary to-pink-primary text-white shadow-glow-purple'
-                : 'text-purple-primary/60 hover:text-purple-primary hover:bg-purple-primary/5'
+                ? 'bg-gradient-to-br from-purple-primary to-purple-primary/50 shadow-glow-purple ring-2 ring-purple-primary'
+                : 'glass-card hover:shadow-glow-purple/50'
             }`}
           >
-            📦 Profit Packs
-          </button>
-          <button
+            <div className="relative z-10">
+              <div className="text-4xl mb-3">📦</div>
+              <h3 className="text-xl font-bold text-white mb-2">30-Day Profit Packs</h3>
+              <p className="text-sm text-purple-primary/80 mb-3">
+                120 ready-to-post social media captions with images for 4 niches
+              </p>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">4 Packs</span>
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">120 Posts</span>
+              </div>
+            </div>
+            {activeTab === 'packs' && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute inset-0 bg-gradient-to-br from-purple-primary/20 to-transparent"
+              />
+            )}
+          </motion.button>
+
+          {/* Feature 2 */}
+          <motion.button
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('products')}
-            className={`px-4 py-3 rounded-lg font-bold text-sm transition-all ${
+            className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all ${
               activeTab === 'products'
-                ? 'bg-gradient-to-r from-purple-primary to-pink-primary text-white shadow-glow-purple'
-                : 'text-purple-primary/60 hover:text-purple-primary hover:bg-purple-primary/5'
+                ? 'bg-gradient-to-br from-pink-primary to-pink-primary/50 shadow-glow-pink ring-2 ring-pink-primary'
+                : 'glass-card hover:shadow-glow-pink/50'
             }`}
           >
-            🔥 High-Ticket
-          </button>
-          <button
+            <div className="relative z-10">
+              <div className="text-4xl mb-3">🔥</div>
+              <h3 className="text-xl font-bold text-white mb-2">High-Ticket Products</h3>
+              <p className="text-sm text-purple-primary/80 mb-3">
+                8 pre-built profit pages for $300-$1,500 products with social captions
+              </p>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">8 Products</span>
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">$30-75/sale</span>
+              </div>
+            </div>
+            {activeTab === 'products' && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute inset-0 bg-gradient-to-br from-pink-primary/20 to-transparent"
+              />
+            )}
+          </motion.button>
+
+          {/* Feature 3 */}
+          <motion.button
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('comparisons')}
-            className={`px-4 py-3 rounded-lg font-bold text-sm transition-all ${
+            className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all ${
               activeTab === 'comparisons'
-                ? 'bg-gradient-to-r from-purple-primary to-pink-primary text-white shadow-glow-purple'
-                : 'text-purple-primary/60 hover:text-purple-primary hover:bg-purple-primary/5'
+                ? 'bg-gradient-to-br from-teal-primary to-teal-primary/50 shadow-glow-teal ring-2 ring-teal-primary'
+                : 'glass-card hover:shadow-glow-teal/50'
             }`}
           >
-            ⚔️ Battles
-          </button>
-          <button
+            <div className="relative z-10">
+              <div className="text-4xl mb-3">⚔️</div>
+              <h3 className="text-xl font-bold text-white mb-2">Comparison Battles</h3>
+              <p className="text-sm text-purple-primary/80 mb-3">
+                4 head-to-head product comparison pages with clear winner recommendations
+              </p>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">4 Battles</span>
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">Earn on Both</span>
+              </div>
+            </div>
+            {activeTab === 'comparisons' && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute inset-0 bg-gradient-to-br from-teal-primary/20 to-transparent"
+              />
+            )}
+          </motion.button>
+
+          {/* Feature 4 */}
+          <motion.button
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('bestof')}
-            className={`px-4 py-3 rounded-lg font-bold text-sm transition-all ${
+            className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all ${
               activeTab === 'bestof'
-                ? 'bg-gradient-to-r from-purple-primary to-pink-primary text-white shadow-glow-purple'
-                : 'text-purple-primary/60 hover:text-purple-primary hover:bg-purple-primary/5'
+                ? 'bg-gradient-to-br from-emerald-primary to-emerald-primary/50 shadow-glow-emerald ring-2 ring-emerald-primary'
+                : 'glass-card hover:shadow-glow-emerald/50'
             }`}
           >
-            🏆 Best Of
-          </button>
-          <button
+            <div className="relative z-10">
+              <div className="text-4xl mb-3">🏆</div>
+              <h3 className="text-xl font-bold text-white mb-2">Best Of Lists</h3>
+              <p className="text-sm text-purple-primary/80 mb-3">
+                2 ranked &quot;Top 5&quot; product lists with detailed reviews and reasoning
+              </p>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">2 Lists</span>
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">10 Products</span>
+              </div>
+            </div>
+            {activeTab === 'bestof' && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute inset-0 bg-gradient-to-br from-emerald-primary/20 to-transparent"
+              />
+            )}
+          </motion.button>
+
+          {/* Feature 5 */}
+          <motion.button
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('calendar')}
-            className={`px-4 py-3 rounded-lg font-bold text-sm transition-all ${
+            className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all ${
               activeTab === 'calendar'
-                ? 'bg-gradient-to-r from-purple-primary to-pink-primary text-white shadow-glow-purple'
-                : 'text-purple-primary/60 hover:text-purple-primary hover:bg-purple-primary/5'
+                ? 'bg-gradient-to-br from-rose-primary to-rose-primary/50 shadow-glow-rose ring-2 ring-rose-primary'
+                : 'glass-card hover:shadow-glow-rose/50'
             }`}
           >
-            📅 Calendar
-          </button>
-          <button
+            <div className="relative z-10">
+              <div className="text-4xl mb-3">📅</div>
+              <h3 className="text-xl font-bold text-white mb-2">Seasonal Calendar</h3>
+              <p className="text-sm text-purple-primary/80 mb-3">
+                12-month promotion roadmap - always know what to promote and when
+              </p>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">12 Months</span>
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">Peak Seasons</span>
+              </div>
+            </div>
+            {activeTab === 'calendar' && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute inset-0 bg-gradient-to-br from-rose-primary/20 to-transparent"
+              />
+            )}
+          </motion.button>
+
+          {/* Feature 6 */}
+          <motion.button
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('boosters')}
-            className={`px-4 py-3 rounded-lg font-bold text-sm transition-all ${
+            className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all ${
               activeTab === 'boosters'
-                ? 'bg-gradient-to-r from-purple-primary to-pink-primary text-white shadow-glow-purple'
-                : 'text-purple-primary/60 hover:text-purple-primary hover:bg-purple-primary/5'
+                ? 'bg-gradient-to-br from-purple-primary via-pink-primary to-purple-primary shadow-glow-purple ring-2 ring-purple-primary'
+                : 'glass-card hover:shadow-glow-purple/50'
             }`}
           >
-            ⚡ Boosters
-          </button>
+            <div className="relative z-10">
+              <div className="text-4xl mb-3">⚡</div>
+              <h3 className="text-xl font-bold text-white mb-2">Conversion Boosters</h3>
+              <p className="text-sm text-purple-primary/80 mb-3">
+                6 psychology-driven elements to add to any page for higher conversions
+              </p>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">6 Boosters</span>
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">Copy-Paste</span>
+              </div>
+            </div>
+            {activeTab === 'boosters' && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute inset-0 bg-gradient-to-br from-purple-primary/20 via-pink-primary/20 to-transparent"
+              />
+            )}
+          </motion.button>
         </div>
       </div>
 
-      {/* 30-Day Profit Packs */}
+      {/* Content Area */}
       <AnimatePresence mode="wait">
+        {/* 30-Day Profit Packs */}
         {activeTab === 'packs' && (
           <motion.div
             key="packs"
@@ -364,173 +477,152 @@ export default function PlatinumPage() {
             exit={{ opacity: 0, y: -20 }}
             className="space-y-6"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <span className="text-purple-400"><SparklesIcon /></span>
-                  30-Day Viral Post Packs
-                </h2>
-                <p className="text-navy-400 mt-1">
-                  Copy-paste ready posts with hashtags for each niche
-                </p>
+            {/* Intro Card */}
+            <div className="glass-card p-6 border border-purple-primary/20 rounded-2xl">
+              <div className="flex items-start gap-4">
+                <div className="text-5xl">📦</div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white mb-2">30-Day Viral Post Packs</h3>
+                  <p className="text-purple-primary/80 leading-relaxed mb-4">
+                    Copy-paste ready posts with hashtags for each niche. These are 200-400 word posts designed to provide real value while naturally promoting products. Each post comes with a matching Unsplash image.
+                  </p>
+                  <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20">
+                    <p className="text-sm text-purple-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
+                    <ol className="text-sm text-purple-primary/70 space-y-1 list-decimal list-inside">
+                      <li>Choose a niche pack below that matches your audience</li>
+                      <li>Click &quot;View All 30 Days&quot; to see every post</li>
+                      <li>Click &quot;Copy Post&quot; on any post you like</li>
+                      <li>Paste to Facebook, Instagram, or TikTok</li>
+                      <li>Add your affiliate link in comments or bio</li>
+                      <li>Post 1 per day for consistent results</li>
+                    </ol>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Pack Cards */}
+            {/* Profit Pack Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {profitPacks.map((pack, i) => (
+              {profitPacks.map((pack) => (
                 <motion.div
                   key={pack.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className={`glass-card rounded-2xl overflow-hidden border-2 ${
-                    expandedPack === pack.id ? 'border-purple-500' : 'border-transparent'
-                  } transition-all`}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="glass-card rounded-2xl p-6 border border-purple-primary/20 hover:shadow-glow-purple transition-all"
                 >
-                  {/* Pack Header */}
-                  <div
-                    className={`p-6 cursor-pointer ${pack.bgColor}`}
-                    onClick={() => {
-                      setExpandedPack(expandedPack === pack.id ? null : pack.id);
-                      setSelectedPack(pack);
-                      setVisiblePosts(6);
-                    }}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${pack.color} flex items-center justify-center text-3xl shadow-lg`}>
-                          {pack.emoji}
-                        </div>
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-4xl">{pack.emoji}</span>
                         <div>
                           <h3 className="text-xl font-bold text-white">{pack.name}</h3>
-                          <p className="text-navy-400">{pack.niche}</p>
+                          <p className="text-sm text-purple-primary/60">{pack.niche}</p>
                         </div>
                       </div>
-                      <motion.div
-                        animate={{ rotate: expandedPack === pack.id ? 180 : 0 }}
-                        className="text-navy-400"
-                      >
-                        <ChevronDownIcon />
-                      </motion.div>
                     </div>
-
-                    <div className="mt-4 flex items-center gap-4 text-sm">
-                      <span className="px-3 py-1 bg-navy-800/50 rounded-full text-purple-400 font-bold">
-                        30 Posts
-                      </span>
-                      <span className="px-3 py-1 bg-navy-800/50 rounded-full text-cash-green font-bold">
-                        {pack.commission}
-                      </span>
-                      <span className="px-3 py-1 bg-gold-500/20 rounded-full text-gold-400 font-bold">
-                        Value: {pack.value}
-                      </span>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-purple-primary">{pack.value}</div>
+                      <div className="text-xs text-emerald-primary font-bold">{pack.commission}</div>
                     </div>
                   </div>
 
-                  {/* Expanded Content */}
-                  <AnimatePresence>
-                    {expandedPack === pack.id && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="p-6 border-t border-navy-700 space-y-4">
-                          <div className="flex items-center justify-between mb-4">
-                            <h4 className="font-bold text-white">All 30 Posts</h4>
-                            <Button
-                              variant="ghost"
-                              onClick={() => {
-                                const allPosts = pack.posts.map(p => `--- Day ${p.day} ---\n\n${p.caption}\n\n${p.hashtags}`).join('\n\n\n');
-                                copyToClipboard(allPosts, `${pack.id}-all`);
-                              }}
-                            >
-                              {copiedId === `${pack.id}-all` ? <CheckIcon /> : <CopyIcon />}
-                              <span>{copiedId === `${pack.id}-all` ? 'Copied All!' : 'Copy All 30'}</span>
-                            </Button>
-                          </div>
-
-                          {/* Posts Grid */}
-                          <div className="space-y-4 max-h-[800px] overflow-y-auto pr-2">
-                            {pack.posts.slice(0, visiblePosts).map((post) => (
-                              <div
-                                key={post.day}
-                                className="bg-navy-800/50 rounded-xl overflow-hidden border border-navy-700 hover:border-purple-500/30 transition-all"
-                              >
-                                {/* Post Image */}
-                                {post.imageUrl && (
-                                  <div className="aspect-video relative overflow-hidden">
-                                    <img
-                                      src={post.imageUrl}
-                                      alt={post.imageDescription || `Day ${post.day} post`}
-                                      className="w-full h-full object-cover"
-                                    />
-                                    <div className="absolute top-3 left-3">
-                                      <span className={`px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r ${pack.color} text-white shadow-lg`}>
-                                        Day {post.day}
-                                      </span>
-                                    </div>
-                                  </div>
-                                )}
-                                
-                                <div className="p-4">
-                                  {!post.imageUrl && (
-                                    <div className="flex items-center justify-between mb-3">
-                                      <span className={`px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r ${pack.color} text-white`}>
-                                        Day {post.day}
-                                      </span>
-                                    </div>
-                                  )}
-
-                                  <div className="flex items-start justify-between gap-2 mb-3">
-                                    <p className="text-white text-sm whitespace-pre-wrap leading-relaxed flex-1" style={{ maxHeight: '200px', overflow: 'hidden' }}>
-                                      {post.caption.length > 500 ? post.caption.substring(0, 500) + '...' : post.caption}
-                                    </p>
-                                    <button
-                                      onClick={() => copyPostWithHashtags(post, pack.id)}
-                                      className="text-purple-400 hover:text-purple-300 flex items-center gap-1 text-sm font-medium shrink-0"
-                                    >
-                                      {copiedId === `${pack.id}-${post.day}` ? (
-                                        <>
-                                          <CheckIcon />
-                                          <span>Copied!</span>
-                                        </>
-                                      ) : (
-                                        <>
-                                          <CopyIcon />
-                                          <span>Copy</span>
-                                        </>
-                                      )}
-                                    </button>
-                                  </div>
-
-                                  <p className="text-purple-400/70 text-xs break-words">
-                                    {post.hashtags}
-                                  </p>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-
-                          {visiblePosts < 30 && (
-                            <Button
-                              variant="ghost"
-                              onClick={loadMorePosts}
-                              className="w-full"
-                            >
-                              Load More Posts ({30 - visiblePosts} remaining)
-                            </Button>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      setSelectedPack(pack);
+                      setExpandedPack(pack.id);
+                      setVisiblePosts(6);
+                    }}
+                    className="w-full"
+                  >
+                    View All 30 Days
+                  </Button>
                 </motion.div>
               ))}
             </div>
+
+            {/* Expanded Pack View */}
+            {selectedPack && expandedPack && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="glass-card p-6 rounded-2xl border-2 border-purple-primary/40"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <span className="text-4xl">{selectedPack.emoji}</span>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">{selectedPack.name}</h3>
+                      <p className="text-purple-primary/60">30 Days of Content</p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      setSelectedPack(null);
+                      setExpandedPack(null);
+                    }}
+                  >
+                    Close
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {selectedPack.posts.slice(0, visiblePosts).map((post) => (
+                    <div
+                      key={post.day}
+                      className="bg-purple-primary/5 border border-purple-primary/20 rounded-xl p-4 hover:bg-purple-primary/10 transition-all"
+                    >
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="px-3 py-1 bg-purple-primary/20 rounded-full text-purple-primary font-bold text-sm">
+                          Day {post.day}
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => copyPostWithHashtags(post, selectedPack.id)}
+                        >
+                          {copiedId === `${selectedPack.id}-${post.day}` ? (
+                            <>
+                              <CheckIcon /> Copied!
+                            </>
+                          ) : (
+                            <>
+                              <CopyIcon /> Copy
+                            </>
+                          )}
+                        </Button>
+                      </div>
+
+                      {post.imageUrl && (
+                        <img
+                          src={post.imageUrl}
+                          alt={post.imageDescription}
+                          className="w-full h-32 object-cover rounded-lg mb-3"
+                        />
+                      )}
+
+                      <p className="text-sm text-purple-primary/80 line-clamp-4 mb-2">
+                        {post.caption}
+                      </p>
+
+                      <p className="text-xs text-purple-primary/50 line-clamp-2">
+                        {post.hashtags}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {visiblePosts < selectedPack.posts.length && (
+                  <div className="mt-6 text-center">
+                    <Button variant="outline" onClick={loadMorePosts}>
+                      Load More Posts ({selectedPack.posts.length - visiblePosts} remaining)
+                    </Button>
+                  </div>
+                )}
+              </motion.div>
+            )}
           </motion.div>
         )}
 
@@ -543,112 +635,118 @@ export default function PlatinumPage() {
             exit={{ opacity: 0, y: -20 }}
             className="space-y-6"
           >
-            <div>
-              <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <span className="text-gold-400"><FireIcon /></span>
-                High-Ticket Products
-              </h2>
-              <p className="text-navy-400 mt-1">
-                Premium products with $45-$250 commissions per sale
-              </p>
+            {/* Intro Card */}
+            <div className="glass-card p-6 border border-pink-primary/20 rounded-2xl">
+              <div className="flex items-start gap-4">
+                <div className="text-5xl">🔥</div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white mb-2">High-Ticket Product Pages</h3>
+                  <p className="text-purple-primary/80 leading-relaxed mb-4">
+                    8 pre-researched Amazon products priced $300-$1,500. Higher prices = higher commissions! Each product includes pre-written profit page content and social media captions for 4 platforms.
+                  </p>
+                  <div className="bg-pink-primary/10 p-4 rounded-lg border border-pink-primary/20">
+                    <p className="text-sm text-pink-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
+                    <ol className="text-sm text-purple-primary/70 space-y-1 list-decimal list-inside">
+                      <li>Browse the 8 high-ticket products below</li>
+                      <li>Click &quot;View Details&quot; to see profit page content</li>
+                      <li>Copy the overview, pros, cons, and FAQ</li>
+                      <li>Go to &quot;Build Page&quot; and create a new page</li>
+                      <li>Add your Amazon affiliate link</li>
+                      <li>Use the social captions to promote it</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {highTicketProducts.map((product, i) => (
+            {/* Product Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {highTicketProducts.map((product) => (
                 <motion.div
                   key={product.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="glass-card rounded-2xl p-5 space-y-4 border border-navy-700 hover:border-gold-500/30 transition-all group"
+                  className="glass-card rounded-2xl overflow-hidden border border-pink-primary/20 hover:shadow-glow-pink transition-all group"
                 >
-                  {/* Header */}
-                  <div className="flex items-start justify-between">
-                    <span className="px-2 py-1 bg-navy-800 rounded-lg text-navy-400 text-xs">
-                      {product.category}
-                    </span>
+                  {/* Product Image */}
+                  <div className="relative aspect-square bg-gradient-to-br from-purple-primary/10 to-pink-primary/5 p-4 flex items-center justify-center">
                     {product.isHot && (
-                      <span className="px-2 py-1 bg-orange-500/20 rounded-lg text-orange-400 text-xs font-bold flex items-center gap-1">
-                        <FireIcon /> HOT
-                      </span>
+                      <div className="absolute top-3 right-3 px-3 py-1 bg-pink-primary rounded-full text-white text-xs font-bold flex items-center gap-1">
+                        <FireIcon />
+                        HOT
+                      </div>
                     )}
+                    <img
+                      src={product.imageUrl}
+                      alt={product.title}
+                      className="w-40 h-40 object-contain"
+                    />
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-semibold text-white text-sm leading-tight group-hover:text-gold-400 transition-colors line-clamp-2">
-                    {product.title}
-                  </h3>
+                  {/* Product Info */}
+                  <div className="p-4">
+                    <div className="text-xs text-purple-primary/60 mb-1">{product.category}</div>
+                    <h3 className="font-bold text-white mb-2 line-clamp-2 group-hover:text-pink-primary transition-colors">
+                      {product.title}
+                    </h3>
 
-                  {/* Rating */}
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <span
-                          key={i}
-                          className={i < Math.floor(product.rating) ? 'text-gold-400' : 'text-navy-600'}
-                        >
-                          <StarIcon />
-                        </span>
-                      ))}
-                    </div>
-                    <span className="text-navy-400 text-xs">
-                      {product.rating} ({product.reviews.toLocaleString()})
-                    </span>
-                  </div>
-
-                  {/* Bullet Points */}
-                  <ul className="space-y-1">
-                    {product.bulletPoints.slice(0, 2).map((point, j) => (
-                      <li key={j} className="text-navy-400 text-xs flex items-start gap-2">
-                        <span className="text-cash-green mt-0.5">✓</span>
-                        <span className="line-clamp-1">{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Price & Commission */}
-                  <div className="pt-3 border-t border-navy-700">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-white font-bold">{product.price}</span>
-                      <span className="text-cash-green font-bold text-sm">
-                        +{product.commission}
+                    {/* Rating */}
+                    <div className="flex items-center gap-1 mb-2">
+                      <div className="flex">
+                        {[...Array(Math.floor(product.rating))].map((_, i) => (
+                          <span key={i} className="text-emerald-primary">
+                            <StarIcon />
+                          </span>
+                        ))}
+                      </div>
+                      <span className="text-xs text-purple-primary/60">
+                        {product.rating} ({product.reviews.toLocaleString()})
                       </span>
                     </div>
-                    <a
-                      href={`https://www.amazon.com/dp/${product.asin}?tag=YOUR_TAG`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-2 bg-gold-500 hover:bg-gold-400 text-navy-950 rounded-lg font-bold text-sm transition-colors"
-                    >
-                      <span>View on Amazon</span>
-                      <ExternalLinkIcon />
-                    </a>
+
+                    {/* Price & Commission */}
+                    <div className="pt-3 border-t border-purple-primary/20">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-white font-bold text-lg">{product.price}</span>
+                        <span className="text-emerald-primary font-bold text-sm">
+                          +{product.commission}
+                        </span>
+                      </div>
+                      <a
+                        href={`https://www.amazon.com/dp/${product.asin}?tag=YOUR_TAG`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-secondary w-full text-center text-sm py-2"
+                      >
+                        View on Amazon <ExternalLinkIcon />
+                      </a>
+                    </div>
                   </div>
                 </motion.div>
               ))}
             </div>
 
             {/* Commission Calculator */}
-            <div className="glass-card rounded-2xl p-6 border border-gold-500/20">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <div className="glass-card rounded-2xl p-6 border border-emerald-primary/20 bg-gradient-to-br from-emerald-primary/5 to-transparent">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <TrendUpIcon />
                 Potential Earnings Calculator
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-navy-800/50 rounded-xl p-4 text-center">
-                  <p className="text-navy-400 text-sm mb-1">1 Sale/Week</p>
-                  <p className="text-3xl font-bold text-white">$360-1,000</p>
-                  <p className="text-cash-green text-sm">/month</p>
+                <div className="bg-deep-space-black/50 rounded-xl p-5 text-center border border-purple-primary/20">
+                  <p className="text-purple-primary/60 text-sm mb-1">1 Sale/Week</p>
+                  <p className="text-4xl font-bold text-white mb-1">$360-1,000</p>
+                  <p className="text-emerald-primary text-sm font-bold">/month</p>
                 </div>
-                <div className="bg-navy-800/50 rounded-xl p-4 text-center border-2 border-gold-500/30">
-                  <p className="text-navy-400 text-sm mb-1">3 Sales/Week</p>
-                  <p className="text-3xl font-bold text-gold-400">$1,080-3,000</p>
-                  <p className="text-cash-green text-sm">/month</p>
+                <div className="bg-deep-space-black/50 rounded-xl p-5 text-center border-2 border-emerald-primary/40">
+                  <p className="text-purple-primary/60 text-sm mb-1">3 Sales/Week</p>
+                  <p className="text-4xl font-bold text-emerald-primary mb-1">$1,080-3,000</p>
+                  <p className="text-emerald-primary text-sm font-bold">/month</p>
                 </div>
-                <div className="bg-navy-800/50 rounded-xl p-4 text-center">
-                  <p className="text-navy-400 text-sm mb-1">1 Sale/Day</p>
-                  <p className="text-3xl font-bold text-white">$1,350-7,500</p>
-                  <p className="text-cash-green text-sm">/month</p>
+                <div className="bg-deep-space-black/50 rounded-xl p-5 text-center border border-purple-primary/20">
+                  <p className="text-purple-primary/60 text-sm mb-1">1 Sale/Day</p>
+                  <p className="text-4xl font-bold text-white mb-1">$1,350-7,500</p>
+                  <p className="text-emerald-primary text-sm font-bold">/month</p>
                 </div>
               </div>
             </div>
@@ -665,23 +763,22 @@ export default function PlatinumPage() {
             className="space-y-6"
           >
             {/* Intro Card */}
-            <div className="glass-card p-6 border border-purple-primary/20 rounded-2xl">
+            <div className="glass-card p-6 border border-teal-primary/20 rounded-2xl">
               <div className="flex items-start gap-4">
-                <div className="text-4xl">⚔️</div>
-                <div>
+                <div className="text-5xl">⚔️</div>
+                <div className="flex-1">
                   <h3 className="text-2xl font-bold text-white mb-2">Product Comparison Battle Pages</h3>
-                  <p className="text-purple-primary/80 leading-relaxed mb-3">
-                    These are ready-to-use comparison pages that help your audience make buying decisions. 
-                    People LOVE comparisons because it saves them hours of research. Each page compares 
-                    two popular products head-to-head with a clear winner recommendation.
+                  <p className="text-purple-primary/80 leading-relaxed mb-4">
+                    These are ready-to-use comparison pages that help your audience make buying decisions. People LOVE comparisons because it saves them hours of research. Each page compares two popular products head-to-head with a clear winner recommendation.
                   </p>
-                  <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20">
-                    <p className="text-sm text-purple-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
+                  <div className="bg-teal-primary/10 p-4 rounded-lg border border-teal-primary/20">
+                    <p className="text-sm text-teal-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
                     <ol className="text-sm text-purple-primary/70 space-y-1 list-decimal list-inside">
                       <li>Click &quot;Copy Comparison&quot; to get the full content</li>
                       <li>Create a new page using the Build Page feature</li>
-                      <li>Paste the content and add your affiliate links</li>
+                      <li>Paste the content and add your affiliate links FOR BOTH products</li>
                       <li>Share on social media with: &quot;Can&apos;t decide? I tested both →&quot;</li>
+                      <li>You earn commissions on BOTH products - winner AND runner-up!</li>
                     </ol>
                   </div>
                 </div>
@@ -690,8 +787,8 @@ export default function PlatinumPage() {
 
             {/* Comparison Pages */}
             {comparisonPages.map((comparison) => (
-              <div key={comparison.id} className="glass-card p-6 rounded-2xl border border-purple-primary/20">
-                <h4 className="text-xl font-bold text-white mb-4">{comparison.title}</h4>
+              <div key={comparison.id} className="glass-card p-6 rounded-2xl border border-teal-primary/20">
+                <h4 className="text-2xl font-bold text-white mb-6">{comparison.title}</h4>
                 
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
                   {/* Product 1 */}
@@ -799,18 +896,16 @@ export default function PlatinumPage() {
             className="space-y-6"
           >
             {/* Intro Card */}
-            <div className="glass-card p-6 border border-purple-primary/20 rounded-2xl">
+            <div className="glass-card p-6 border border-emerald-primary/20 rounded-2xl">
               <div className="flex items-start gap-4">
-                <div className="text-4xl">🏆</div>
-                <div>
+                <div className="text-5xl">🏆</div>
+                <div className="flex-1">
                   <h3 className="text-2xl font-bold text-white mb-2">Best Of Lists - Ranked Product Pages</h3>
-                  <p className="text-purple-primary/80 leading-relaxed mb-3">
-                    These are curated &quot;Top 5&quot; style lists that rank the best products in each category. 
-                    List posts get MASSIVE engagement because they provide quick value and satisfy people&apos;s 
-                    desire for the &quot;best&quot; option. Each product is ranked with clear reasoning.
+                  <p className="text-purple-primary/80 leading-relaxed mb-4">
+                    These are curated &quot;Top 5&quot; style lists that rank the best products in each category. List posts get MASSIVE engagement because they provide quick value and satisfy people&apos;s desire for the &quot;best&quot; option. Each product is ranked with clear reasoning.
                   </p>
-                  <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20">
-                    <p className="text-sm text-purple-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
+                  <div className="bg-emerald-primary/10 p-4 rounded-lg border border-emerald-primary/20">
+                    <p className="text-sm text-emerald-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
                     <ol className="text-sm text-purple-primary/70 space-y-1 list-decimal list-inside">
                       <li>Review the full list below - each product has a rank and reasoning</li>
                       <li>Copy the entire list content with one click</li>
@@ -825,7 +920,7 @@ export default function PlatinumPage() {
 
             {/* Best Of Lists */}
             {bestOfLists.map((list) => (
-              <div key={list.id} className="glass-card p-6 rounded-2xl border border-purple-primary/20">
+              <div key={list.id} className="glass-card p-6 rounded-2xl border border-emerald-primary/20">
                 <h4 className="text-2xl font-bold text-white mb-2">{list.title}</h4>
                 <p className="text-purple-primary/60 text-sm mb-6">{list.subtitle}</p>
 
@@ -923,18 +1018,16 @@ export default function PlatinumPage() {
             className="space-y-6"
           >
             {/* Intro Card */}
-            <div className="glass-card p-6 border border-purple-primary/20 rounded-2xl">
+            <div className="glass-card p-6 border border-rose-primary/20 rounded-2xl">
               <div className="flex items-start gap-4">
-                <div className="text-4xl">📅</div>
-                <div>
+                <div className="text-5xl">📅</div>
+                <div className="flex-1">
                   <h3 className="text-2xl font-bold text-white mb-2">12-Month Seasonal Promotion Calendar</h3>
-                  <p className="text-purple-primary/80 leading-relaxed mb-3">
-                    This is your year-round roadmap for what to promote and when. Each month has specific 
-                    products that sell better due to seasons, holidays, and shopping patterns. Follow this 
-                    calendar and you&apos;ll always know exactly what to focus on.
+                  <p className="text-purple-primary/80 leading-relaxed mb-4">
+                    This is your year-round roadmap for what to promote and when. Each month has specific products that sell better due to seasons, holidays, and shopping patterns. Follow this calendar and you&apos;ll always know exactly what to focus on.
                   </p>
-                  <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20">
-                    <p className="text-sm text-purple-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
+                  <div className="bg-rose-primary/10 p-4 rounded-lg border border-rose-primary/20">
+                    <p className="text-sm text-rose-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
                     <ol className="text-sm text-purple-primary/70 space-y-1 list-decimal list-inside">
                       <li>Check what month it is and read that month&apos;s strategy</li>
                       <li>See which products sell best during that time</li>
@@ -950,7 +1043,7 @@ export default function PlatinumPage() {
             {/* Calendar Grid */}
             <div className="grid md:grid-cols-2 gap-6">
               {seasonalCalendar.map((month) => (
-                <div key={month.month} className="glass-card p-6 rounded-2xl border border-purple-primary/20">
+                <div key={month.month} className="glass-card p-6 rounded-2xl border border-rose-primary/20 hover:shadow-glow-rose transition-all">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-4xl">{month.emoji}</span>
                     <div>
@@ -959,7 +1052,7 @@ export default function PlatinumPage() {
                     </div>
                   </div>
 
-                  <div className="bg-gradient-to-r from-purple-primary/10 to-pink-primary/5 p-4 rounded-lg border border-purple-primary/20 mb-4">
+                  <div className="bg-gradient-to-r from-rose-primary/10 to-pink-primary/5 p-4 rounded-lg border border-rose-primary/20 mb-4">
                     <p className="text-white font-bold text-sm mb-1">🎯 Theme:</p>
                     <p className="text-purple-primary/90">{month.theme}</p>
                   </div>
@@ -1023,15 +1116,13 @@ export default function PlatinumPage() {
             className="space-y-6"
           >
             {/* Intro Card */}
-            <div className="glass-card p-6 border border-purple-primary/20 rounded-2xl">
+            <div className="glass-card p-6 border border-purple-primary/20 rounded-2xl bg-gradient-to-br from-purple-primary/5 via-pink-primary/5 to-transparent">
               <div className="flex items-start gap-4">
-                <div className="text-4xl">⚡</div>
-                <div>
+                <div className="text-5xl">⚡</div>
+                <div className="flex-1">
                   <h3 className="text-2xl font-bold text-white mb-2">Conversion Boosters - Add These To Your Pages!</h3>
-                  <p className="text-purple-primary/80 leading-relaxed mb-3">
-                    These are powerful psychological triggers you can add to ANY of your profit pages to 
-                    increase conversions. These create urgency, build trust, and encourage visitors to 
-                    click your affiliate links. Copy and paste these into your pages for instant results.
+                  <p className="text-purple-primary/80 leading-relaxed mb-4">
+                    These are powerful psychological triggers you can add to ANY of your profit pages to increase conversions. These create urgency, build trust, and encourage visitors to click your affiliate links. Copy and paste these into your pages for instant results.
                   </p>
                   <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20">
                     <p className="text-sm text-purple-primary/90 font-bold mb-2">💡 HOW TO USE:</p>
@@ -1051,7 +1142,7 @@ export default function PlatinumPage() {
             {/* Booster Cards */}
             <div className="grid md:grid-cols-2 gap-6">
               {/* Countdown Timer */}
-              <div className="glass-card p-6 rounded-2xl border border-purple-primary/20">
+              <div className="glass-card p-6 rounded-2xl border border-rose-primary/20 hover:shadow-glow-rose transition-all">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-rose-primary to-pink-primary flex items-center justify-center text-2xl">
                     ⏰
@@ -1063,8 +1154,7 @@ export default function PlatinumPage() {
                 </div>
 
                 <p className="text-sm text-purple-primary/80 mb-4">
-                  Add a countdown timer to create urgency. People are more likely to buy when they feel 
-                  time is running out. Place this near your call-to-action buttons.
+                  Add a countdown timer to create urgency. People are more likely to buy when they feel time is running out. Place this near your call-to-action buttons.
                 </p>
 
                 <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20 mb-4">
@@ -1093,7 +1183,7 @@ export default function PlatinumPage() {
               </div>
 
               {/* Live Visitors */}
-              <div className="glass-card p-6 rounded-2xl border border-purple-primary/20">
+              <div className="glass-card p-6 rounded-2xl border border-emerald-primary/20 hover:shadow-glow-emerald transition-all">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-primary to-teal-primary flex items-center justify-center text-2xl">
                     👥
@@ -1105,8 +1195,7 @@ export default function PlatinumPage() {
                 </div>
 
                 <p className="text-sm text-purple-primary/80 mb-4">
-                  Show how many people are viewing the page right now. This creates social proof and 
-                  FOMO (fear of missing out). Place at the top of your pages.
+                  Show how many people are viewing the page right now. This creates social proof and FOMO (fear of missing out). Place at the top of your pages.
                 </p>
 
                 <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20 mb-4">
@@ -1135,7 +1224,7 @@ export default function PlatinumPage() {
               </div>
 
               {/* Recent Sales */}
-              <div className="glass-card p-6 rounded-2xl border border-purple-primary/20">
+              <div className="glass-card p-6 rounded-2xl border border-purple-primary/20 hover:shadow-glow-purple transition-all">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-primary to-pink-primary flex items-center justify-center text-2xl">
                     🔥
@@ -1147,8 +1236,7 @@ export default function PlatinumPage() {
                 </div>
 
                 <p className="text-sm text-purple-primary/80 mb-4">
-                  Show recent purchases to build trust. When people see others buying, they&apos;re more 
-                  likely to buy too. Add these throughout your page.
+                  Show recent purchases to build trust. When people see others buying, they&apos;re more likely to buy too. Add these throughout your page.
                 </p>
 
                 <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20 mb-4 space-y-2">
@@ -1180,7 +1268,7 @@ export default function PlatinumPage() {
               </div>
 
               {/* Urgency Banner */}
-              <div className="glass-card p-6 rounded-2xl border border-purple-primary/20">
+              <div className="glass-card p-6 rounded-2xl border border-pink-primary/20 hover:shadow-glow-pink transition-all">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-primary to-rose-primary flex items-center justify-center text-2xl">
                     🚨
@@ -1192,8 +1280,7 @@ export default function PlatinumPage() {
                 </div>
 
                 <p className="text-sm text-purple-primary/80 mb-4">
-                  Eye-catching banners that communicate scarcity and urgency. Place these at the very 
-                  top of pages or near buy buttons for maximum impact.
+                  Eye-catching banners that communicate scarcity and urgency. Place these at the very top of pages or near buy buttons for maximum impact.
                 </p>
 
                 <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20 mb-4 space-y-3">
@@ -1231,7 +1318,7 @@ export default function PlatinumPage() {
               </div>
 
               {/* Trust Badges */}
-              <div className="glass-card p-6 rounded-2xl border border-purple-primary/20">
+              <div className="glass-card p-6 rounded-2xl border border-teal-primary/20 hover:shadow-glow-teal transition-all">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-primary to-emerald-primary flex items-center justify-center text-2xl">
                     🛡️
@@ -1243,8 +1330,7 @@ export default function PlatinumPage() {
                 </div>
 
                 <p className="text-sm text-purple-primary/80 mb-4">
-                  Add these trust indicators to reduce buyer hesitation. People want reassurance before 
-                  clicking affiliate links. Place near buttons or at page bottom.
+                  Add these trust indicators to reduce buyer hesitation. People want reassurance before clicking affiliate links. Place near buttons or at page bottom.
                 </p>
 
                 <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20 mb-4">
@@ -1281,7 +1367,7 @@ export default function PlatinumPage() {
               </div>
 
               {/* Exit Intent Popup */}
-              <div className="glass-card p-6 rounded-2xl border border-purple-primary/20">
+              <div className="glass-card p-6 rounded-2xl border border-purple-primary/20 hover:shadow-glow-purple transition-all">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-primary to-purple-primary flex items-center justify-center text-2xl">
                     🎯
@@ -1293,8 +1379,7 @@ export default function PlatinumPage() {
                 </div>
 
                 <p className="text-sm text-purple-primary/80 mb-4">
-                  A message to show when someone is about to leave your page without clicking. This 
-                  gives you one last chance to convert them. Use this sparingly but effectively.
+                  A message to show when someone is about to leave your page without clicking. This gives you one last chance to convert them. Use this sparingly but effectively.
                 </p>
 
                 <div className="bg-purple-primary/10 p-4 rounded-lg border border-purple-primary/20 mb-4">
@@ -1303,8 +1388,7 @@ export default function PlatinumPage() {
                     ⏸️ Wait! Before you go...
                   </p>
                   <p className="text-purple-primary/90 text-xs">
-                    This product is currently 35% off and selling out FAST. Amazon prices change hourly. 
-                    If you leave now, you might miss this deal. Check the current price →
+                    This product is currently 35% off and selling out FAST. Amazon prices change hourly. If you leave now, you might miss this deal. Check the current price →
                   </p>
                 </div>
 
@@ -1326,13 +1410,13 @@ export default function PlatinumPage() {
 
             {/* Integration Tips */}
             <div className="glass-card p-6 rounded-2xl border border-emerald-primary/20 bg-gradient-to-br from-emerald-primary/5 to-transparent">
-              <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <SparklesIcon />
                 How to Combine Boosters for Maximum Effect
               </h4>
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-deep-space-black/50 p-4 rounded-lg">
-                  <p className="text-emerald-primary font-bold text-sm mb-2">✅ DO THIS:</p>
+                <div className="bg-deep-space-black/50 p-5 rounded-lg border border-emerald-primary/20">
+                  <p className="text-emerald-primary font-bold text-sm mb-3">✅ DO THIS:</p>
                   <ul className="text-sm text-purple-primary/80 space-y-2">
                     <li>• Use 2-3 boosters per page max</li>
                     <li>• Place countdown timers near buttons</li>
@@ -1341,8 +1425,8 @@ export default function PlatinumPage() {
                     <li>• Test different combinations</li>
                   </ul>
                 </div>
-                <div className="bg-deep-space-black/50 p-4 rounded-lg">
-                  <p className="text-rose-primary font-bold text-sm mb-2">❌ DON&apos;T DO THIS:</p>
+                <div className="bg-deep-space-black/50 p-5 rounded-lg border border-rose-primary/20">
+                  <p className="text-rose-primary font-bold text-sm mb-3">❌ DON&apos;T DO THIS:</p>
                   <ul className="text-sm text-purple-primary/80 space-y-2">
                     <li>• Don&apos;t use all boosters at once</li>
                     <li>• Don&apos;t make fake numbers</li>
@@ -1356,40 +1440,6 @@ export default function PlatinumPage() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Pro Tips Section */}
-      <div className="glass-card rounded-2xl p-6 border border-purple-500/20">
-        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <SparklesIcon />
-          Pro Tips for Maximum Results
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-navy-800/30 rounded-xl p-4">
-            <h4 className="font-bold text-purple-400 mb-2">📅 Content Strategy</h4>
-            <p className="text-navy-300 text-sm">
-              Post consistently at the same time each day. The algorithm favors regular posting schedules. Use all 30 days, then repeat with slight variations.
-            </p>
-          </div>
-          <div className="bg-navy-800/30 rounded-xl p-4">
-            <h4 className="font-bold text-gold-400 mb-2">🔥 High-Ticket Focus</h4>
-            <p className="text-navy-300 text-sm">
-              Promote 1-2 high-ticket products at a time. Create dedicated content around them. One $200 commission beats 20 small sales.
-            </p>
-          </div>
-          <div className="bg-navy-800/30 rounded-xl p-4">
-            <h4 className="font-bold text-cash-green mb-2">💡 Engagement Hack</h4>
-            <p className="text-navy-300 text-sm">
-              End every post with a question. Reply to EVERY comment within the first hour. This signals engagement to the algorithm.
-            </p>
-          </div>
-          <div className="bg-navy-800/30 rounded-xl p-4">
-            <h4 className="font-bold text-orange-400 mb-2">🎯 Platform Strategy</h4>
-            <p className="text-navy-300 text-sm">
-              Repurpose each post across multiple platforms. What works on Instagram can work on Facebook, Pinterest, and Twitter with minor tweaks.
-            </p>
-          </div>
-        </div>
-      </div>
     </motion.div>
   );
 }
