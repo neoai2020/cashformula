@@ -161,45 +161,80 @@ body::after {
     background-clip: text;
   }
   
-  /* Elegant buttons */
+  /* Primary button - vibrant gradient */
   .btn-gold {
-    @apply font-semibold px-6 py-3 rounded-xl transition-all duration-300 active:scale-[0.98];
+    @apply font-bold px-6 py-3.5 rounded-xl transition-all duration-200 active:scale-[0.98];
     background: linear-gradient(135deg, var(--accent-violet), var(--accent-indigo));
     color: white;
-    box-shadow: 0 4px 16px rgba(167, 139, 250, 0.2);
+    box-shadow: 0 4px 20px rgba(167, 139, 250, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
   }
   
   .btn-gold:hover {
-    box-shadow: 0 6px 24px rgba(167, 139, 250, 0.3);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #9575fa, #6d7bf8);
+    box-shadow: 0 6px 28px rgba(167, 139, 250, 0.45), 0 4px 12px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .btn-gold:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.4), 0 4px 20px rgba(167, 139, 250, 0.35);
+  }
+
+  /* Secondary button - teal gradient */
+  .btn-secondary {
+    @apply font-bold px-6 py-3.5 rounded-xl transition-all duration-200 active:scale-[0.98];
+    background: linear-gradient(135deg, var(--accent-teal), var(--accent-emerald));
+    color: #0c0a1d;
+    box-shadow: 0 4px 20px rgba(45, 212, 191, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
   }
   
+  .btn-secondary:hover {
+    background: linear-gradient(135deg, #3de0c8, #2fc99d);
+    box-shadow: 0 6px 28px rgba(45, 212, 191, 0.45);
+    transform: translateY(-2px);
+  }
+  
+  /* Outline button - visible border */
   .btn-outline {
-    @apply bg-transparent text-white font-medium px-6 py-3 rounded-xl transition-all duration-300;
-    border: 1px solid rgba(167, 139, 250, 0.3);
+    @apply font-semibold px-6 py-3.5 rounded-xl transition-all duration-200;
+    background: transparent;
+    color: var(--accent-violet);
+    border: 2px solid var(--accent-violet);
   }
   
   .btn-outline:hover {
-    background: rgba(167, 139, 250, 0.08);
-    border-color: rgba(167, 139, 250, 0.5);
+    background: var(--accent-violet);
+    color: white;
+    box-shadow: 0 4px 20px rgba(167, 139, 250, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
   }
   
-  /* Elegant input fields */
+  /* Input fields - visible borders and focus */
   .input-field {
-    @apply w-full rounded-xl px-4 py-3 text-white transition-all duration-300;
-    background: rgba(20, 18, 40, 0.8);
-    border: 1px solid rgba(167, 139, 250, 0.15);
+    @apply w-full rounded-xl px-4 py-3.5 text-white transition-all duration-200;
+    background: rgba(20, 18, 40, 0.9);
+    border: 2px solid rgba(167, 139, 250, 0.25);
+    font-size: 1rem;
   }
   
   .input-field::placeholder {
-    color: rgba(180, 175, 200, 0.5);
+    color: rgba(180, 175, 200, 0.6);
+  }
+  
+  .input-field:hover {
+    border-color: rgba(167, 139, 250, 0.4);
   }
   
   .input-field:focus {
     outline: none;
-    border-color: rgba(167, 139, 250, 0.5);
-    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
-    background: rgba(25, 22, 50, 0.9);
+    border-color: var(--accent-violet);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2), 0 0 20px rgba(167, 139, 250, 0.15);
+    background: rgba(25, 22, 50, 1);
   }
 }
 
