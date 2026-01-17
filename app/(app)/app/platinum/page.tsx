@@ -194,6 +194,19 @@ export default function PlatinumPage() {
                   <p className="text-navy-300 text-lg">
                     120+ ready-to-post content pieces & high-ticket products
                   </p>
+                  
+                  {/* Help Guide Link */}
+                  <div className="mt-3">
+                    <a 
+                      href="/PLATINUM_GUIDE.md" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-teal-primary/10 hover:bg-teal-primary/20 border border-teal-primary/30 hover:border-teal-primary/50 rounded-lg text-teal-primary text-sm font-bold transition-all"
+                    >
+                      <span className="text-lg">📖</span>
+                      <span>Complete User Guide - Read This First!</span>
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -211,18 +224,30 @@ export default function PlatinumPage() {
             </div>
 
             {/* Stats bar */}
-            <div className="mt-6 flex flex-wrap items-center gap-6 text-sm">
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-sm">
               <div className="flex items-center gap-2 text-purple-400">
                 <PackageIcon />
-                <span className="font-bold">4 Complete Profit Packs</span>
+                <span className="font-bold">4 Profit Packs</span>
               </div>
               <div className="flex items-center gap-2 text-cash-green">
                 <CalendarIcon />
-                <span className="font-bold">120 Days of Content</span>
+                <span className="font-bold">120 Posts</span>
               </div>
               <div className="flex items-center gap-2 text-gold-400">
                 <FireIcon />
-                <span className="font-bold">8 High-Ticket Products</span>
+                <span className="font-bold">8 High-Ticket</span>
+              </div>
+              <div className="flex items-center gap-2 text-pink-primary">
+                <span className="text-lg">⚔️</span>
+                <span className="font-bold">4 Battles</span>
+              </div>
+              <div className="flex items-center gap-2 text-teal-primary">
+                <span className="text-lg">🏆</span>
+                <span className="font-bold">2 Best-Of</span>
+              </div>
+              <div className="flex items-center gap-2 text-emerald-primary">
+                <span className="text-lg">⚡</span>
+                <span className="font-bold">6 Boosters</span>
               </div>
             </div>
           </div>
