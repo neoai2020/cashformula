@@ -53,15 +53,6 @@ const CashIcon = () => (
   </svg>
 );
 
-const RocketIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-    <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-  </svg>
-);
-
 const VideoIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <polygon points="5,3 19,12 5,21" />
@@ -151,24 +142,22 @@ export default function Sidebar() {
         onClick={() => setIsMobileOpen(false)}
         className={`relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${
           active
-            ? 'bg-neon-cyan/10 text-neon-cyan'
+            ? 'bg-violet-DEFAULT/10 text-violet-DEFAULT'
             : item.highlight
-            ? 'text-pink-neon/80 hover:bg-navy-800 hover:text-pink-neon'
+            ? 'text-teal-DEFAULT/80 hover:bg-navy-800 hover:text-teal-DEFAULT'
             : 'text-navy-400 hover:bg-navy-800 hover:text-white'
         }`}
-        style={active ? { boxShadow: '0 0 20px rgba(0, 245, 255, 0.15)' } : {}}
       >
         {active && (
           <motion.div
             layoutId="nav-active"
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-neon-cyan to-purple-neon rounded-r-full"
-            style={{ boxShadow: '0 0 10px rgba(0, 245, 255, 0.8)' }}
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-violet-DEFAULT to-indigo-DEFAULT rounded-r-full"
           />
         )}
         <Icon />
         <span className="flex-1 text-sm font-medium leading-tight">{item.name}</span>
         {item.badge && (
-          <span className="px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-neon-cyan to-purple-neon text-navy-950 rounded-full uppercase">
+          <span className="px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white rounded-full uppercase">
             {item.badge}
           </span>
         )}
@@ -181,8 +170,7 @@ export default function Sidebar() {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
-        className="fixed top-4 left-4 z-50 lg:hidden p-2 rounded-xl bg-navy-800/80 border border-neon-cyan/30 backdrop-blur-sm"
-        style={{ boxShadow: '0 0 15px rgba(0, 245, 255, 0.2)' }}
+        className="fixed top-4 left-4 z-50 lg:hidden p-2 rounded-xl bg-navy-800/80 border border-violet-DEFAULT/20 backdrop-blur-sm"
       >
         {isMobileOpen ? <CloseIcon /> : <MenuIcon />}
       </button>
@@ -190,7 +178,7 @@ export default function Sidebar() {
       {/* Overlay */}
       {isMobileOpen && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-md z-40 lg:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setIsMobileOpen(false)}
         />
       )}
@@ -201,7 +189,7 @@ export default function Sidebar() {
           isMobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="h-full flex flex-col glass-panel border-r border-neon-cyan/10">
+        <div className="h-full flex flex-col glass-panel border-r border-violet-DEFAULT/8">
           {/* Logo */}
           <div className="p-5">
             <Link href="/app">
@@ -211,7 +199,7 @@ export default function Sidebar() {
 
           {/* Menu label */}
           <div className="px-6 py-2">
-            <span className="text-[10px] font-semibold text-neon-cyan/60 uppercase tracking-wider">Menu</span>
+            <span className="text-[10px] font-semibold text-navy-500 uppercase tracking-wider">Menu</span>
           </div>
 
           {/* Navigation */}
@@ -227,7 +215,7 @@ export default function Sidebar() {
 
             {/* Premium Features */}
             <div className="px-4 py-3 mt-6">
-              <span className="text-[10px] font-semibold text-purple-neon uppercase tracking-wider flex items-center gap-2">
+              <span className="text-[10px] font-semibold text-violet-DEFAULT uppercase tracking-wider flex items-center gap-2">
                 <GoldIcon />
                 Premium Features
               </span>
@@ -242,7 +230,7 @@ export default function Sidebar() {
             </ul>
 
             {/* Resources */}
-            <div className="my-4 border-t border-neon-cyan/10" />
+            <div className="my-4 border-t border-violet-DEFAULT/8" />
             <ul className="space-y-1">
               {navItems.slice(5).map((item) => (
                 <li key={item.href}>
@@ -253,10 +241,10 @@ export default function Sidebar() {
           </nav>
 
           {/* Sign out */}
-          <div className="p-4 border-t border-neon-cyan/10">
+          <div className="p-4 border-t border-violet-DEFAULT/8">
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-navy-500 hover:bg-pink-neon/10 hover:text-pink-neon transition-all duration-300"
+              className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-navy-500 hover:bg-rose-DEFAULT/10 hover:text-rose-DEFAULT transition-all duration-300"
             >
               <LogoutIcon />
               <span className="text-sm font-medium">Sign Out</span>

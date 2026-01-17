@@ -23,7 +23,6 @@ export default function Logo({ className = '', size = 'md', showText = true }: L
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      style={{ filter: 'drop-shadow(0 0 10px rgba(0, 245, 255, 0.5))' }}
     >
       {/* CASH text */}
       <text
@@ -34,18 +33,18 @@ export default function Logo({ className = '', size = 'md', showText = true }: L
         fontWeight="800"
         letterSpacing="-1"
       >
-        <tspan fill="url(#neonGradient)">CASH</tspan>
+        <tspan fill="url(#elegantGradient)">CASH</tspan>
       </text>
       
       {/* Arrow pointing right and up */}
       <polygon
         points="155,5 240,5 240,45 200,45 200,25 175,25 175,45 155,45"
-        fill="url(#neonGradient)"
+        fill="url(#elegantGradient)"
       />
       {/* Arrow head */}
       <polygon
         points="200,0 240,0 240,5 205,5"
-        fill="url(#neonGradient)"
+        fill="url(#elegantGradient)"
       />
       
       {showText && (
@@ -57,18 +56,18 @@ export default function Logo({ className = '', size = 'md', showText = true }: L
           fontSize="32"
           fontWeight="800"
           letterSpacing="8"
-          fill="url(#neonGradient)"
+          fill="url(#elegantGradient)"
         >
           FORMULA
         </text>
       )}
       
-      {/* Neon gradient definitions */}
+      {/* Elegant gradient definitions */}
       <defs>
-        <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#00f5ff" />
-          <stop offset="50%" stopColor="#bf00ff" />
-          <stop offset="100%" stopColor="#ff00e5" />
+        <linearGradient id="elegantGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#a78bfa" />
+          <stop offset="50%" stopColor="#818cf8" />
+          <stop offset="100%" stopColor="#2dd4bf" />
         </linearGradient>
       </defs>
     </svg>
@@ -85,30 +84,29 @@ export function LogoIcon({ className = '', size = 32 }: { className?: string; si
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      style={{ filter: 'drop-shadow(0 0 8px rgba(0, 245, 255, 0.6))' }}
     >
       {/* Stylized CF with arrow */}
-      <rect x="0" y="0" width="40" height="40" rx="10" fill="url(#iconNeonGradient)" />
+      <rect x="0" y="0" width="40" height="40" rx="10" fill="url(#iconElegantGradient)" />
       <text
         x="6"
         y="28"
         fontFamily="system-ui, -apple-system, sans-serif"
         fontSize="20"
         fontWeight="800"
-        fill="#030014"
+        fill="#0c0a1d"
       >
         C
       </text>
       {/* Arrow */}
       <polygon
         points="20,10 36,10 36,18 28,18 28,14 24,14 24,30 20,30"
-        fill="#030014"
+        fill="#0c0a1d"
       />
       
       <defs>
-        <linearGradient id="iconNeonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#00f5ff" />
-          <stop offset="100%" stopColor="#bf00ff" />
+        <linearGradient id="iconElegantGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#a78bfa" />
+          <stop offset="100%" stopColor="#818cf8" />
         </linearGradient>
       </defs>
     </svg>

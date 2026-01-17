@@ -186,30 +186,27 @@ export default function DashboardPage() {
       value: totalPages,
       subtext: totalPages > 0 ? '🎉 Great start!' : 'Create your first!',
       icon: LayersIcon,
-      color: 'from-neon-cyan to-purple-neon',
-      bg: 'bg-neon-cyan/10',
-      border: 'border-neon-cyan/20',
-      glow: '0 0 20px rgba(0, 245, 255, 0.15)',
+      color: 'from-violet-DEFAULT to-indigo-DEFAULT',
+      bg: 'bg-violet-DEFAULT/10',
+      border: 'border-violet-DEFAULT/15',
     },
     {
       label: 'Est. Clicks',
       value: mounted ? dynamicStats.clicks.toLocaleString() : '—',
       subtext: '+12% this week',
       icon: EyeIcon,
-      color: 'from-cash-green to-neon-cyan',
-      bg: 'bg-cash-green/10',
-      border: 'border-cash-green/20',
-      glow: '0 0 20px rgba(0, 255, 136, 0.15)',
+      color: 'from-teal-DEFAULT to-cash-emerald',
+      bg: 'bg-teal-DEFAULT/10',
+      border: 'border-teal-DEFAULT/15',
     },
     {
       label: 'Potential Earnings',
       value: mounted ? `$${dynamicStats.revenue}` : '—',
       subtext: 'Keep building! 💰',
       icon: MoneyIcon,
-      color: 'from-purple-neon to-pink-neon',
-      bg: 'bg-purple-neon/10',
-      border: 'border-purple-neon/20',
-      glow: '0 0 20px rgba(191, 0, 255, 0.15)',
+      color: 'from-rose-DEFAULT to-violet-DEFAULT',
+      bg: 'bg-rose-DEFAULT/10',
+      border: 'border-rose-DEFAULT/15',
     },
   ];
 
@@ -218,23 +215,23 @@ export default function DashboardPage() {
       title: '🚀 Build New Page',
       description: 'Create a profit page in just 2 minutes',
       href: '/app/build',
-      color: 'from-neon-cyan to-purple-neon',
-      iconBg: 'bg-neon-cyan/20',
+      color: 'from-violet-DEFAULT to-indigo-DEFAULT',
+      iconBg: 'bg-violet-DEFAULT/15',
       highlight: true,
     },
     {
       title: '📱 Share & Promote',
       description: 'Get traffic to your pages instantly',
       href: '/app/traffic',
-      color: 'from-cash-green to-neon-cyan',
-      iconBg: 'bg-cash-green/20',
+      color: 'from-teal-DEFAULT to-cash-emerald',
+      iconBg: 'bg-teal-DEFAULT/15',
     },
     {
       title: '👑 Gold Package',
       description: 'Done-for-you premium pages',
       href: '/app/gold',
-      color: 'from-purple-neon to-pink-neon',
-      iconBg: 'bg-purple-neon/20',
+      color: 'from-rose-DEFAULT to-violet-DEFAULT',
+      iconBg: 'bg-rose-DEFAULT/15',
       badge: 'VIP',
     },
   ];
@@ -307,10 +304,10 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* Daily Checklist - NEW */}
-      <motion.div variants={item} className="glass-card rounded-2xl p-6 border border-neon-cyan/20">
+      <motion.div variants={item} className="glass-card rounded-2xl p-6 border border-violet-DEFAULT/15">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <span className="text-neon-cyan"><SparkleIcon /></span>
+            <span className="text-violet-DEFAULT"><SparkleIcon /></span>
             Today&apos;s Quick Wins
           </h2>
           <span className="text-sm text-navy-400">
@@ -350,7 +347,7 @@ export default function DashboardPage() {
             
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <button className="w-28 h-28 rounded-full bg-gradient-to-r from-neon-cyan to-purple-neon flex items-center justify-center text-navy-950 hover:scale-110 transition-all duration-300 mb-4 mx-auto group animate-pulse-glow" style={{ boxShadow: '0 0 40px rgba(0, 245, 255, 0.4)' }}>
+                <button className="w-28 h-28 rounded-full bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT flex items-center justify-center text-white hover:scale-105 transition-all duration-300 mb-4 mx-auto group animate-pulse-glow">
                   <PlayIcon />
                 </button>
                 <p className="text-white/80 text-base font-medium">Click to play video</p>
@@ -370,14 +367,14 @@ export default function DashboardPage() {
           </div>
           
           {/* Video Info */}
-          <div className="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-transparent to-neon-cyan/5">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-neon-cyan/20 border border-neon-cyan/30 rounded-full text-neon-cyan text-sm font-bold uppercase tracking-wider mb-4 w-fit">
-              <span className="w-2 h-2 bg-neon-cyan rounded-full animate-pulse" style={{ boxShadow: '0 0 10px rgba(0, 245, 255, 0.8)' }} />
+          <div className="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-transparent to-violet-DEFAULT/5">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-violet-DEFAULT/15 border border-violet-DEFAULT/25 rounded-full text-violet-DEFAULT text-sm font-bold uppercase tracking-wider mb-4 w-fit">
+              <span className="w-2 h-2 bg-violet-DEFAULT rounded-full animate-pulse" />
               Getting Started
             </div>
             
             <h3 className="text-2xl lg:text-3xl font-display font-bold text-white mb-4 leading-tight">
-              How to Make Your First <span className="text-neon-cyan">$100</span> Today
+              How to Make Your First <span className="text-violet-DEFAULT">$100</span> Today
             </h3>
             
             <p className="text-navy-300 mb-8 text-lg leading-relaxed">
@@ -411,7 +408,7 @@ export default function DashboardPage() {
         {/* Quick Actions */}
         <motion.div variants={item} className="lg:col-span-2 space-y-4">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <span className="w-3 h-3 bg-neon-cyan rounded-full" style={{ boxShadow: '0 0 10px rgba(0, 245, 255, 0.6)' }} />
+            <span className="w-3 h-3 bg-violet-DEFAULT rounded-full" />
             What Would You Like To Do?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -420,22 +417,22 @@ export default function DashboardPage() {
                 key={action.title}
                 href={action.href}
                 className={`glass-card glass-card-hover rounded-2xl p-6 group transition-all duration-300 relative overflow-hidden ${
-                  action.highlight ? 'border-2 border-neon-cyan/30' : ''
+                  action.highlight ? 'border border-violet-DEFAULT/25' : ''
                 }`}
               >
                 {action.badge && (
-                  <span className="absolute top-3 right-3 px-2 py-1 bg-gradient-to-r from-neon-cyan to-purple-neon text-navy-950 text-xs font-bold rounded-full">
+                  <span className="absolute top-3 right-3 px-2 py-1 bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white text-xs font-bold rounded-full">
                     {action.badge}
                   </span>
                 )}
                 <div className={`w-14 h-14 ${action.iconBg} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                   <div className={`w-4 h-4 rounded-full bg-gradient-to-r ${action.color}`} />
                 </div>
-                <h3 className="font-bold text-white mb-2 text-lg group-hover:text-neon-cyan transition-colors">
+                <h3 className="font-bold text-white mb-2 text-lg group-hover:text-violet-DEFAULT transition-colors">
                   {action.title}
                 </h3>
                 <p className="text-navy-400 text-base">{action.description}</p>
-                <div className="mt-4 flex items-center gap-2 text-neon-cyan text-base opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                <div className="mt-4 flex items-center gap-2 text-violet-DEFAULT text-base opacity-0 group-hover:opacity-100 transition-opacity font-medium">
                   <span>Get started</span>
                   <ArrowRightIcon />
                 </div>
@@ -462,7 +459,7 @@ export default function DashboardPage() {
                 animate={{ opacity: 1, x: 0 }}
                 className="flex items-center gap-4 p-3 bg-navy-800/30 rounded-xl"
               >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-neon-cyan to-purple-neon flex items-center justify-center text-navy-950 text-lg font-bold" style={{ boxShadow: '0 0 20px rgba(0, 245, 255, 0.4)' }}>
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-DEFAULT to-indigo-DEFAULT flex items-center justify-center text-white text-lg font-bold">
                   {activity.name[0]}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -489,19 +486,19 @@ export default function DashboardPage() {
             <span className="w-3 h-3 bg-purple-400 rounded-full" />
             Your Pages
           </h2>
-          <Link href="/app/pages" className="text-base text-neon-cyan hover:underline font-medium">
+          <Link href="/app/pages" className="text-base text-violet-DEFAULT hover:underline font-medium">
             View all →
           </Link>
         </div>
 
         {loading ? (
           <div className="glass-card rounded-2xl p-8 text-center">
-            <div className="w-10 h-10 border-3 border-neon-cyan border-t-transparent rounded-full animate-spin mx-auto" />
+            <div className="w-10 h-10 border-3 border-violet-DEFAULT border-t-transparent rounded-full animate-spin mx-auto" />
             <p className="text-navy-400 mt-4 text-lg">Loading your pages...</p>
           </div>
         ) : pages.length === 0 ? (
-          <div className="glass-card rounded-2xl p-10 text-center border-2 border-dashed border-neon-cyan/30">
-            <div className="w-20 h-20 bg-neon-cyan/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <div className="glass-card rounded-2xl p-10 text-center border-2 border-dashed border-violet-DEFAULT/25">
+            <div className="w-20 h-20 bg-violet-DEFAULT/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <LayersIcon />
             </div>
             <h3 className="text-2xl font-bold text-white mb-3">No pages yet</h3>
@@ -524,7 +521,7 @@ export default function DashboardPage() {
                 className="glass-card glass-card-hover rounded-2xl p-6 group transition-all duration-300"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 bg-neon-cyan/10 rounded-xl flex items-center justify-center text-neon-cyan">
+                  <div className="w-12 h-12 bg-violet-DEFAULT/10 rounded-xl flex items-center justify-center text-violet-DEFAULT">
                     <LayersIcon />
                   </div>
                   <span className={`px-3 py-1 text-sm rounded-full font-medium ${
@@ -535,7 +532,7 @@ export default function DashboardPage() {
                     {page.status === 'published' ? '✓ Live' : page.status}
                   </span>
                 </div>
-                <h3 className="font-semibold text-white line-clamp-2 mb-3 text-lg group-hover:text-neon-cyan transition-colors">
+                <h3 className="font-semibold text-white line-clamp-2 mb-3 text-lg group-hover:text-violet-DEFAULT transition-colors">
                   {page.title}
                 </h3>
                 <p className="text-base text-navy-500">
@@ -550,7 +547,7 @@ export default function DashboardPage() {
       {/* Support Card */}
       <motion.div variants={item} className="glass-card rounded-2xl p-6">
         <div className="flex items-start gap-5">
-          <div className="w-14 h-14 bg-neon-cyan/20 rounded-xl flex items-center justify-center text-neon-cyan shrink-0" style={{ boxShadow: '0 0 20px rgba(0, 245, 255, 0.2)' }}>
+          <div className="w-14 h-14 bg-violet-DEFAULT/15 rounded-xl flex items-center justify-center text-violet-DEFAULT shrink-0">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
@@ -565,8 +562,7 @@ export default function DashboardPage() {
               href="https://cashformula.zendesk.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-neon-cyan to-purple-neon hover:from-neon-cyan hover:to-neon-cyan text-navy-950 rounded-lg font-bold transition-all"
-              style={{ boxShadow: '0 0 20px rgba(0, 245, 255, 0.3)' }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT hover:from-violet-dark hover:to-indigo-dark text-white rounded-lg font-bold transition-all"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="2" y="4" width="20" height="16" rx="2" />

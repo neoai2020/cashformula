@@ -53,15 +53,15 @@ export default function LandingPage() {
   ];
 
   const steps = [
-    { icon: BuildIcon, title: 'Build', desc: 'Create AI-powered profit pages in minutes', color: 'cyan' },
-    { icon: ShareIcon, title: 'Share', desc: 'Post on social media with one click', color: 'purple' },
-    { icon: CashIcon, title: 'Earn', desc: 'Get commissions when people buy', color: 'green' },
+    { icon: BuildIcon, title: 'Build', desc: 'Create AI-powered profit pages in minutes', color: 'violet' },
+    { icon: ShareIcon, title: 'Share', desc: 'Post on social media with one click', color: 'teal' },
+    { icon: CashIcon, title: 'Earn', desc: 'Get commissions when people buy', color: 'rose' },
   ];
 
   const stepColors = {
-    cyan: { bg: 'bg-neon-cyan/10', text: 'text-neon-cyan', glow: '0 0 30px rgba(0, 245, 255, 0.3)' },
-    purple: { bg: 'bg-purple-neon/10', text: 'text-purple-neon', glow: '0 0 30px rgba(191, 0, 255, 0.3)' },
-    green: { bg: 'bg-cash-green/10', text: 'text-cash-green', glow: '0 0 30px rgba(0, 255, 136, 0.3)' },
+    violet: { bg: 'bg-violet-DEFAULT/10', text: 'text-violet-DEFAULT' },
+    teal: { bg: 'bg-teal-DEFAULT/10', text: 'text-teal-DEFAULT' },
+    rose: { bg: 'bg-rose-DEFAULT/10', text: 'text-rose-DEFAULT' },
   };
 
   return (
@@ -69,19 +69,18 @@ export default function LandingPage() {
       <div className="absolute inset-0 bg-mesh-gradient" />
       
       {/* Nav */}
-      <nav className="relative z-10 border-b border-neon-cyan/10">
+      <nav className="relative z-10 border-b border-violet-DEFAULT/8">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/">
             <Logo size="sm" />
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-navy-300 hover:text-neon-cyan transition-colors">
+            <Link href="/login" className="text-navy-300 hover:text-violet-DEFAULT transition-colors">
               Sign In
             </Link>
             <Link
               href="/signup"
-              className="bg-gradient-to-r from-neon-cyan to-purple-neon text-navy-950 font-semibold px-5 py-2.5 rounded-xl transition-all hover:scale-[1.02]"
-              style={{ boxShadow: '0 0 20px rgba(0, 245, 255, 0.3)' }}
+              className="bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white font-semibold px-5 py-2.5 rounded-xl transition-all hover:shadow-glow hover:translate-y-[-1px]"
             >
               Get Started
             </Link>
@@ -95,10 +94,9 @@ export default function LandingPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-neon-cyan/10 border border-neon-cyan/30 rounded-full text-neon-cyan text-sm font-medium mb-8"
-            style={{ boxShadow: '0 0 20px rgba(0, 245, 255, 0.15)' }}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-violet-DEFAULT/10 border border-violet-DEFAULT/20 rounded-full text-violet-DEFAULT text-sm font-medium mb-8"
           >
-            <span className="w-2 h-2 bg-cash-green rounded-full animate-pulse" style={{ boxShadow: '0 0 10px rgba(0, 255, 136, 0.8)' }} />
+            <span className="w-2 h-2 bg-cash-green rounded-full animate-pulse" />
             <span>Join 10,000+ affiliates earning daily</span>
           </motion.div>
           
@@ -109,7 +107,7 @@ export default function LandingPage() {
             className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-tight"
           >
             Turn Any Product Into a{' '}
-            <span className="neon-text">Profit Machine</span>
+            <span className="gradient-text">Profit Machine</span>
           </motion.h1>
           
           <motion.p
@@ -130,15 +128,14 @@ export default function LandingPage() {
           >
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-neon-cyan to-purple-neon text-navy-950 font-bold text-lg px-8 py-4 rounded-xl transition-all hover:scale-[1.02]"
-              style={{ boxShadow: '0 0 30px rgba(0, 245, 255, 0.4)' }}
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white font-bold text-lg px-8 py-4 rounded-xl transition-all hover:shadow-glow-lg hover:translate-y-[-1px]"
             >
               <span>Start Building Now</span>
               <ArrowRightIcon />
             </Link>
             <Link
               href="/login"
-              className="inline-flex items-center justify-center gap-2 bg-navy-800/50 border border-neon-cyan/30 text-white font-semibold text-lg px-8 py-4 rounded-xl hover:bg-neon-cyan/10 hover:border-neon-cyan/50 transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-navy-800/50 border border-violet-DEFAULT/20 text-white font-semibold text-lg px-8 py-4 rounded-xl hover:bg-violet-DEFAULT/10 hover:border-violet-DEFAULT/30 transition-all"
             >
               Sign In
             </Link>
@@ -173,7 +170,6 @@ export default function LandingPage() {
                 >
                   <div 
                     className={`w-16 h-16 ${colors.bg} rounded-2xl flex items-center justify-center mx-auto mb-6 ${colors.text}`}
-                    style={{ boxShadow: colors.glow }}
                   >
                     <Icon />
                   </div>
@@ -207,7 +203,6 @@ export default function LandingPage() {
                     >
                       <div 
                         className="w-6 h-6 bg-cash-green/20 rounded-full flex items-center justify-center text-cash-green flex-shrink-0"
-                        style={{ boxShadow: '0 0 10px rgba(0, 255, 136, 0.3)' }}
                       >
                         <CheckIcon />
                       </div>
@@ -218,11 +213,10 @@ export default function LandingPage() {
               </div>
               <div className="relative">
                 <div 
-                  className="aspect-square bg-navy-800/50 rounded-2xl flex items-center justify-center border border-neon-cyan/20"
-                  style={{ boxShadow: '0 0 60px rgba(0, 245, 255, 0.1), inset 0 0 60px rgba(0, 245, 255, 0.05)' }}
+                  className="aspect-square bg-navy-800/50 rounded-2xl flex items-center justify-center border border-violet-DEFAULT/15"
                 >
                   <div className="text-center">
-                    <div className="text-6xl font-display font-bold neon-text-green mb-2">
+                    <div className="text-6xl font-display font-bold gradient-text-teal mb-2">
                       $4,832
                     </div>
                     <p className="text-navy-400">Avg. monthly earnings</p>
@@ -245,8 +239,7 @@ export default function LandingPage() {
           </p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-neon-cyan via-purple-neon to-pink-neon text-navy-950 font-bold text-lg px-10 py-5 rounded-xl transition-all hover:scale-[1.02]"
-            style={{ boxShadow: '0 0 40px rgba(0, 245, 255, 0.4), 0 0 80px rgba(191, 0, 255, 0.2)' }}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-DEFAULT via-indigo-DEFAULT to-teal-DEFAULT text-white font-bold text-lg px-10 py-5 rounded-xl transition-all hover:shadow-glow-lg hover:translate-y-[-1px]"
           >
             <span>Create Free Account</span>
             <ArrowRightIcon />
@@ -255,7 +248,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-neon-cyan/10 py-8 px-6">
+      <footer className="relative border-t border-violet-DEFAULT/8 py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <Logo size="sm" showText={false} />
           <p className="text-navy-500 text-sm">

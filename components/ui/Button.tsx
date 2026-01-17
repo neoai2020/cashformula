@@ -4,7 +4,7 @@ import { forwardRef, ButtonHTMLAttributes } from 'react';
 import { motion } from 'framer-motion';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'neon-pink' | 'neon-purple';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'teal' | 'rose';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
 }
@@ -14,23 +14,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
-      primary: 'bg-gradient-to-r from-neon-cyan to-purple-neon text-navy-950 hover:scale-[1.02] active:scale-[0.98]',
-      secondary: 'bg-cash-green text-navy-950 hover:bg-cash-emerald',
+      primary: 'bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white hover:shadow-glow-lg hover:translate-y-[-1px] active:scale-[0.98]',
+      secondary: 'bg-cash-green text-navy-950 hover:bg-cash-emerald hover:shadow-glow-teal',
       ghost: 'bg-transparent text-navy-300 hover:bg-navy-800 hover:text-white',
-      outline: 'bg-transparent border border-neon-cyan/40 text-white hover:bg-neon-cyan/10 hover:border-neon-cyan',
+      outline: 'bg-transparent border border-violet-DEFAULT/30 text-white hover:bg-violet-DEFAULT/10 hover:border-violet-DEFAULT/50',
       danger: 'bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500/20',
-      'neon-pink': 'bg-gradient-to-r from-pink-neon to-purple-neon text-navy-950 hover:scale-[1.02] active:scale-[0.98]',
-      'neon-purple': 'bg-gradient-to-r from-purple-neon to-neon-cyan text-navy-950 hover:scale-[1.02] active:scale-[0.98]',
-    };
-
-    const shadows = {
-      primary: '0 0 20px rgba(0, 245, 255, 0.3), 0 0 40px rgba(0, 245, 255, 0.1)',
-      secondary: '0 0 20px rgba(0, 255, 136, 0.3)',
-      ghost: 'none',
-      outline: 'none',
-      danger: '0 0 20px rgba(239, 68, 68, 0.2)',
-      'neon-pink': '0 0 20px rgba(255, 0, 229, 0.3), 0 0 40px rgba(255, 0, 229, 0.1)',
-      'neon-purple': '0 0 20px rgba(191, 0, 255, 0.3), 0 0 40px rgba(191, 0, 255, 0.1)',
+      teal: 'bg-gradient-to-r from-teal-DEFAULT to-cash-emerald text-navy-950 hover:shadow-glow-teal hover:translate-y-[-1px] active:scale-[0.98]',
+      rose: 'bg-gradient-to-r from-rose-DEFAULT to-violet-DEFAULT text-white hover:shadow-glow-rose hover:translate-y-[-1px] active:scale-[0.98]',
     };
 
     const sizes = {
@@ -44,7 +34,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
         disabled={disabled || isLoading}
-        style={{ boxShadow: shadows[variant], ...style }}
+        style={style}
         {...props}
       >
         {isLoading && (
