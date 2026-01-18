@@ -25,12 +25,19 @@ import {
   Flame,
 } from 'lucide-react';
 import type { Page, AmazonReview } from '@/lib/types';
+import ComparisonPageTemplate from './ComparisonPageTemplate';
 
 interface PublicPageContentProps {
   page: Page;
 }
 
 export default function PublicPageContent({ page }: PublicPageContentProps) {
+  // Check page type and render appropriate template
+  if (page.page_type === 'comparison') {
+    return <ComparisonPageTemplate page={page} />;
+  }
+
+  // Default: Single product template
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState({ hours: 2, minutes: 47, seconds: 33 });
   const [viewerCount, setViewerCount] = useState(127);
