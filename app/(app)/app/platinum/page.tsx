@@ -883,7 +883,6 @@ export default function PlatinumPage() {
                         <span>{comparison.product1.rating}</span>
                       </div>
                     </div>
-                    <p className="text-xs text-center text-purple-primary/60">{(comparison.product1.reviews || 0).toLocaleString()} reviews</p>
                   </div>
 
                   {/* Product 2 */}
@@ -906,7 +905,6 @@ export default function PlatinumPage() {
                         <span>{comparison.product2.rating}</span>
                       </div>
                     </div>
-                    <p className="text-xs text-center text-purple-primary/60">{(comparison.product2.reviews || 0).toLocaleString()} reviews</p>
                   </div>
                 </div>
 

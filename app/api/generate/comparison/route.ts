@@ -38,7 +38,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate unique slug
-    const baseSlug = comparison.slug;
+    const baseSlug = comparison.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
     const timestamp = Date.now();
     const publicSlug = `${baseSlug}-${timestamp}`;
 
@@ -52,7 +55,7 @@ export async function POST(request: NextRequest) {
       public_slug: publicSlug,
       status: 'published',
       page_type: 'comparison',
-      hero_image: comparison.heroImage,
+      hero_image: comparison.product1.image, // Use product 1 image as hero
       conversion_boosters: boosters,
       
       // Product data includes both products for comparison
@@ -68,16 +71,12 @@ export async function POST(request: NextRequest) {
         winner: comparison.winner,
       },
 
-      // Generated content - full comparison article
+      // Generated content - store the simple comparison data
       generated_content: {
         type: 'comparison',
-        overview: comparison.generatedContent.overview,
-        comparisonTable: comparison.generatedContent.comparisonTable,
-        sections: comparison.generatedContent.sections,
-        product1Details: comparison.generatedContent.product1Details,
-        product2Details: comparison.generatedContent.product2Details,
-        finalVerdict: comparison.generatedContent.finalVerdict,
-        faq: comparison.generatedContent.faq,
+        verdict: comparison.verdict,
+        whenToChoose1: comparison.whenToChoose1,
+        whenToChoose2: comparison.whenToChoose2,
       },
 
       // Empty amazon_reviews for comparison pages
