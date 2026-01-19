@@ -790,66 +790,78 @@ export default function PlatinumPage() {
             </div>
 
             {/* Product Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {highTicketProducts.map((product) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {highTicketProducts.map((product, idx) => (
                 <motion.div
                   key={product.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="glass-card rounded-2xl overflow-hidden border border-pink-primary/20 hover:shadow-glow-pink transition-all group"
+                  transition={{ delay: idx * 0.05 }}
+                  className="glass-card rounded-3xl overflow-hidden border-2 border-pink-primary/20 hover:border-pink-primary/40 hover:shadow-glow-pink transition-all group"
                 >
-                  {/* Product Image */}
-                  <div className="relative aspect-square bg-gradient-to-br from-purple-primary/10 to-pink-primary/5 p-4 flex items-center justify-center">
-                    {product.isHot && (
-                      <div className="absolute top-3 right-3 px-3 py-1 bg-pink-primary rounded-full text-white text-xs font-bold flex items-center gap-1">
-                        <FireIcon />
-                        HOT
-                      </div>
-                    )}
-                    <img
-                      src={product.imageUrl}
-                      alt={product.title}
-                      className="w-40 h-40 object-contain"
-                    />
-                  </div>
-
-                  {/* Product Info */}
-                  <div className="p-4">
-                    <div className="text-xs text-purple-primary/60 mb-1">{product.category}</div>
-                    <h3 className="font-bold text-white mb-2 line-clamp-2 group-hover:text-pink-primary transition-colors">
-                      {product.title}
-                    </h3>
-
-                    {/* Rating */}
-                    <div className="flex items-center gap-1 mb-2">
-                      <div className="flex">
-                        {[...Array(Math.floor(product.rating))].map((_, i) => (
-                          <span key={i} className="text-emerald-primary">
-                            <StarIcon />
-                          </span>
-                        ))}
-                      </div>
-                      <span className="text-xs text-purple-primary/60">
-                        {product.rating} ({(product.reviews || 0).toLocaleString()})
-                      </span>
+                  <div className="flex flex-col md:flex-row">
+                    {/* Product Image */}
+                    <div className="relative md:w-2/5 bg-gradient-to-br from-purple-primary/10 to-pink-primary/5 p-8 flex items-center justify-center">
+                      {product.isHot && (
+                        <div className="absolute top-4 right-4 px-4 py-2 bg-gradient-to-r from-pink-primary to-rose-primary rounded-full text-white text-xs font-bold flex items-center gap-2 shadow-lg">
+                          <FireIcon />
+                          HOT DEAL
+                        </div>
+                      )}
+                      <img
+                        src={product.imageUrl}
+                        alt={product.title}
+                        className="w-full max-w-[240px] h-[240px] object-contain group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
 
-                    {/* Price & Commission */}
-                    <div className="pt-3 border-t border-purple-primary/20">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-white font-bold text-lg">{product.price}</span>
-                        <span className="text-emerald-primary font-bold text-sm">
-                          +{product.commission}
+                    {/* Product Info */}
+                    <div className="md:w-3/5 p-6 flex flex-col">
+                      <div className="inline-block self-start px-3 py-1 bg-pink-primary/20 text-pink-primary rounded-full text-xs font-bold mb-3 border border-pink-primary/30">
+                        {product.category}
+                      </div>
+                      
+                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-pink-primary transition-colors leading-tight">
+                        {product.title}
+                      </h3>
+
+                      {/* Rating */}
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="flex gap-0.5">
+                          {[...Array(Math.floor(product.rating))].map((_, i) => (
+                            <span key={i} className="text-emerald-primary text-lg">
+                              <StarIcon />
+                            </span>
+                          ))}
+                        </div>
+                        <span className="text-sm text-purple-primary/80 font-medium">
+                          {product.rating} • {(product.reviews || 0).toLocaleString()} reviews
                         </span>
                       </div>
-                      <a
-                        href={`https://www.amazon.com/dp/${product.asin}?tag=YOUR_TAG`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-secondary w-full text-center text-sm py-2"
-                      >
-                        View on Amazon <ExternalLinkIcon />
-                      </a>
+
+                      {/* Price & Commission */}
+                      <div className="mt-auto space-y-3">
+                        <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-primary/10 to-pink-primary/5 rounded-xl border border-purple-primary/20">
+                          <div>
+                            <p className="text-xs text-purple-primary/60 mb-1">Amazon Price</p>
+                            <p className="text-2xl font-bold text-white">{product.price}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-xs text-emerald-primary/80 mb-1">Your Commission</p>
+                            <p className="text-2xl font-bold text-emerald-primary">{product.commission}</p>
+                          </div>
+                        </div>
+                        
+                        <a
+                          href={`https://www.amazon.com/dp/${product.asin}?tag=YOUR_TAG`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-primary w-full flex items-center justify-center gap-2 text-base py-3 hover:scale-[1.02] active:scale-[0.98]"
+                        >
+                          View on Amazon
+                          <ExternalLinkIcon />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
