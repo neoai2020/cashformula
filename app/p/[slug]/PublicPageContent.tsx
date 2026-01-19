@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import type { AmazonReview } from '@/lib/types';
 import ComparisonPageTemplate from './ComparisonPageTemplate';
+import BestOfPageTemplate from './BestOfPageTemplate';
 
 // Public page data (subset of full Page type)
 interface PublicPage {
@@ -53,8 +54,17 @@ export default function PublicPageContent({ page }: PublicPageContentProps) {
   const [timeLeft, setTimeLeft] = useState({ hours: 2, minutes: 47, seconds: 33 });
   const [viewerCount, setViewerCount] = useState(127);
 
-  // Countdown timer
+  // Extract conversion boosters
+  const boosters = page.conversion_boosters || [];
+  const hasCountdown = boosters.includes('countdown');
+  const hasVisitors = boosters.includes('visitors');
+  const hasUrgencyBanner = boosters.includes('urgency-banner');
+  const hasTrustBadges = boosters.includes('trust-badges');
+  const hasRecentSales = boosters.includes('recent-sales');
+
+  // Countdown timer - only if enabled
   useEffect(() => {
+    if (!hasCountdown && !hasUrgencyBanner) return; // Only run if needed
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev.seconds > 0) {
@@ -68,19 +78,24 @@ export default function PublicPageContent({ page }: PublicPageContentProps) {
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [hasCountdown, hasUrgencyBanner]);
 
-  // Viewer count fluctuation
+  // Viewer count fluctuation - only if enabled
   useEffect(() => {
+    if (!hasVisitors) return;
     const interval = setInterval(() => {
-      setViewerCount(prev => prev + Math.floor(Math.random() * 5) - 2);
+      setViewerCount(prev => Math.max(100, prev + Math.floor(Math.random() * 5) - 2));
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [hasVisitors]);
 
   // Check page type and render appropriate template
   if (page.page_type === 'comparison') {
     return <ComparisonPageTemplate page={page} />;
+  }
+
+  if (page.page_type === 'bestof') {
+    return <BestOfPageTemplate page={page} />;
   }
 
   // Default: Single product template
@@ -123,25 +138,35 @@ export default function PublicPageContent({ page }: PublicPageContentProps) {
 
   return (
     <div className="min-h-screen bg-[#0a0a0f]">
-      {/* Urgency Banner */}
-      <div className="bg-gradient-to-r from-red-600 via-orange-500 to-red-600 text-white py-3 px-4">
-        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-4 text-sm md:text-base font-medium">
-          <div className="flex items-center gap-2">
-            <Flame className="w-5 h-5 animate-pulse" />
-            <span>LIMITED TIME DEAL</span>
+      {/* Urgency Banner - Only shows if conversion booster enabled */}
+      {hasUrgencyBanner && (
+        <motion.div
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          className="bg-gradient-to-r from-red-600 via-orange-500 to-red-600 text-white py-3 px-4 sticky top-0 z-50"
+        >
+          <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-4 text-sm md:text-base font-medium">
+            <div className="flex items-center gap-2">
+              <Flame className="w-5 h-5 animate-pulse" />
+              <span>LIMITED TIME DEAL</span>
+            </div>
+            {hasCountdown && (
+              <div className="flex items-center gap-2 bg-black/20 px-4 py-1 rounded-full">
+                <Clock className="w-4 h-4" />
+                <span className="font-mono">
+                  {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
+                </span>
+              </div>
+            )}
+            {hasVisitors && (
+              <div className="flex items-center gap-2 bg-black/20 px-4 py-1 rounded-full">
+                <Users className="w-4 h-4" />
+                <span>{viewerCount} people viewing this</span>
+              </div>
+            )}
           </div>
-          <div className="flex items-center gap-2 bg-black/20 px-4 py-1 rounded-full">
-            <Clock className="w-4 h-4" />
-            <span className="font-mono">
-              {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Users className="w-4 h-4" />
-            <span>{viewerCount} people viewing this</span>
-          </div>
-        </div>
-      </div>
+        </motion.div>
+      )}
 
       {/* Hero Section */}
       <section className="relative py-8 lg:py-16 overflow-hidden">
