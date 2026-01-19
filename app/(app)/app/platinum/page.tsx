@@ -141,6 +141,8 @@ export default function PlatinumPage() {
   const [visiblePosts, setVisiblePosts] = useState<number>(6);
   const [expandedProduct, setExpandedProduct] = useState<string | null>(null);
   const [copiedCaption, setCopiedCaption] = useState<string | null>(null);
+  const [selectedHighTicket, setSelectedHighTicket] = useState<any | null>(null);
+  const [showHighTicketModal, setShowHighTicketModal] = useState(false);
   
   // Modal states
   const [showAffiliateModal, setShowAffiliateModal] = useState(false);
@@ -202,6 +204,44 @@ export default function PlatinumPage() {
       });
       setModalType('seasonal');
       setShowMultiProductModal(true);
+    }
+  };
+
+  const handleOpenHighTicketModal = (product: any) => {
+    setSelectedHighTicket(product);
+    setShowHighTicketModal(true);
+  };
+
+  const handleGenerateHighTicket = async (affiliateLink: string, boosters: string[]) => {
+    if (!selectedHighTicket) return;
+    
+    setGenerating(true);
+    try {
+      const response = await fetch('/api/generate/highticket', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId: selectedHighTicket.id,
+          affiliateLink,
+          boosters,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to generate page');
+      }
+
+      setCreatedPageUrl(result.page.url);
+      setShowHighTicketModal(false);
+      setShowSuccessModal(true);
+      setShowConfetti(true);
+    } catch (error) {
+      console.error('Generate high-ticket page error:', error);
+      alert(error instanceof Error ? error.message : 'Failed to generate page');
+    } finally {
+      setGenerating(false);
     }
   };
 
@@ -798,295 +838,80 @@ export default function PlatinumPage() {
             </div>
 
             {/* Product Grid */}
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {highTicketProducts.map((product, idx) => (
                 <motion.div
                   key={product.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="glass-card rounded-2xl overflow-hidden border-2 border-pink-primary/20 hover:border-pink-primary/40 transition-all"
+                  className="glass-card rounded-2xl overflow-hidden border-2 border-pink-primary/30 hover:border-pink-primary transition-all hover:shadow-glow-pink group"
                 >
-                  {/* Clickable Header */}
-                  <button
-                    onClick={() => setExpandedProduct(expandedProduct === product.id ? null : product.id)}
-                    className="w-full p-5 flex items-center gap-5 text-left hover:bg-pink-primary/5 transition-colors"
-                  >
-                    {/* Product Image */}
-                    <div className="relative flex-shrink-0 w-24 h-24 bg-gradient-to-br from-purple-primary/20 to-pink-primary/10 rounded-xl flex items-center justify-center">
-                      {product.isHot && (
-                        <div className="absolute -top-2 -right-2 px-2 py-1 bg-gradient-to-r from-pink-primary to-rose-primary rounded-full text-white text-[10px] font-bold shadow-lg">
-                          🔥 HOT
-                        </div>
-                      )}
-                      <img
-                        src={product.imageUrl}
-                        alt={product.title}
-                        className="w-20 h-20 object-contain"
-                      />
-                    </div>
-
-                    {/* Product Info */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="px-2 py-0.5 bg-pink-primary/20 text-pink-primary rounded text-xs font-bold">
-                          {product.category}
-                        </span>
-                        <div className="flex items-center gap-1 text-emerald-primary text-sm">
-                          <StarIcon />
-                          <span>{product.rating}</span>
-                        </div>
+                  {/* Product Image */}
+                  <div className="relative bg-gradient-to-br from-purple-primary/20 to-pink-primary/10 p-6 flex items-center justify-center">
+                    {product.isHot && (
+                      <div className="absolute top-4 left-4 px-3 py-1.5 bg-gradient-to-r from-pink-primary to-rose-primary rounded-full text-white text-xs font-bold shadow-lg flex items-center gap-1.5">
+                        🔥 HOT SELLER
                       </div>
-                      <h3 className="font-bold text-white text-lg mb-1 truncate">
-                        {product.title}
-                      </h3>
-                      <div className="flex items-center gap-4">
-                        <span className="text-xl font-bold text-white">{product.price}</span>
-                        <span className="text-lg font-bold text-emerald-primary">+{product.commission}</span>
-                      </div>
-                    </div>
-
-                    {/* Expand Arrow */}
-                    <div className={`flex-shrink-0 w-10 h-10 rounded-full bg-pink-primary/20 flex items-center justify-center transition-transform ${expandedProduct === product.id ? 'rotate-180' : ''}`}>
-                      <ChevronIcon />
-                    </div>
-                  </button>
-
-                  {/* Expanded Content */}
-                  <AnimatePresence>
-                    {expandedProduct === product.id && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="p-5 pt-0 space-y-6">
-                          {/* Divider */}
-                          <div className="border-t border-pink-primary/20" />
-
-                          {/* Quick Actions */}
-                          <div className="flex flex-wrap gap-3">
-                            <a
-                              href={`https://www.amazon.com/dp/${product.asin}?tag=YOUR_TAG`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="btn-primary flex items-center gap-2 px-5 py-3"
-                            >
-                              <ExternalLinkIcon />
-                              View on Amazon
-                            </a>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                copyToClipboard(`https://www.amazon.com/dp/${product.asin}?tag=YOUR_TAG`, `link-${product.id}`);
-                              }}
-                              className="btn-outline flex items-center gap-2 px-5 py-3"
-                            >
-                              {copiedCaption === `link-${product.id}` ? <CheckIcon /> : <CopyIcon />}
-                              {copiedCaption === `link-${product.id}` ? 'Copied!' : 'Copy Link'}
-                            </button>
-                          </div>
-
-                          {/* Profit Page Content */}
-                          <div className="bg-gradient-to-br from-purple-primary/10 to-pink-primary/5 rounded-xl p-5 border border-purple-primary/20">
-                            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                              📄 Ready-to-Use Profit Page Content
-                            </h4>
-                            
-                            {/* Headline */}
-                            <div className="mb-4">
-                              <div className="flex items-center justify-between mb-2">
-                                <span className="text-xs text-pink-primary font-bold uppercase">Headline</span>
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    copyToClipboard(product.profitPage.headline, `headline-${product.id}`);
-                                  }}
-                                  className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
-                                >
-                                  {copiedCaption === `headline-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
-                                </button>
-                              </div>
-                              <p className="text-white font-bold text-xl">{product.profitPage.headline}</p>
-                            </div>
-
-                            {/* Overview */}
-                            <div className="mb-4">
-                              <div className="flex items-center justify-between mb-2">
-                                <span className="text-xs text-pink-primary font-bold uppercase">Overview</span>
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    copyToClipboard(product.profitPage.overview, `overview-${product.id}`);
-                                  }}
-                                  className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
-                                >
-                                  {copiedCaption === `overview-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
-                                </button>
-                              </div>
-                              <p className="text-purple-primary/80 text-sm leading-relaxed">{product.profitPage.overview}</p>
-                            </div>
-
-                            {/* Pros & Cons */}
-                            <div className="grid md:grid-cols-2 gap-4 mb-4">
-                              <div>
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-xs text-emerald-primary font-bold uppercase">✓ Pros</span>
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      copyToClipboard(product.profitPage.pros.join('\n'), `pros-${product.id}`);
-                                    }}
-                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
-                                  >
-                                    {copiedCaption === `pros-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
-                                  </button>
-                                </div>
-                                <ul className="space-y-1">
-                                  {product.profitPage.pros.map((pro, i) => (
-                                    <li key={i} className="text-sm text-purple-primary/70 flex items-start gap-2">
-                                      <span className="text-emerald-primary mt-0.5">✓</span>
-                                      {pro}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                              <div>
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-xs text-rose-primary font-bold uppercase">✗ Cons</span>
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      copyToClipboard(product.profitPage.cons.join('\n'), `cons-${product.id}`);
-                                    }}
-                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
-                                  >
-                                    {copiedCaption === `cons-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
-                                  </button>
-                                </div>
-                                <ul className="space-y-1">
-                                  {product.profitPage.cons.map((con, i) => (
-                                    <li key={i} className="text-sm text-purple-primary/70 flex items-start gap-2">
-                                      <span className="text-rose-primary mt-0.5">✗</span>
-                                      {con}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </div>
-
-                            {/* Verdict */}
-                            <div className="mb-4">
-                              <div className="flex items-center justify-between mb-2">
-                                <span className="text-xs text-teal-primary font-bold uppercase">Final Verdict</span>
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    copyToClipboard(product.profitPage.verdict, `verdict-${product.id}`);
-                                  }}
-                                  className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
-                                >
-                                  {copiedCaption === `verdict-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
-                                </button>
-                              </div>
-                              <p className="text-purple-primary/80 text-sm leading-relaxed bg-teal-primary/10 p-3 rounded-lg border border-teal-primary/20">{product.profitPage.verdict}</p>
-                            </div>
-
-                            {/* Copy All Button */}
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                const allContent = `${product.profitPage.headline}\n\n${product.profitPage.overview}\n\nPROS:\n${product.profitPage.pros.map(p => '✓ ' + p).join('\n')}\n\nCONS:\n${product.profitPage.cons.map(c => '✗ ' + c).join('\n')}\n\nVERDICT:\n${product.profitPage.verdict}`;
-                                copyToClipboard(allContent, `all-${product.id}`);
-                              }}
-                              className="w-full btn-primary py-3 flex items-center justify-center gap-2"
-                            >
-                              {copiedCaption === `all-${product.id}` ? <><CheckIcon /> Copied All Content!</> : <><CopyIcon /> Copy All Page Content</>}
-                            </button>
-                          </div>
-
-                          {/* Social Media Captions */}
-                          <div className="bg-gradient-to-br from-pink-primary/10 to-purple-primary/5 rounded-xl p-5 border border-pink-primary/20">
-                            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                              📱 Social Media Captions
-                            </h4>
-                            
-                            <div className="grid md:grid-cols-2 gap-4">
-                              {/* Facebook */}
-                              <div className="bg-deep-space-black/30 rounded-lg p-4 border border-purple-primary/10">
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-bold text-blue-400 flex items-center gap-2">📘 Facebook</span>
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      copyToClipboard(product.socialCaptions.facebook, `fb-${product.id}`);
-                                    }}
-                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
-                                  >
-                                    {copiedCaption === `fb-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
-                                  </button>
-                                </div>
-                                <p className="text-purple-primary/70 text-sm line-clamp-3">{product.socialCaptions.facebook}</p>
-                              </div>
-
-                              {/* Instagram */}
-                              <div className="bg-deep-space-black/30 rounded-lg p-4 border border-purple-primary/10">
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-bold text-pink-400 flex items-center gap-2">📸 Instagram</span>
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      copyToClipboard(product.socialCaptions.instagram, `ig-${product.id}`);
-                                    }}
-                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
-                                  >
-                                    {copiedCaption === `ig-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
-                                  </button>
-                                </div>
-                                <p className="text-purple-primary/70 text-sm line-clamp-3">{product.socialCaptions.instagram}</p>
-                              </div>
-
-                              {/* Twitter */}
-                              <div className="bg-deep-space-black/30 rounded-lg p-4 border border-purple-primary/10">
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-bold text-sky-400 flex items-center gap-2">🐦 Twitter/X</span>
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      copyToClipboard(product.socialCaptions.twitter, `tw-${product.id}`);
-                                    }}
-                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
-                                  >
-                                    {copiedCaption === `tw-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
-                                  </button>
-                                </div>
-                                <p className="text-purple-primary/70 text-sm line-clamp-3">{product.socialCaptions.twitter}</p>
-                              </div>
-
-                              {/* TikTok */}
-                              <div className="bg-deep-space-black/30 rounded-lg p-4 border border-purple-primary/10">
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-bold text-purple-400 flex items-center gap-2">🎵 TikTok</span>
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      copyToClipboard(product.socialCaptions.tiktok, `tt-${product.id}`);
-                                    }}
-                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
-                                  >
-                                    {copiedCaption === `tt-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
-                                  </button>
-                                </div>
-                                <p className="text-purple-primary/70 text-sm line-clamp-3">{product.socialCaptions.tiktok}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
                     )}
-                  </AnimatePresence>
+                    <img
+                      src={product.imageUrl}
+                      alt={product.title}
+                      className="w-48 h-48 object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+
+                  {/* Product Info */}
+                  <div className="p-6">
+                    {/* Category & Rating */}
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="px-3 py-1 bg-pink-primary/20 text-pink-primary rounded-full text-xs font-bold border border-pink-primary/30">
+                        {product.category}
+                      </span>
+                      <div className="flex items-center gap-1.5 text-emerald-primary">
+                        <StarIcon />
+                        <span className="font-bold">{product.rating}</span>
+                        <span className="text-purple-primary/60 text-sm">({(product.reviews || 0).toLocaleString()})</span>
+                      </div>
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="font-bold text-white text-xl mb-4 line-clamp-2 group-hover:text-pink-primary transition-colors">
+                      {product.title}
+                    </h3>
+
+                    {/* Price & Commission Box */}
+                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-emerald-primary/10 to-teal-primary/5 rounded-xl border border-emerald-primary/30 mb-5">
+                      <div>
+                        <p className="text-xs text-purple-primary/60 mb-1">Price</p>
+                        <p className="text-2xl font-bold text-white">{product.price}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-emerald-primary mb-1">Your Commission</p>
+                        <p className="text-2xl font-bold text-emerald-primary">{product.commission}</p>
+                      </div>
+                    </div>
+
+                    {/* CTA Button - GENERATE PAGE */}
+                    <button
+                      onClick={() => handleOpenHighTicketModal(product)}
+                      className="w-full py-4 px-6 bg-gradient-to-r from-pink-primary to-purple-primary text-white font-bold text-lg rounded-xl hover:shadow-glow-pink hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3"
+                    >
+                      <span className="text-2xl">🚀</span>
+                      Generate Profit Page
+                    </button>
+
+                    {/* Secondary Link */}
+                    <a
+                      href={`https://www.amazon.com/dp/${product.asin}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full mt-3 py-3 px-6 border-2 border-purple-primary/30 text-purple-primary font-medium rounded-xl hover:bg-purple-primary/10 transition-all flex items-center justify-center gap-2"
+                    >
+                      <ExternalLinkIcon />
+                      Preview on Amazon
+                    </a>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -1837,6 +1662,148 @@ export default function PlatinumPage() {
         productName={modalType === 'seasonal' ? selectedSeasonal?.productName || '' : ''}
         loading={generating}
       />
+
+      {/* High-Ticket Product Modal */}
+      <AnimatePresence>
+        {showHighTicketModal && selectedHighTicket && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => !generating && setShowHighTicketModal(false)}
+              className="fixed inset-0 bg-deep-space-black/90 backdrop-blur-md z-[9999]"
+            />
+            <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 overflow-y-auto">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="glass-card rounded-2xl w-full max-w-xl my-8 border-2 border-pink-primary/30 shadow-2xl"
+              >
+                {/* Header */}
+                <div className="p-6 border-b border-pink-primary/20">
+                  <div className="flex items-start gap-4">
+                    <img
+                      src={selectedHighTicket.imageUrl}
+                      alt={selectedHighTicket.title}
+                      className="w-20 h-20 object-contain bg-purple-primary/10 rounded-xl"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h2 className="text-xl font-bold text-white mb-1">
+                        Generate Profit Page
+                      </h2>
+                      <p className="text-purple-primary/70 text-sm truncate">
+                        {selectedHighTicket.title}
+                      </p>
+                      <div className="flex items-center gap-3 mt-2">
+                        <span className="text-white font-bold">{selectedHighTicket.price}</span>
+                        <span className="text-emerald-primary font-bold">+{selectedHighTicket.commission}</span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => !generating && setShowHighTicketModal(false)}
+                      disabled={generating}
+                      className="p-2 hover:bg-purple-primary/10 rounded-lg transition-colors text-purple-primary hover:text-white disabled:opacity-50"
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Form */}
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    const affiliateLink = formData.get('affiliateLink') as string;
+                    const boosters = Array.from(formData.getAll('boosters')) as string[];
+                    if (affiliateLink) {
+                      handleGenerateHighTicket(affiliateLink, boosters);
+                    }
+                  }}
+                  className="p-6 space-y-6"
+                >
+                  {/* Affiliate Link Input */}
+                  <div>
+                    <label className="block text-sm font-bold text-white mb-2">
+                      Your Amazon Affiliate Link *
+                    </label>
+                    <input
+                      name="affiliateLink"
+                      type="url"
+                      required
+                      placeholder={`https://www.amazon.com/dp/${selectedHighTicket.asin}?tag=YOUR-TAG`}
+                      className="w-full px-4 py-3 bg-deep-space-black/50 border-2 border-purple-primary/30 rounded-xl text-white placeholder-purple-primary/40 focus:border-pink-primary focus:outline-none transition-colors"
+                      disabled={generating}
+                    />
+                    <p className="text-xs text-purple-primary/60 mt-2">
+                      Replace YOUR-TAG with your Amazon Associates tag
+                    </p>
+                  </div>
+
+                  {/* Conversion Boosters */}
+                  <div>
+                    <label className="block text-sm font-bold text-white mb-3">
+                      ⚡ Conversion Boosters (Optional)
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { id: 'countdown', label: '⏰ Countdown Timer' },
+                        { id: 'visitors', label: '👥 Live Visitors' },
+                        { id: 'recent-sales', label: '💰 Recent Sales' },
+                        { id: 'urgency', label: '🔥 Urgency Banner' },
+                        { id: 'trust-badges', label: '✅ Trust Badges' },
+                        { id: 'exit-popup', label: '🚪 Exit Intent' },
+                      ].map((booster) => (
+                        <label
+                          key={booster.id}
+                          className="flex items-center gap-2 p-3 bg-purple-primary/10 rounded-lg border border-purple-primary/20 cursor-pointer hover:bg-purple-primary/20 transition-colors"
+                        >
+                          <input
+                            type="checkbox"
+                            name="boosters"
+                            value={booster.id}
+                            disabled={generating}
+                            className="w-4 h-4 rounded border-purple-primary/50 text-pink-primary focus:ring-pink-primary bg-deep-space-black"
+                          />
+                          <span className="text-sm text-white">{booster.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={generating}
+                    className="w-full py-4 px-6 bg-gradient-to-r from-pink-primary to-purple-primary text-white font-bold text-lg rounded-xl hover:shadow-glow-pink hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {generating ? (
+                      <>
+                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                        </svg>
+                        Generating Page...
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-xl">🚀</span>
+                        Generate My Profit Page
+                      </>
+                    )}
+                  </button>
+                </form>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
 
       <SuccessModal
         isOpen={showSuccessModal}
