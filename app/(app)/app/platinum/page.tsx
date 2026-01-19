@@ -892,27 +892,24 @@ export default function PlatinumPage() {
                       </div>
 
                       {/* CTA Button - GENERATE PAGE */}
-                      <Button
-                        variant="primary"
-                        size="lg"
+                      <button
+                        type="button"
                         onClick={() => {
-                          console.log('Generate clicked for:', product.title);
                           setSelectedHighTicket(product);
                           setShowHighTicketModal(true);
                         }}
-                        className="w-full mb-3"
+                        className="w-full mb-3 py-4 px-6 bg-gradient-to-r from-pink-primary to-purple-primary text-white font-bold text-lg rounded-xl shadow-lg shadow-pink-primary/30 hover:shadow-pink-primary/50 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 cursor-pointer"
                       >
-                        <span className="text-xl mr-2">🚀</span>
+                        <span className="text-2xl">🚀</span>
                         Generate Profit Page
-                      </Button>
+                      </button>
 
                       {/* Secondary Link - View on Amazon */}
                       <a
                         href={amazonUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => console.log('Opening Amazon:', amazonUrl)}
-                        className="block w-full py-3 px-6 border-2 border-purple-primary/40 text-purple-primary font-medium rounded-xl hover:bg-purple-primary/10 hover:border-purple-primary transition-all text-center"
+                        className="block w-full py-3 px-6 bg-purple-primary/10 border-2 border-purple-primary/40 text-purple-primary font-bold rounded-xl hover:bg-purple-primary/20 hover:border-purple-primary transition-all text-center cursor-pointer"
                       >
                         <span className="inline-flex items-center justify-center gap-2">
                           <ExternalLinkIcon />
