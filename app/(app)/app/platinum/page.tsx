@@ -52,6 +52,12 @@ const FireIcon = () => (
   </svg>
 );
 
+const ChevronIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);
+
 const TrendUpIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <polyline points="23,6 13.5,15.5 8.5,10.5 1,18" />
@@ -133,6 +139,8 @@ export default function PlatinumPage() {
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [activeTab, setActiveTab] = useState<'packs' | 'products' | 'comparisons' | 'bestof' | 'calendar' | 'boosters'>('packs');
   const [visiblePosts, setVisiblePosts] = useState<number>(6);
+  const [expandedProduct, setExpandedProduct] = useState<string | null>(null);
+  const [copiedCaption, setCopiedCaption] = useState<string | null>(null);
   
   // Modal states
   const [showAffiliateModal, setShowAffiliateModal] = useState(false);
@@ -145,6 +153,12 @@ export default function PlatinumPage() {
   const [createdPageUrl, setCreatedPageUrl] = useState('');
   const [modalType, setModalType] = useState<'comparison' | 'bestof' | 'seasonal'>('comparison');
 
+  const copyToClipboard = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCaption(id);
+    setTimeout(() => setCopiedCaption(null), 2000);
+  };
+
   useEffect(() => {
     const visited = localStorage.getItem('platinum_visited');
     if (!visited) {
@@ -154,12 +168,6 @@ export default function PlatinumPage() {
     }
   }, []);
 
-  const copyToClipboard = (text: string, id: string) => {
-    const fullText = text;
-    navigator.clipboard.writeText(fullText);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
-  };
 
   const copyPostWithHashtags = (post: DayContent, packId: string) => {
     const fullText = `${post.caption}\n\n${post.hashtags}`;
@@ -790,80 +798,295 @@ export default function PlatinumPage() {
             </div>
 
             {/* Product Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
               {highTicketProducts.map((product, idx) => (
                 <motion.div
                   key={product.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="glass-card rounded-3xl overflow-hidden border-2 border-pink-primary/20 hover:border-pink-primary/40 hover:shadow-glow-pink transition-all group"
+                  className="glass-card rounded-2xl overflow-hidden border-2 border-pink-primary/20 hover:border-pink-primary/40 transition-all"
                 >
-                  <div className="flex flex-col md:flex-row">
+                  {/* Clickable Header */}
+                  <button
+                    onClick={() => setExpandedProduct(expandedProduct === product.id ? null : product.id)}
+                    className="w-full p-5 flex items-center gap-5 text-left hover:bg-pink-primary/5 transition-colors"
+                  >
                     {/* Product Image */}
-                    <div className="relative md:w-2/5 bg-gradient-to-br from-purple-primary/10 to-pink-primary/5 p-8 flex items-center justify-center">
+                    <div className="relative flex-shrink-0 w-24 h-24 bg-gradient-to-br from-purple-primary/20 to-pink-primary/10 rounded-xl flex items-center justify-center">
                       {product.isHot && (
-                        <div className="absolute top-4 right-4 px-4 py-2 bg-gradient-to-r from-pink-primary to-rose-primary rounded-full text-white text-xs font-bold flex items-center gap-2 shadow-lg">
-                          <FireIcon />
-                          HOT DEAL
+                        <div className="absolute -top-2 -right-2 px-2 py-1 bg-gradient-to-r from-pink-primary to-rose-primary rounded-full text-white text-[10px] font-bold shadow-lg">
+                          🔥 HOT
                         </div>
                       )}
                       <img
                         src={product.imageUrl}
                         alt={product.title}
-                        className="w-full max-w-[240px] h-[240px] object-contain group-hover:scale-105 transition-transform duration-300"
+                        className="w-20 h-20 object-contain"
                       />
                     </div>
 
                     {/* Product Info */}
-                    <div className="md:w-3/5 p-6 flex flex-col">
-                      <div className="inline-block self-start px-3 py-1 bg-pink-primary/20 text-pink-primary rounded-full text-xs font-bold mb-3 border border-pink-primary/30">
-                        {product.category}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="px-2 py-0.5 bg-pink-primary/20 text-pink-primary rounded text-xs font-bold">
+                          {product.category}
+                        </span>
+                        <div className="flex items-center gap-1 text-emerald-primary text-sm">
+                          <StarIcon />
+                          <span>{product.rating}</span>
+                        </div>
                       </div>
-                      
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-pink-primary transition-colors leading-tight">
+                      <h3 className="font-bold text-white text-lg mb-1 truncate">
                         {product.title}
                       </h3>
-
-                      {/* Rating */}
-                      <div className="flex items-center gap-2 mb-4">
-                        <div className="flex gap-0.5">
-                          {[...Array(Math.floor(product.rating))].map((_, i) => (
-                            <span key={i} className="text-emerald-primary text-lg">
-                              <StarIcon />
-                            </span>
-                          ))}
-                        </div>
-                        <span className="text-sm text-purple-primary/80 font-medium">
-                          {product.rating} • {(product.reviews || 0).toLocaleString()} reviews
-                        </span>
-                      </div>
-
-                      {/* Price & Commission */}
-                      <div className="mt-auto space-y-3">
-                        <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-primary/10 to-pink-primary/5 rounded-xl border border-purple-primary/20">
-                          <div>
-                            <p className="text-xs text-purple-primary/60 mb-1">Amazon Price</p>
-                            <p className="text-2xl font-bold text-white">{product.price}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xs text-emerald-primary/80 mb-1">Your Commission</p>
-                            <p className="text-2xl font-bold text-emerald-primary">{product.commission}</p>
-                          </div>
-                        </div>
-                        
-                        <a
-                          href={`https://www.amazon.com/dp/${product.asin}?tag=YOUR_TAG`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-primary w-full flex items-center justify-center gap-2 text-base py-3 hover:scale-[1.02] active:scale-[0.98]"
-                        >
-                          View on Amazon
-                          <ExternalLinkIcon />
-                        </a>
+                      <div className="flex items-center gap-4">
+                        <span className="text-xl font-bold text-white">{product.price}</span>
+                        <span className="text-lg font-bold text-emerald-primary">+{product.commission}</span>
                       </div>
                     </div>
-                  </div>
+
+                    {/* Expand Arrow */}
+                    <div className={`flex-shrink-0 w-10 h-10 rounded-full bg-pink-primary/20 flex items-center justify-center transition-transform ${expandedProduct === product.id ? 'rotate-180' : ''}`}>
+                      <ChevronIcon />
+                    </div>
+                  </button>
+
+                  {/* Expanded Content */}
+                  <AnimatePresence>
+                    {expandedProduct === product.id && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="p-5 pt-0 space-y-6">
+                          {/* Divider */}
+                          <div className="border-t border-pink-primary/20" />
+
+                          {/* Quick Actions */}
+                          <div className="flex flex-wrap gap-3">
+                            <a
+                              href={`https://www.amazon.com/dp/${product.asin}?tag=YOUR_TAG`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="btn-primary flex items-center gap-2 px-5 py-3"
+                            >
+                              <ExternalLinkIcon />
+                              View on Amazon
+                            </a>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                copyToClipboard(`https://www.amazon.com/dp/${product.asin}?tag=YOUR_TAG`, `link-${product.id}`);
+                              }}
+                              className="btn-outline flex items-center gap-2 px-5 py-3"
+                            >
+                              {copiedCaption === `link-${product.id}` ? <CheckIcon /> : <CopyIcon />}
+                              {copiedCaption === `link-${product.id}` ? 'Copied!' : 'Copy Link'}
+                            </button>
+                          </div>
+
+                          {/* Profit Page Content */}
+                          <div className="bg-gradient-to-br from-purple-primary/10 to-pink-primary/5 rounded-xl p-5 border border-purple-primary/20">
+                            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                              📄 Ready-to-Use Profit Page Content
+                            </h4>
+                            
+                            {/* Headline */}
+                            <div className="mb-4">
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs text-pink-primary font-bold uppercase">Headline</span>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    copyToClipboard(product.profitPage.headline, `headline-${product.id}`);
+                                  }}
+                                  className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
+                                >
+                                  {copiedCaption === `headline-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
+                                </button>
+                              </div>
+                              <p className="text-white font-bold text-xl">{product.profitPage.headline}</p>
+                            </div>
+
+                            {/* Overview */}
+                            <div className="mb-4">
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs text-pink-primary font-bold uppercase">Overview</span>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    copyToClipboard(product.profitPage.overview, `overview-${product.id}`);
+                                  }}
+                                  className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
+                                >
+                                  {copiedCaption === `overview-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
+                                </button>
+                              </div>
+                              <p className="text-purple-primary/80 text-sm leading-relaxed">{product.profitPage.overview}</p>
+                            </div>
+
+                            {/* Pros & Cons */}
+                            <div className="grid md:grid-cols-2 gap-4 mb-4">
+                              <div>
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-xs text-emerald-primary font-bold uppercase">✓ Pros</span>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      copyToClipboard(product.profitPage.pros.join('\n'), `pros-${product.id}`);
+                                    }}
+                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
+                                  >
+                                    {copiedCaption === `pros-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
+                                  </button>
+                                </div>
+                                <ul className="space-y-1">
+                                  {product.profitPage.pros.map((pro, i) => (
+                                    <li key={i} className="text-sm text-purple-primary/70 flex items-start gap-2">
+                                      <span className="text-emerald-primary mt-0.5">✓</span>
+                                      {pro}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                              <div>
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-xs text-rose-primary font-bold uppercase">✗ Cons</span>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      copyToClipboard(product.profitPage.cons.join('\n'), `cons-${product.id}`);
+                                    }}
+                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
+                                  >
+                                    {copiedCaption === `cons-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
+                                  </button>
+                                </div>
+                                <ul className="space-y-1">
+                                  {product.profitPage.cons.map((con, i) => (
+                                    <li key={i} className="text-sm text-purple-primary/70 flex items-start gap-2">
+                                      <span className="text-rose-primary mt-0.5">✗</span>
+                                      {con}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+
+                            {/* Verdict */}
+                            <div className="mb-4">
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs text-teal-primary font-bold uppercase">Final Verdict</span>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    copyToClipboard(product.profitPage.verdict, `verdict-${product.id}`);
+                                  }}
+                                  className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
+                                >
+                                  {copiedCaption === `verdict-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
+                                </button>
+                              </div>
+                              <p className="text-purple-primary/80 text-sm leading-relaxed bg-teal-primary/10 p-3 rounded-lg border border-teal-primary/20">{product.profitPage.verdict}</p>
+                            </div>
+
+                            {/* Copy All Button */}
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                const allContent = `${product.profitPage.headline}\n\n${product.profitPage.overview}\n\nPROS:\n${product.profitPage.pros.map(p => '✓ ' + p).join('\n')}\n\nCONS:\n${product.profitPage.cons.map(c => '✗ ' + c).join('\n')}\n\nVERDICT:\n${product.profitPage.verdict}`;
+                                copyToClipboard(allContent, `all-${product.id}`);
+                              }}
+                              className="w-full btn-primary py-3 flex items-center justify-center gap-2"
+                            >
+                              {copiedCaption === `all-${product.id}` ? <><CheckIcon /> Copied All Content!</> : <><CopyIcon /> Copy All Page Content</>}
+                            </button>
+                          </div>
+
+                          {/* Social Media Captions */}
+                          <div className="bg-gradient-to-br from-pink-primary/10 to-purple-primary/5 rounded-xl p-5 border border-pink-primary/20">
+                            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                              📱 Social Media Captions
+                            </h4>
+                            
+                            <div className="grid md:grid-cols-2 gap-4">
+                              {/* Facebook */}
+                              <div className="bg-deep-space-black/30 rounded-lg p-4 border border-purple-primary/10">
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-bold text-blue-400 flex items-center gap-2">📘 Facebook</span>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      copyToClipboard(product.socialCaptions.facebook, `fb-${product.id}`);
+                                    }}
+                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
+                                  >
+                                    {copiedCaption === `fb-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
+                                  </button>
+                                </div>
+                                <p className="text-purple-primary/70 text-sm line-clamp-3">{product.socialCaptions.facebook}</p>
+                              </div>
+
+                              {/* Instagram */}
+                              <div className="bg-deep-space-black/30 rounded-lg p-4 border border-purple-primary/10">
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-bold text-pink-400 flex items-center gap-2">📸 Instagram</span>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      copyToClipboard(product.socialCaptions.instagram, `ig-${product.id}`);
+                                    }}
+                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
+                                  >
+                                    {copiedCaption === `ig-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
+                                  </button>
+                                </div>
+                                <p className="text-purple-primary/70 text-sm line-clamp-3">{product.socialCaptions.instagram}</p>
+                              </div>
+
+                              {/* Twitter */}
+                              <div className="bg-deep-space-black/30 rounded-lg p-4 border border-purple-primary/10">
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-bold text-sky-400 flex items-center gap-2">🐦 Twitter/X</span>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      copyToClipboard(product.socialCaptions.twitter, `tw-${product.id}`);
+                                    }}
+                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
+                                  >
+                                    {copiedCaption === `tw-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
+                                  </button>
+                                </div>
+                                <p className="text-purple-primary/70 text-sm line-clamp-3">{product.socialCaptions.twitter}</p>
+                              </div>
+
+                              {/* TikTok */}
+                              <div className="bg-deep-space-black/30 rounded-lg p-4 border border-purple-primary/10">
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-bold text-purple-400 flex items-center gap-2">🎵 TikTok</span>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      copyToClipboard(product.socialCaptions.tiktok, `tt-${product.id}`);
+                                    }}
+                                    className="text-xs text-purple-primary hover:text-white transition-colors flex items-center gap-1"
+                                  >
+                                    {copiedCaption === `tt-${product.id}` ? <><CheckIcon /> Copied!</> : <><CopyIcon /> Copy</>}
+                                  </button>
+                                </div>
+                                <p className="text-purple-primary/70 text-sm line-clamp-3">{product.socialCaptions.tiktok}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               ))}
             </div>
