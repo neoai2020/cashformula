@@ -227,7 +227,7 @@ export default function DashboardPage() {
       iconBg: 'bg-cyan-DEFAULT/15',
     },
     {
-      title: '👑 DFY Vault',
+      title: '👑 Gold Package',
       description: 'Done-for-you premium pages',
       href: '/app/gold',
       color: 'from-gold-DEFAULT to-gold-bright',
@@ -254,7 +254,7 @@ export default function DashboardPage() {
       <motion.div variants={item} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl sm:text-4xl font-display font-bold text-white">
-            Welcome to Your P55 Account{userName ? `, ${userName}` : ''}!
+            Welcome{userName ? `, ${userName}` : ''}! 👋
           </h1>
           <p className="text-gray-400 mt-2 text-lg">
             {totalPages === 0 
@@ -379,11 +379,11 @@ export default function DashboardPage() {
             </div>
             
             <h3 className="text-2xl lg:text-3xl font-display font-bold text-white mb-4 leading-tight">
-              Watch This Video To Get Started
+              How to Make Your First <span className="text-teal-DEFAULT">$100</span> Today
             </h3>
             
             <p className="text-gray-400 mb-8 text-lg leading-relaxed">
-              This 5-minute video shows you exactly how to use your P55 Account
+              Watch this quick training to create your first profit page and start earning commissions within 24 hours.
             </p>
             
             <div className="space-y-4">
@@ -391,8 +391,18 @@ export default function DashboardPage() {
                 href="/app/training"
                 className="btn-gold btn-large w-full sm:w-auto inline-flex items-center justify-center gap-3"
               >
-                Click Here To Learn How
+                <PlayIcon />
+                <span>Watch Now</span>
               </Link>
+              
+              <div className="flex items-center gap-6 text-base text-gray-400">
+                <span className="flex items-center gap-2">
+                  ⏱️ 5 min watch
+                </span>
+                <span className="flex items-center gap-2">
+                  👀 12.5k views
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -439,10 +449,10 @@ export default function DashboardPage() {
         {/* What's Happening Right Now */}
         <motion.div variants={item} className="space-y-4">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            📊 What&apos;s Happening Inside P55 Right Now
+            📊 What&apos;s Happening Right Now
           </h2>
           <div className="glass-card rounded-2xl p-5 space-y-4">
-            <p className="text-gray-500 text-sm">Members are generating real results every single day through their P55 Accounts.</p>
+            <p className="text-gray-500 text-sm">Members are generating real results every single day through their accounts.</p>
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-navy-800/30 rounded-xl p-4 text-center">
                 <p className="text-xs text-gray-500 mb-1">📄 Articles Today</p>

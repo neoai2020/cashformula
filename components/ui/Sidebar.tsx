@@ -102,17 +102,17 @@ const CloseIcon = () => (
 
 const navItems = [
   { name: 'Dashboard', href: '/app', icon: DashboardIcon },
-  { name: 'Build P55 Page', href: '/app/build', icon: BuildIcon },
-  { name: 'Your P55 Pages', href: '/app/pages', icon: PagesIcon },
+  { name: 'Build Page', href: '/app/build', icon: BuildIcon },
+  { name: 'Your Pages', href: '/app/pages', icon: PagesIcon },
   { name: 'Share & Promote', href: '/app/traffic', icon: ShareIcon },
-  { name: 'Instant Cash Injection', href: '/app/system', icon: CashIcon, highlight: true },
-  { name: 'P55 Training', href: '/app/training', icon: VideoIcon },
-  { name: 'Settings', href: '/app/support', icon: SettingsIcon },
+  { name: 'New System To Make $1,000 To $5,000 Per Day', href: '/app/system', icon: CashIcon, highlight: true },
+  { name: 'Training Videos', href: '/app/training', icon: VideoIcon },
+  { name: 'Support', href: '/app/support', icon: SettingsIcon },
 ];
 
 const premiumItems = [
-  { name: 'DFY Vault', href: '/app/gold', icon: GoldIcon, badge: 'Premium' },
-  { name: 'Instant Income', href: '/app/platinum', icon: BoltIcon, badge: 'Premium' },
+  { name: 'Gold Package', href: '/app/gold', icon: GoldIcon, badge: 'Premium' },
+  { name: 'Platinum Package', href: '/app/platinum', icon: BoltIcon, badge: 'Premium' },
 ];
 
 export default function Sidebar() {

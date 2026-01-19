@@ -25,7 +25,7 @@ export default function Logo({ className = '', size = 'md', showText = true }: L
       className={className}
       style={{ filter: 'drop-shadow(0 0 20px rgba(16, 185, 129, 0.5))' }}
     >
-      {/* P55 text */}
+      {/* CASH text */}
       <text
         x="0"
         y="38"
@@ -34,32 +34,32 @@ export default function Logo({ className = '', size = 'md', showText = true }: L
         fontWeight="800"
         letterSpacing="-1"
       >
-        <tspan fill="url(#premiumGradient)">P55</tspan>
+        <tspan fill="url(#premiumGradient)">CASH</tspan>
       </text>
       
       {/* Arrow pointing right and up */}
       <polygon
-        points="110,5 180,5 180,45 145,45 145,25 130,25 130,45 110,45"
+        points="155,5 240,5 240,45 200,45 200,25 175,25 175,45 155,45"
         fill="url(#premiumGradient)"
       />
       {/* Arrow head */}
       <polygon
-        points="150,0 180,0 180,5 155,5"
+        points="200,0 240,0 240,5 205,5"
         fill="url(#premiumGradient)"
       />
       
       {showText && (
-        /* Account text */
+        /* FORMULA text */
         <text
           x="0"
           y="72"
           fontFamily="system-ui, -apple-system, sans-serif"
-          fontSize="28"
-          fontWeight="600"
-          letterSpacing="2"
-          fill="#6b7280"
+          fontSize="32"
+          fontWeight="800"
+          letterSpacing="8"
+          fill="url(#premiumGradient)"
         >
-          Account
+          FORMULA
         </text>
       )}
       
@@ -87,21 +87,21 @@ export function LogoIcon({ className = '', size = 32 }: { className?: string; si
       className={className}
       style={{ filter: 'drop-shadow(0 0 12px rgba(16, 185, 129, 0.6))' }}
     >
-      {/* Stylized P with background */}
+      {/* Stylized CF with background */}
       <rect x="0" y="0" width="40" height="40" rx="10" fill="url(#iconPremiumGradient)" />
       <text
-        x="8"
+        x="6"
         y="28"
         fontFamily="system-ui, -apple-system, sans-serif"
-        fontSize="22"
+        fontSize="20"
         fontWeight="800"
         fill="#050510"
       >
-        P
+        C
       </text>
       {/* Arrow */}
       <polygon
-        points="22,10 36,10 36,18 30,18 30,14 26,14 26,30 22,30"
+        points="20,10 36,10 36,18 28,18 28,14 24,14 24,30 20,30"
         fill="#050510"
       />
       
