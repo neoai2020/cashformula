@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Button from './Button';
-import Input from './Input';
 
 interface ConversionBooster {
   id: string;
@@ -22,7 +20,7 @@ interface AffiliateModalProps {
   }) => void;
   title: string;
   productName1: string;
-  productName2?: string; // Optional for single product pages
+  productName2?: string;
   type: 'single' | 'comparison';
   loading?: boolean;
 }
@@ -66,13 +64,6 @@ const CONVERSION_BOOSTERS: ConversionBooster[] = [
   },
 ];
 
-const CloseIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <line x1="18" y1="6" x2="6" y2="18" />
-    <line x1="6" y1="6" x2="18" y2="18" />
-  </svg>
-);
-
 export default function AffiliateModal({
   isOpen,
   onClose,
@@ -99,7 +90,6 @@ export default function AffiliateModal({
   const handleGenerate = () => {
     setError('');
 
-    // Validation
     if (!affiliateLink1.trim()) {
       setError(`Please enter your affiliate link for ${productName1}`);
       return;
@@ -110,7 +100,6 @@ export default function AffiliateModal({
       return;
     }
 
-    // Validate URL format (basic)
     const urlPattern = /^https?:\/\/.+/;
     if (!urlPattern.test(affiliateLink1)) {
       setError('Please enter a valid URL starting with http:// or https://');
@@ -143,143 +132,142 @@ export default function AffiliateModal({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - darker for better contrast */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 bg-deep-space-black/90 backdrop-blur-md z-[9999]"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999]"
           />
 
-          {/* Modal */}
+          {/* Modal - SOLID WHITE BACKGROUND for readability */}
           <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 overflow-y-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="glass-card rounded-2xl w-full max-w-3xl my-8 border-2 border-purple-primary/30 shadow-2xl shadow-purple-primary/20"
+              className="bg-white rounded-3xl w-full max-w-2xl my-8 shadow-2xl border-4 border-purple-600"
             >
-              {/* Header */}
-              <div className="glass-card border-b border-purple-primary/20 p-6 flex items-start justify-between">
-                <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-white mb-1">
-                    Generate Profit Page
-                  </h2>
-                  <p className="text-purple-primary/70 text-sm">{title}</p>
+              {/* Header - Purple gradient */}
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-t-2xl">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h2 className="text-3xl font-bold text-white mb-2">
+                      🚀 Generate Profit Page
+                    </h2>
+                    <p className="text-white/90 text-lg">{title}</p>
+                  </div>
+                  <button
+                    onClick={handleClose}
+                    disabled={loading}
+                    className="flex-shrink-0 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors disabled:opacity-50 text-white"
+                    aria-label="Close"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
                 </div>
-                <button
-                  onClick={handleClose}
-                  disabled={loading}
-                  className="flex-shrink-0 p-2 hover:bg-purple-primary/10 rounded-lg transition-colors disabled:opacity-50 text-purple-primary hover:text-white"
-                  aria-label="Close"
-                >
-                  <CloseIcon />
-                </button>
               </div>
 
-              {/* Content */}
-              <div className="p-6 space-y-6 max-h-[calc(90vh-200px)] overflow-y-auto">
+              {/* Content - White background with dark text */}
+              <div className="p-8 space-y-8 max-h-[60vh] overflow-y-auto">
                 {/* Affiliate Links Section */}
-                <div className="space-y-4">
+                <div className="space-y-5">
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                      <span className="text-2xl">🔗</span>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-3">
+                      <span className="text-3xl">🔗</span>
                       Add Your Affiliate Links
                     </h3>
-                    <p className="text-sm text-purple-primary/60">
+                    <p className="text-lg text-gray-600">
                       Add your Amazon affiliate links to earn commissions when people buy
                     </p>
                   </div>
 
                   {/* Product 1 Link */}
                   <div>
-                    <label className="block text-sm font-bold text-purple-primary mb-2">
+                    <label className="block text-lg font-bold text-gray-800 mb-3">
                       {productName1} Affiliate Link
                     </label>
-                    <Input
+                    <input
+                      type="url"
                       value={affiliateLink1}
                       onChange={(e) => setAffiliateLink1(e.target.value)}
                       placeholder="https://www.amazon.com/dp/ASIN?tag=your-tag-20"
                       disabled={loading}
-                      className="w-full"
+                      className="w-full px-5 py-4 text-lg border-3 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-200 outline-none transition-all bg-gray-50 text-gray-900 placeholder-gray-400"
                     />
                   </div>
 
                   {/* Product 2 Link (for comparisons) */}
                   {type === 'comparison' && productName2 && (
                     <div>
-                      <label className="block text-sm font-bold text-purple-primary mb-2">
+                      <label className="block text-lg font-bold text-gray-800 mb-3">
                         {productName2} Affiliate Link
                       </label>
-                      <Input
+                      <input
+                        type="url"
                         value={affiliateLink2}
                         onChange={(e) => setAffiliateLink2(e.target.value)}
                         placeholder="https://www.amazon.com/dp/ASIN?tag=your-tag-20"
                         disabled={loading}
-                        className="w-full"
+                        className="w-full px-5 py-4 text-lg border-3 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-200 outline-none transition-all bg-gray-50 text-gray-900 placeholder-gray-400"
                       />
                     </div>
                   )}
 
                   {/* Helper Text */}
-                  <div className="bg-teal-primary/10 border border-teal-primary/30 rounded-lg p-4">
-                    <p className="text-xs text-teal-primary font-bold mb-2">
+                  <div className="bg-green-50 border-2 border-green-300 rounded-xl p-5">
+                    <p className="text-base font-bold text-green-800 mb-3">
                       💡 HOW TO GET YOUR AFFILIATE LINK:
                     </p>
-                    <ol className="text-xs text-purple-primary/70 space-y-1 list-decimal list-inside">
+                    <ol className="text-base text-green-700 space-y-2 list-decimal list-inside">
                       <li>Go to Amazon Associates and search for the product</li>
                       <li>Click &quot;Get Link&quot; and copy the text link</li>
                       <li>Paste it above</li>
-                      <li>Your tag will automatically be included in the link</li>
                     </ol>
                   </div>
                 </div>
 
                 {/* Conversion Boosters Section */}
-                <div className="space-y-4">
+                <div className="space-y-5">
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                      <span className="text-2xl">⚡</span>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-3">
+                      <span className="text-3xl">⚡</span>
                       Conversion Boosters (Optional)
                     </h3>
-                    <p className="text-sm text-purple-primary/60">
+                    <p className="text-lg text-gray-600">
                       Add these elements to increase your page&apos;s conversion rate
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {CONVERSION_BOOSTERS.map((booster) => (
                       <button
                         key={booster.id}
                         type="button"
                         onClick={() => toggleBooster(booster.id)}
                         disabled={loading}
-                        className={`text-left p-4 rounded-lg border-2 transition-all cursor-pointer ${
+                        className={`text-left p-5 rounded-xl border-3 transition-all cursor-pointer ${
                           selectedBoosters.includes(booster.id)
-                            ? 'border-purple-primary bg-purple-primary/20 shadow-lg shadow-purple-primary/10'
-                            : 'border-purple-primary/20 bg-purple-primary/5 hover:border-purple-primary/40 hover:bg-purple-primary/10'
+                            ? 'border-purple-500 bg-purple-50 shadow-lg'
+                            : 'border-gray-200 bg-gray-50 hover:border-purple-300 hover:bg-purple-50/50'
                         } disabled:opacity-50 disabled:cursor-not-allowed`}
                       >
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-4">
                           {/* Checkbox */}
                           <div
-                            className={`flex-shrink-0 w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${
+                            className={`flex-shrink-0 w-7 h-7 rounded-lg border-3 flex items-center justify-center transition-all ${
                               selectedBoosters.includes(booster.id)
-                                ? 'border-purple-primary bg-purple-primary'
-                                : 'border-purple-primary/40'
+                                ? 'border-purple-500 bg-purple-500'
+                                : 'border-gray-300 bg-white'
                             }`}
                           >
                             {selectedBoosters.includes(booster.id) && (
-                              <svg
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="white"
-                                strokeWidth="3"
-                              >
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4">
                                 <polyline points="20,6 9,17 4,12" />
                               </svg>
                             )}
@@ -287,10 +275,10 @@ export default function AffiliateModal({
 
                           {/* Content */}
                           <div className="flex-1">
-                            <div className="font-bold text-white text-sm mb-1">
+                            <div className="font-bold text-gray-900 text-lg mb-1">
                               {booster.name}
                             </div>
-                            <div className="text-xs text-purple-primary/60">
+                            <div className="text-base text-gray-600">
                               {booster.description}
                             </div>
                           </div>
@@ -298,51 +286,44 @@ export default function AffiliateModal({
                       </button>
                     ))}
                   </div>
-
-                  <div className="bg-purple-primary/10 border border-purple-primary/30 rounded-lg p-3">
-                    <p className="text-xs text-purple-primary">
-                      <span className="font-bold">Selected: {selectedBoosters.length}/6 boosters.</span>
-                      {' '}These will be automatically added to your profit page to help increase conversions.
-                    </p>
-                  </div>
                 </div>
 
                 {/* Error Message */}
                 {error && (
-                  <div className="bg-rose-primary/10 border border-rose-primary/30 rounded-lg p-4">
-                    <p className="text-sm text-rose-primary font-bold">{error}</p>
+                  <div className="bg-red-50 border-2 border-red-300 rounded-xl p-5">
+                    <p className="text-lg text-red-700 font-bold">{error}</p>
                   </div>
                 )}
+              </div>
 
-                {/* Actions */}
-                <div className="flex gap-3 pt-4">
-                  <Button
-                    variant="outline"
-                    onClick={handleClose}
-                    disabled={loading}
-                    className="flex-1"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    variant="primary"
-                    onClick={handleGenerate}
-                    disabled={loading}
-                    className="flex-1"
-                  >
-                    {loading ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
-                        Generating...
-                      </>
-                    ) : (
-                      <>
-                        <span className="text-xl">🚀</span>
-                        Generate Page
-                      </>
-                    )}
-                  </Button>
-                </div>
+              {/* Footer - Actions */}
+              <div className="p-6 bg-gray-50 rounded-b-2xl border-t-2 border-gray-200 flex gap-4">
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  disabled={loading}
+                  className="flex-1 py-4 px-6 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xl rounded-xl transition-all disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleGenerate}
+                  disabled={loading}
+                  className="flex-1 py-4 px-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xl rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-3"
+                >
+                  {loading ? (
+                    <>
+                      <div className="animate-spin rounded-full h-6 w-6 border-3 border-white border-t-transparent" />
+                      Generating...
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-2xl">🚀</span>
+                      Generate Page
+                    </>
+                  )}
+                </button>
               </div>
             </motion.div>
           </div>

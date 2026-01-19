@@ -42,6 +42,8 @@ export async function GET(
         amazon_reviews: page.amazon_reviews,
         generated_content: page.generated_content,
         hero_image: page.hero_image,
+        page_type: page.page_type || 'single_product',
+        conversion_boosters: page.conversion_boosters || [],
       },
     });
   } catch (error) {

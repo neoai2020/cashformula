@@ -59,6 +59,7 @@ export async function POST(request: NextRequest) {
       title: list.title,
       keyword: list.category,
       asin: list.products[0].asin, // Primary product
+      geo: 'US', // Default geo
       affiliate_link: affiliateLinks[0], // Primary affiliate link
       public_slug: publicSlug,
       status: 'published',

@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
       title: comparison.title,
       keyword: comparison.category,
       asin: comparison.product1.asin, // Primary product
+      geo: 'US', // Default geo
       affiliate_link: affiliateLink1,
       public_slug: publicSlug,
       status: 'published',

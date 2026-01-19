@@ -63,6 +63,7 @@ export async function POST(request: NextRequest) {
       title: title,
       keyword: seasonal.theme,
       asin: asin,
+      geo: 'US', // Default geo
       affiliate_link: affiliateLink,
       public_slug: publicSlug,
       status: 'published',

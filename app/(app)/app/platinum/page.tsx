@@ -1669,7 +1669,7 @@ export default function PlatinumPage() {
         loading={generating}
       />
 
-      {/* High-Ticket Product Modal */}
+      {/* High-Ticket Product Modal - WHITE BACKGROUND for readability */}
       <AnimatePresence>
         {showHighTicketModal && selectedHighTicket && (
           <>
@@ -1678,7 +1678,7 @@ export default function PlatinumPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => !generating && setShowHighTicketModal(false)}
-              className="fixed inset-0 bg-deep-space-black/90 backdrop-blur-md z-[9999]"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999]"
             />
             <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 overflow-y-auto">
               <motion.div
@@ -1686,34 +1686,34 @@ export default function PlatinumPage() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="glass-card rounded-2xl w-full max-w-xl my-8 border-2 border-pink-primary/30 shadow-2xl"
+                className="bg-white rounded-3xl w-full max-w-2xl my-8 shadow-2xl border-4 border-purple-600"
               >
-                {/* Header */}
-                <div className="p-6 border-b border-pink-primary/20">
+                {/* Header - Purple gradient */}
+                <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-t-2xl">
                   <div className="flex items-start gap-4">
                     <img
                       src={selectedHighTicket.imageUrl}
                       alt={selectedHighTicket.title}
-                      className="w-20 h-20 object-contain bg-purple-primary/10 rounded-xl"
+                      className="w-24 h-24 object-contain bg-white rounded-xl p-2"
                     />
                     <div className="flex-1 min-w-0">
-                      <h2 className="text-xl font-bold text-white mb-1">
-                        Generate Profit Page
+                      <h2 className="text-3xl font-bold text-white mb-2">
+                        🚀 Generate Profit Page
                       </h2>
-                      <p className="text-purple-primary/70 text-sm truncate">
+                      <p className="text-white/90 text-lg line-clamp-2">
                         {selectedHighTicket.title}
                       </p>
-                      <div className="flex items-center gap-3 mt-2">
-                        <span className="text-white font-bold">{selectedHighTicket.price}</span>
-                        <span className="text-emerald-primary font-bold">+{selectedHighTicket.commission}</span>
+                      <div className="flex items-center gap-4 mt-3">
+                        <span className="text-white text-xl font-bold">{selectedHighTicket.price}</span>
+                        <span className="bg-green-500 text-white px-3 py-1 rounded-full font-bold">+{selectedHighTicket.commission}</span>
                       </div>
                     </div>
                     <button
                       onClick={() => !generating && setShowHighTicketModal(false)}
                       disabled={generating}
-                      className="p-2 hover:bg-purple-primary/10 rounded-lg transition-colors text-purple-primary hover:text-white disabled:opacity-50"
+                      className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white disabled:opacity-50"
                     >
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
                       </svg>
@@ -1721,7 +1721,7 @@ export default function PlatinumPage() {
                   </div>
                 </div>
 
-                {/* Form */}
+                {/* Form - White background */}
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -1732,32 +1732,32 @@ export default function PlatinumPage() {
                       handleGenerateHighTicket(affiliateLink, boosters);
                     }
                   }}
-                  className="p-6 space-y-6"
+                  className="p-8 space-y-6"
                 >
                   {/* Affiliate Link Input */}
                   <div>
-                    <label className="block text-sm font-bold text-white mb-2">
-                      Your Amazon Affiliate Link *
+                    <label className="block text-xl font-bold text-gray-900 mb-3">
+                      🔗 Your Amazon Affiliate Link
                     </label>
                     <input
                       name="affiliateLink"
                       type="url"
                       required
                       placeholder={`https://www.amazon.com/dp/${selectedHighTicket.asin}?tag=YOUR-TAG`}
-                      className="w-full px-4 py-3 bg-deep-space-black/50 border-2 border-purple-primary/30 rounded-xl text-white placeholder-purple-primary/40 focus:border-pink-primary focus:outline-none transition-colors"
+                      className="w-full px-5 py-4 text-lg border-3 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-200 outline-none bg-gray-50 text-gray-900 placeholder-gray-400"
                       disabled={generating}
                     />
-                    <p className="text-xs text-purple-primary/60 mt-2">
+                    <p className="text-base text-gray-600 mt-2">
                       Replace YOUR-TAG with your Amazon Associates tag
                     </p>
                   </div>
 
                   {/* Conversion Boosters */}
                   <div>
-                    <label className="block text-sm font-bold text-white mb-3">
+                    <label className="block text-xl font-bold text-gray-900 mb-4">
                       ⚡ Conversion Boosters (Optional)
                     </label>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-3">
                       {[
                         { id: 'countdown', label: '⏰ Countdown Timer' },
                         { id: 'visitors', label: '👥 Live Visitors' },
@@ -1768,42 +1768,49 @@ export default function PlatinumPage() {
                       ].map((booster) => (
                         <label
                           key={booster.id}
-                          className="flex items-center gap-2 p-3 bg-purple-primary/10 rounded-lg border border-purple-primary/20 cursor-pointer hover:bg-purple-primary/20 transition-colors"
+                          className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:bg-purple-50 hover:border-purple-300 transition-colors"
                         >
                           <input
                             type="checkbox"
                             name="boosters"
                             value={booster.id}
                             disabled={generating}
-                            className="w-4 h-4 rounded border-purple-primary/50 text-pink-primary focus:ring-pink-primary bg-deep-space-black"
+                            className="w-6 h-6 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                           />
-                          <span className="text-sm text-white">{booster.label}</span>
+                          <span className="text-lg font-medium text-gray-800">{booster.label}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={generating}
-                    className="w-full py-4 px-6 bg-gradient-to-r from-pink-primary to-purple-primary text-white font-bold text-lg rounded-xl hover:shadow-glow-pink hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {generating ? (
-                      <>
-                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                        </svg>
-                        Generating Page...
-                      </>
-                    ) : (
-                      <>
-                        <span className="text-xl">🚀</span>
-                        Generate My Profit Page
-                      </>
-                    )}
-                  </button>
+                  {/* Footer */}
+                  <div className="pt-4 flex gap-4">
+                    <button
+                      type="button"
+                      onClick={() => !generating && setShowHighTicketModal(false)}
+                      disabled={generating}
+                      className="flex-1 py-4 px-6 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xl rounded-xl transition-all disabled:opacity-50"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={generating}
+                      className="flex-1 py-4 px-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xl rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-3"
+                    >
+                      {generating ? (
+                        <>
+                          <svg className="animate-spin h-6 w-6" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                          </svg>
+                          Generating...
+                        </>
+                      ) : (
+                        <>🚀 Generate Page</>
+                      )}
+                    </button>
+                  </div>
                 </form>
               </motion.div>
             </div>
