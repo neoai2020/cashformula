@@ -19,6 +19,7 @@ import VideoPlaceholder from '@/components/ui/VideoPlaceholder';
 import AffiliateModal from '@/components/ui/AffiliateModal';
 import MultiProductModal from '@/components/ui/MultiProductModal';
 import SuccessModal from '@/components/ui/SuccessModal';
+import MyPagesManager from '@/components/ui/MyPagesManager';
 
 // Icons
 const BoltIcon = () => (
@@ -137,7 +138,7 @@ export default function PlatinumPage() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
-  const [activeTab, setActiveTab] = useState<'packs' | 'products' | 'comparisons' | 'bestof' | 'calendar' | 'boosters'>('packs');
+  const [activeTab, setActiveTab] = useState<'packs' | 'products' | 'comparisons' | 'bestof' | 'calendar' | 'boosters' | 'mypages'>('packs');
   const [visiblePosts, setVisiblePosts] = useState<number>(6);
   const [expandedProduct, setExpandedProduct] = useState<string | null>(null);
   const [copiedCaption, setCopiedCaption] = useState<string | null>(null);
@@ -638,6 +639,36 @@ export default function PlatinumPage() {
               <motion.div
                 layoutId="activeIndicator"
                 className="absolute inset-0 bg-gradient-to-br from-purple-primary/20 via-pink-primary/20 to-transparent"
+              />
+            )}
+          </motion.button>
+
+          {/* Feature 7 - My Pages */}
+          <motion.button
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setActiveTab('mypages')}
+            className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all ${
+              activeTab === 'mypages'
+                ? 'bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 shadow-glow-purple ring-2 ring-emerald-400'
+                : 'glass-card hover:shadow-glow-purple/50'
+            }`}
+          >
+            <div className="relative z-10">
+              <div className="text-4xl mb-3">📊</div>
+              <h3 className="text-xl font-bold text-white mb-2">My Generated Pages</h3>
+              <p className="text-sm text-emerald-primary/80 mb-3">
+                View and manage all your profit pages. Edit conversion boosters anytime!
+              </p>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">Edit Boosters</span>
+                <span className="px-2 py-1 bg-white/10 rounded-full text-white font-bold">Manage Pages</span>
+              </div>
+            </div>
+            {activeTab === 'mypages' && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-teal-500/20 to-transparent"
               />
             )}
           </motion.button>
@@ -1635,6 +1666,42 @@ export default function PlatinumPage() {
                 </div>
               </div>
             </div>
+          </motion.div>
+        )}
+
+        {/* My Generated Pages */}
+        {activeTab === 'mypages' && (
+          <motion.div
+            key="mypages"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="space-y-6"
+          >
+            {/* Intro Card */}
+            <div className="glass-card p-6 border border-emerald-500/20 rounded-2xl bg-gradient-to-br from-emerald-500/5 via-teal-500/5 to-transparent">
+              <div className="flex items-start gap-4">
+                <div className="text-5xl">📊</div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white mb-2">Your Generated Profit Pages</h3>
+                  <p className="text-emerald-400/80 leading-relaxed mb-4">
+                    Here are all the profit pages you&apos;ve created. You can view each page, copy the URL to share, and most importantly - <strong>edit the conversion boosters</strong> on any existing page without having to recreate it!
+                  </p>
+                  <div className="bg-emerald-500/10 p-4 rounded-lg border border-emerald-500/20">
+                    <p className="text-sm text-emerald-400/90 font-bold mb-2">💡 QUICK TIP:</p>
+                    <ul className="text-sm text-emerald-400/70 space-y-1 list-disc list-inside">
+                      <li>Click on any page to expand and see booster options</li>
+                      <li>Click &quot;Enable All&quot; to turn on all conversion boosters at once</li>
+                      <li>Changes are saved instantly - just refresh your page to see them!</li>
+                      <li>Copy the page URL to share with your audience</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* My Pages Manager Component */}
+            <MyPagesManager />
           </motion.div>
         )}
       </AnimatePresence>
