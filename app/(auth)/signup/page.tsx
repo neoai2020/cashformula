@@ -84,15 +84,15 @@ export default function SignupPage() {
           <h1 className="text-2xl font-display font-bold text-white mb-2 text-center">
             Create Account
           </h1>
-          <p className="text-navy-400 text-center mb-6">
+          <p className="text-gray-400 text-center mb-6">
             Start building profit pages today
           </p>
 
           {/* Features */}
           <div className="grid grid-cols-2 gap-2 mb-6">
             {features.map((feature, i) => (
-              <div key={i} className="flex items-center gap-2 text-sm text-navy-300">
-                <span className="text-cash-green"><CheckIcon /></span>
+              <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                <span className="text-teal-DEFAULT"><CheckIcon /></span>
                 <span>{feature}</span>
               </div>
             ))}
@@ -137,9 +137,9 @@ export default function SignupPage() {
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-navy-400 text-sm">
+          <p className="mt-6 text-center text-gray-400 text-sm">
             Already have an account?{' '}
-            <Link href="/login" className="text-violet-DEFAULT hover:text-violet-light hover:underline transition-colors">
+            <Link href="/login" className="text-teal-DEFAULT hover:text-teal-bright hover:underline transition-colors">
               Sign in
             </Link>
           </p>

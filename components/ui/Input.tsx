@@ -15,7 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="space-y-2">
         {label && (
-          <label htmlFor={inputId} className="block text-sm font-medium text-navy-300">
+          <label htmlFor={inputId} className="block text-sm font-medium text-gray-300">
             {label}
           </label>
         )}
@@ -36,7 +36,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </p>
         )}
         {hint && !error && (
-          <p className="text-sm text-navy-500">{hint}</p>
+          <p className="text-sm text-gray-500">{hint}</p>
         )}
       </div>
     );

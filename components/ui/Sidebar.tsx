@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
@@ -103,17 +102,17 @@ const CloseIcon = () => (
 
 const navItems = [
   { name: 'Dashboard', href: '/app', icon: DashboardIcon },
-  { name: 'Build Page', href: '/app/build', icon: BuildIcon },
-  { name: 'Your Pages', href: '/app/pages', icon: PagesIcon },
+  { name: 'Build P55 Page', href: '/app/build', icon: BuildIcon },
+  { name: 'Your P55 Pages', href: '/app/pages', icon: PagesIcon },
   { name: 'Share & Promote', href: '/app/traffic', icon: ShareIcon },
-  { name: 'New System To Make $1,000 To $5,000 Per Day', href: '/app/system', icon: CashIcon, highlight: true },
-  { name: 'Training Videos', href: '/app/training', icon: VideoIcon },
-  { name: 'Support', href: '/app/support', icon: SettingsIcon },
+  { name: 'Instant Cash Injection', href: '/app/system', icon: CashIcon, highlight: true },
+  { name: 'P55 Training', href: '/app/training', icon: VideoIcon },
+  { name: 'Settings', href: '/app/support', icon: SettingsIcon },
 ];
 
 const premiumItems = [
-  { name: 'Gold Package', href: '/app/gold', icon: GoldIcon, badge: 'Premium' },
-  { name: 'Platinum Package', href: '/app/platinum', icon: BoltIcon, badge: 'Premium' },
+  { name: 'DFY Vault', href: '/app/gold', icon: GoldIcon, badge: 'Premium' },
+  { name: 'Instant Income', href: '/app/platinum', icon: BoltIcon, badge: 'Premium' },
 ];
 
 export default function Sidebar() {
@@ -142,31 +141,31 @@ export default function Sidebar() {
         onClick={() => setIsMobileOpen(false)}
         className={`group relative flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 overflow-hidden ${
           active
-            ? 'text-white'
+            ? 'text-teal-DEFAULT'
             : item.highlight
-            ? 'text-teal-DEFAULT hover:text-white'
-            : 'text-navy-400 hover:text-white'
+            ? 'text-teal-DEFAULT/70 hover:text-teal-DEFAULT'
+            : 'text-gray-400 hover:text-white'
         }`}
       >
-        {/* Background - gradient on active, subtle fill on hover */}
+        {/* Background - subtle on active */}
         <div className={`absolute inset-0 transition-all duration-200 rounded-xl ${
           active 
-            ? 'bg-gradient-to-r from-violet-DEFAULT/20 via-indigo-DEFAULT/15 to-transparent' 
-            : 'bg-transparent group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent'
+            ? 'bg-teal-DEFAULT/10' 
+            : 'bg-transparent group-hover:bg-white/5'
         }`} />
         
-        {/* Left accent bar */}
+        {/* Left accent bar - teal on active */}
         <div className={`absolute left-0 top-2 bottom-2 w-[3px] rounded-full transition-all duration-200 ${
           active 
-            ? 'bg-gradient-to-b from-violet-DEFAULT to-teal-DEFAULT opacity-100' 
-            : 'bg-violet-DEFAULT opacity-0 group-hover:opacity-50'
+            ? 'bg-teal-DEFAULT opacity-100' 
+            : 'bg-teal-DEFAULT opacity-0 group-hover:opacity-30'
         }`} />
         
         {/* Icon with color */}
         <div className={`relative z-10 transition-colors duration-200 ${
           active 
-            ? 'text-violet-light' 
-            : 'group-hover:text-violet-DEFAULT'
+            ? 'text-teal-DEFAULT' 
+            : 'group-hover:text-teal-DEFAULT/70'
         }`}>
           <Icon />
         </div>
@@ -176,7 +175,7 @@ export default function Sidebar() {
         
         {/* Badge */}
         {item.badge && (
-          <span className="relative z-10 px-2.5 py-1 text-xs font-bold bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white rounded-full uppercase">
+          <span className="relative z-10 px-2.5 py-1 text-xs font-bold bg-teal-DEFAULT/20 text-teal-DEFAULT rounded-full uppercase">
             {item.badge}
           </span>
         )}
@@ -218,7 +217,7 @@ export default function Sidebar() {
 
           {/* Menu label */}
           <div className="px-6 py-2">
-            <span className="text-xs font-semibold text-navy-500 uppercase tracking-wider">Menu</span>
+            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Menu</span>
           </div>
 
           {/* Navigation */}
@@ -234,7 +233,7 @@ export default function Sidebar() {
 
             {/* Premium Features */}
             <div className="px-4 py-3 mt-6">
-              <span className="text-xs font-semibold text-violet-DEFAULT uppercase tracking-wider flex items-center gap-2">
+              <span className="text-xs font-semibold text-teal-DEFAULT uppercase tracking-wider flex items-center gap-2">
                 <GoldIcon />
                 Premium Features
               </span>
@@ -263,7 +262,7 @@ export default function Sidebar() {
           <div className="p-4 border-t border-white/5">
             <button
               onClick={handleSignOut}
-              className="group relative flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-navy-400 hover:text-rose-DEFAULT transition-colors duration-200 overflow-hidden"
+              className="group relative flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-gray-400 hover:text-rose-DEFAULT transition-colors duration-200 overflow-hidden"
             >
               <div className="absolute inset-0 bg-transparent group-hover:bg-rose-DEFAULT/10 rounded-xl transition-all duration-200" />
               <div className="relative z-10 group-hover:text-rose-DEFAULT transition-colors duration-200">

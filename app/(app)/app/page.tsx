@@ -186,27 +186,27 @@ export default function DashboardPage() {
       value: totalPages,
       subtext: totalPages > 0 ? '🎉 Great start!' : 'Create your first!',
       icon: LayersIcon,
-      color: 'from-violet-DEFAULT to-indigo-DEFAULT',
-      bg: 'bg-violet-DEFAULT/10',
-      border: 'border-violet-DEFAULT/15',
+      color: 'from-teal-DEFAULT to-cyan-DEFAULT',
+      bg: 'bg-teal-DEFAULT/10',
+      border: 'border-teal-DEFAULT/15',
     },
     {
       label: 'Est. Clicks',
       value: mounted ? dynamicStats.clicks.toLocaleString() : '—',
       subtext: '+12% this week',
       icon: EyeIcon,
-      color: 'from-teal-DEFAULT to-cash-emerald',
-      bg: 'bg-teal-DEFAULT/10',
-      border: 'border-teal-DEFAULT/15',
+      color: 'from-cyan-DEFAULT to-teal-bright',
+      bg: 'bg-cyan-DEFAULT/10',
+      border: 'border-cyan-DEFAULT/15',
     },
     {
       label: 'Potential Earnings',
       value: mounted ? `$${dynamicStats.revenue}` : '—',
       subtext: 'Keep building! 💰',
       icon: MoneyIcon,
-      color: 'from-rose-DEFAULT to-violet-DEFAULT',
-      bg: 'bg-rose-DEFAULT/10',
-      border: 'border-rose-DEFAULT/15',
+      color: 'from-gold-DEFAULT to-gold-bright',
+      bg: 'bg-gold-DEFAULT/10',
+      border: 'border-gold-DEFAULT/15',
     },
   ];
 
@@ -215,23 +215,23 @@ export default function DashboardPage() {
       title: '🚀 Build New Page',
       description: 'Create a profit page in just 2 minutes',
       href: '/app/build',
-      color: 'from-violet-DEFAULT to-indigo-DEFAULT',
-      iconBg: 'bg-violet-DEFAULT/15',
+      color: 'from-teal-DEFAULT to-cyan-DEFAULT',
+      iconBg: 'bg-teal-DEFAULT/15',
       highlight: true,
     },
     {
       title: '📱 Share & Promote',
       description: 'Get traffic to your pages instantly',
       href: '/app/traffic',
-      color: 'from-teal-DEFAULT to-cash-emerald',
-      iconBg: 'bg-teal-DEFAULT/15',
+      color: 'from-cyan-DEFAULT to-teal-bright',
+      iconBg: 'bg-cyan-DEFAULT/15',
     },
     {
-      title: '👑 Gold Package',
+      title: '👑 DFY Vault',
       description: 'Done-for-you premium pages',
       href: '/app/gold',
-      color: 'from-rose-DEFAULT to-violet-DEFAULT',
-      iconBg: 'bg-rose-DEFAULT/15',
+      color: 'from-gold-DEFAULT to-gold-bright',
+      iconBg: 'bg-gold-DEFAULT/15',
       badge: 'VIP',
     },
   ];
@@ -254,60 +254,56 @@ export default function DashboardPage() {
       <motion.div variants={item} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl sm:text-4xl font-display font-bold text-white">
-            Welcome{userName ? `, ${userName}` : ''}! 👋
+            Welcome to Your P55 Account{userName ? `, ${userName}` : ''}!
           </h1>
-          <p className="text-navy-300 mt-2 text-lg">
+          <p className="text-gray-400 mt-2 text-lg">
             {totalPages === 0 
-              ? "Let's create your first profit page today!" 
+              ? "Ready to build your next profit page?" 
               : `You have ${totalPages} page${totalPages > 1 ? 's' : ''} working for you!`
             }
           </p>
         </div>
-        <Link href="/app/build" className="btn-gold btn-large inline-flex items-center gap-2 w-fit animate-pulse-glow">
-          <PlusIcon />
-          <span>Create Page</span>
-        </Link>
       </motion.div>
 
       {/* Live Social Proof Banner - Above the Fold */}
-      <motion.div variants={item} className="glass-card rounded-2xl p-4 border border-cash-green/20">
+      <motion.div variants={item} className="glass-card rounded-2xl p-4 border border-teal-DEFAULT/20">
         <div className="flex items-center gap-4 overflow-hidden">
           <div className="flex items-center gap-2 shrink-0">
-            <span className="w-3 h-3 bg-cash-green rounded-full animate-pulse" />
-            <span className="text-cash-green font-bold text-base">LIVE</span>
+            <span className="w-3 h-3 bg-teal-DEFAULT rounded-full animate-pulse" />
+            <span className="text-teal-DEFAULT font-bold text-base">LIVE</span>
           </div>
           <div className="flex-1 overflow-hidden">
             <div className="flex gap-6 animate-marquee">
               {liveActivities.map((activity, i) => (
                 <div key={`banner-${activity.name}-${i}`} className="flex items-center gap-3 shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-DEFAULT to-indigo-DEFAULT flex items-center justify-center text-white text-sm font-bold">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-DEFAULT to-cyan-DEFAULT flex items-center justify-center text-white text-sm font-bold">
                     {activity.name[0]}
                   </div>
                   <span className="text-base">
                     <span className="font-semibold text-white">{activity.name}</span>
-                    <span className="text-navy-400"> earned </span>
-                    <span className="text-cash-green font-bold">{activity.amount}</span>
-                    <span className="text-navy-500"> · {activity.location}</span>
+                    <span className="text-gray-500"> earned </span>
+                    <span className="text-teal-DEFAULT font-bold">{activity.amount}</span>
+                    <span className="text-gray-600"> · {activity.location}</span>
                   </span>
                 </div>
               ))}
               {/* Duplicate for seamless scroll */}
               {liveActivities.map((activity, i) => (
                 <div key={`banner2-${activity.name}-${i}`} className="flex items-center gap-3 shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-DEFAULT to-indigo-DEFAULT flex items-center justify-center text-white text-sm font-bold">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-DEFAULT to-cyan-DEFAULT flex items-center justify-center text-white text-sm font-bold">
                     {activity.name[0]}
                   </div>
                   <span className="text-base">
                     <span className="font-semibold text-white">{activity.name}</span>
-                    <span className="text-navy-400"> earned </span>
-                    <span className="text-cash-green font-bold">{activity.amount}</span>
-                    <span className="text-navy-500"> · {activity.location}</span>
+                    <span className="text-gray-500"> earned </span>
+                    <span className="text-teal-DEFAULT font-bold">{activity.amount}</span>
+                    <span className="text-gray-600"> · {activity.location}</span>
                   </span>
                 </div>
               ))}
             </div>
           </div>
-          <span className="shrink-0 px-3 py-1 bg-cash-green/10 text-cash-green text-sm font-bold rounded-full">
+          <span className="shrink-0 px-3 py-1 bg-teal-DEFAULT/10 text-teal-DEFAULT text-sm font-bold rounded-full">
             🔥 847 earning today
           </span>
         </div>
@@ -323,11 +319,11 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className={`glass-card rounded-2xl p-6 ${stat.border} border transition-all duration-300 hover:shadow-gold/10 hover:shadow-lg group`}
+              className={`glass-card rounded-2xl p-6 ${stat.border} border transition-all duration-300 hover:shadow-glow-teal/10 hover:shadow-lg group`}
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-navy-400 text-base mb-2">{stat.label}</p>
+                  <p className="text-gray-500 text-base mb-2">{stat.label}</p>
                   <p className={`text-4xl font-display font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
                     {stat.value}
                   </p>
@@ -338,48 +334,13 @@ export default function DashboardPage() {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2 mt-4 text-cash-green text-sm font-medium">
+              <div className="flex items-center gap-2 mt-4 text-teal-DEFAULT text-sm font-medium">
                 <TrendUpIcon />
                 <span>{stat.subtext}</span>
               </div>
             </motion.div>
           );
         })}
-      </motion.div>
-
-      {/* Daily Checklist - NEW */}
-      <motion.div variants={item} className="glass-card rounded-2xl p-6 border border-violet-DEFAULT/15">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <span className="text-violet-DEFAULT"><SparkleIcon /></span>
-            Today&apos;s Quick Wins
-          </h2>
-          <span className="text-sm text-navy-400">
-            {dailyTasks.filter(t => t.done).length}/{dailyTasks.length} done
-          </span>
-        </div>
-        <div className="flex flex-wrap gap-4">
-          {dailyTasks.map((task, i) => (
-            <div
-              key={i}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
-                task.done 
-                  ? 'bg-cash-green/10 border border-cash-green/20' 
-                  : 'bg-navy-800/50 border border-navy-700'
-              }`}
-            >
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                task.done ? 'bg-cash-green text-white' : 'bg-navy-700 text-navy-500'
-              }`}>
-                {task.done ? <CheckCircleIcon /> : <span className="text-xs">{i + 1}</span>}
-              </div>
-              <span className={task.done ? 'text-white' : 'text-navy-400'}>
-                {task.label}
-              </span>
-              {task.done && <span className="text-cash-green text-sm">✓</span>}
-            </div>
-          ))}
-        </div>
       </motion.div>
 
       {/* Welcome Video Card - HERO */}
@@ -391,7 +352,7 @@ export default function DashboardPage() {
             
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <button className="w-28 h-28 rounded-full bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT flex items-center justify-center text-white hover:scale-105 transition-all duration-300 mb-4 mx-auto group animate-pulse-glow">
+                <button className="w-28 h-28 rounded-full bg-gradient-to-r from-teal-DEFAULT to-cyan-DEFAULT flex items-center justify-center text-white hover:scale-105 transition-all duration-300 mb-4 mx-auto group animate-pulse-glow">
                   <PlayIcon />
                 </button>
                 <p className="text-white/80 text-base font-medium">Click to play video</p>
@@ -401,7 +362,7 @@ export default function DashboardPage() {
             {/* Live badge */}
             <div className="absolute top-6 left-6 px-4 py-2 bg-red-500 rounded-full text-white text-base font-bold flex items-center gap-2 shadow-lg">
               <span className="w-3 h-3 bg-white rounded-full animate-pulse" />
-              MUST WATCH
+              MUST WATCH FIRST
             </div>
             
             {/* Duration badge */}
@@ -411,18 +372,18 @@ export default function DashboardPage() {
           </div>
           
           {/* Video Info */}
-          <div className="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-transparent to-violet-DEFAULT/5">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-violet-DEFAULT/15 border border-violet-DEFAULT/25 rounded-full text-violet-DEFAULT text-sm font-bold uppercase tracking-wider mb-4 w-fit">
-              <span className="w-2 h-2 bg-violet-DEFAULT rounded-full animate-pulse" />
+          <div className="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-transparent to-teal-DEFAULT/5">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-teal-DEFAULT/15 border border-teal-DEFAULT/25 rounded-full text-teal-DEFAULT text-sm font-bold uppercase tracking-wider mb-4 w-fit">
+              <span className="w-2 h-2 bg-teal-DEFAULT rounded-full animate-pulse" />
               Getting Started
             </div>
             
             <h3 className="text-2xl lg:text-3xl font-display font-bold text-white mb-4 leading-tight">
-              How to Make Your First <span className="text-violet-DEFAULT">$100</span> Today
+              Watch This Video To Get Started
             </h3>
             
-            <p className="text-navy-300 mb-8 text-lg leading-relaxed">
-              Watch this quick training to create your first profit page and start earning commissions within 24 hours.
+            <p className="text-gray-400 mb-8 text-lg leading-relaxed">
+              This 5-minute video shows you exactly how to use your P55 Account
             </p>
             
             <div className="space-y-4">
@@ -430,18 +391,8 @@ export default function DashboardPage() {
                 href="/app/training"
                 className="btn-gold btn-large w-full sm:w-auto inline-flex items-center justify-center gap-3"
               >
-                <PlayIcon />
-                <span>Watch Now</span>
+                Click Here To Learn How
               </Link>
-              
-              <div className="flex items-center gap-6 text-base text-navy-400">
-                <span className="flex items-center gap-2">
-                  ⏱️ 5 min watch
-                </span>
-                <span className="flex items-center gap-2">
-                  👀 12.5k views
-                </span>
-              </div>
             </div>
           </div>
         </div>
@@ -452,7 +403,7 @@ export default function DashboardPage() {
         {/* Quick Actions */}
         <motion.div variants={item} className="lg:col-span-2 space-y-4">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <span className="w-3 h-3 bg-violet-DEFAULT rounded-full" />
+            <span className="w-3 h-3 bg-teal-DEFAULT rounded-full" />
             What Would You Like To Do?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -461,22 +412,22 @@ export default function DashboardPage() {
                 key={action.title}
                 href={action.href}
                 className={`glass-card glass-card-hover rounded-2xl p-6 group transition-all duration-300 relative overflow-hidden ${
-                  action.highlight ? 'border border-violet-DEFAULT/25' : ''
+                  action.highlight ? 'border border-teal-DEFAULT/25' : ''
                 }`}
               >
                 {action.badge && (
-                  <span className="absolute top-3 right-3 px-2 py-1 bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT text-white text-xs font-bold rounded-full">
+                  <span className="absolute top-3 right-3 px-2 py-1 bg-gradient-to-r from-gold-DEFAULT to-gold-bright text-black text-xs font-bold rounded-full">
                     {action.badge}
                   </span>
                 )}
                 <div className={`w-14 h-14 ${action.iconBg} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                   <div className={`w-4 h-4 rounded-full bg-gradient-to-r ${action.color}`} />
                 </div>
-                <h3 className="font-bold text-white mb-2 text-lg group-hover:text-violet-DEFAULT transition-colors">
+                <h3 className="font-bold text-white mb-2 text-lg group-hover:text-teal-DEFAULT transition-colors">
                   {action.title}
                 </h3>
-                <p className="text-navy-400 text-base">{action.description}</p>
-                <div className="mt-4 flex items-center gap-2 text-violet-DEFAULT text-base opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                <p className="text-gray-500 text-base">{action.description}</p>
+                <div className="mt-4 flex items-center gap-2 text-teal-DEFAULT text-base opacity-0 group-hover:opacity-100 transition-opacity font-medium">
                   <span>Get started</span>
                   <ArrowRightIcon />
                 </div>
@@ -485,40 +436,39 @@ export default function DashboardPage() {
           </div>
         </motion.div>
 
-        {/* Live Activity - ENHANCED */}
+        {/* What's Happening Right Now */}
         <motion.div variants={item} className="space-y-4">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <span className="w-3 h-3 bg-cash-green rounded-full animate-pulse" />
-            Live Sales Feed
+            📊 What&apos;s Happening Inside P55 Right Now
           </h2>
           <div className="glass-card rounded-2xl p-5 space-y-4">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-cash-green font-bold">🔥 847 earning today</span>
-              <span className="text-navy-400">Live</span>
+            <p className="text-gray-500 text-sm">Members are generating real results every single day through their P55 Accounts.</p>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-navy-800/30 rounded-xl p-4 text-center">
+                <p className="text-xs text-gray-500 mb-1">📄 Articles Today</p>
+                <p className="text-2xl font-bold text-teal-DEFAULT">1,291</p>
+              </div>
+              <div className="bg-navy-800/30 rounded-xl p-4 text-center">
+                <p className="text-xs text-gray-500 mb-1">⚡ Avg Fast Cash</p>
+                <p className="text-2xl font-bold text-teal-DEFAULT">3.8</p>
+              </div>
+              <div className="bg-navy-800/30 rounded-xl p-4 text-center">
+                <p className="text-xs text-gray-500 mb-1">🎯 Clicks Tracked</p>
+                <p className="text-2xl font-bold text-teal-DEFAULT">10,898</p>
+              </div>
+              <div className="bg-navy-800/30 rounded-xl p-4 text-center">
+                <p className="text-xs text-gray-500 mb-1">👥 Active This Week</p>
+                <p className="text-2xl font-bold text-teal-DEFAULT">2,990</p>
+              </div>
             </div>
-            {liveActivities.map((activity, i) => (
-              <motion.div
-                key={`${activity.name}-${i}`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="flex items-center gap-4 p-3 bg-navy-800/30 rounded-xl"
-              >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-DEFAULT to-indigo-DEFAULT flex items-center justify-center text-white text-lg font-bold">
-                  {activity.name[0]}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-base text-white">
-                    <span className="font-bold">{activity.name}</span>{' '}
-                    <span className="text-navy-400">earned</span>{' '}
-                    <span className="text-cash-green font-bold">{activity.amount}</span>
-                  </p>
-                  <p className="text-sm text-navy-500 flex items-center gap-2">
-                    <MapPinIcon />
-                    {activity.location} · {activity.time}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+            <div className="bg-gradient-to-r from-teal-DEFAULT/10 to-cyan-DEFAULT/10 rounded-xl p-4 text-center border border-teal-DEFAULT/20">
+              <p className="text-xs text-gray-500 mb-1">TOTAL MONEY GENERATED TODAY</p>
+              <p className="text-3xl font-bold text-teal-DEFAULT">$45,070 <span className="text-lg">📈</span></p>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-xs text-teal-DEFAULT">
+              <span className="w-2 h-2 bg-teal-DEFAULT rounded-full animate-pulse" />
+              LIVE
+            </div>
           </div>
         </motion.div>
       </div>
@@ -527,31 +477,31 @@ export default function DashboardPage() {
       <motion.div variants={item} className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <span className="w-3 h-3 bg-purple-400 rounded-full" />
+            <span className="w-3 h-3 bg-teal-DEFAULT rounded-full" />
             Your Pages
           </h2>
-          <Link href="/app/pages" className="text-base text-violet-DEFAULT hover:underline font-medium">
+          <Link href="/app/pages" className="text-base text-teal-DEFAULT hover:underline font-medium">
             View all →
           </Link>
         </div>
 
         {loading ? (
           <div className="glass-card rounded-2xl p-8 text-center">
-            <div className="w-10 h-10 border-3 border-violet-DEFAULT border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-navy-400 mt-4 text-lg">Loading your pages...</p>
+            <div className="w-10 h-10 border-3 border-teal-DEFAULT border-t-transparent rounded-full animate-spin mx-auto" />
+            <p className="text-gray-500 mt-4 text-lg">Loading your pages...</p>
           </div>
         ) : pages.length === 0 ? (
-          <div className="glass-card rounded-2xl p-10 text-center border-2 border-dashed border-violet-DEFAULT/25">
-            <div className="w-20 h-20 bg-violet-DEFAULT/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <div className="glass-card rounded-2xl p-10 text-center border-2 border-dashed border-teal-DEFAULT/25">
+            <div className="w-20 h-20 bg-teal-DEFAULT/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <LayersIcon />
             </div>
             <h3 className="text-2xl font-bold text-white mb-3">No pages yet</h3>
-            <p className="text-navy-300 mb-6 text-lg">Create your first profit page and start earning today!</p>
+            <p className="text-gray-400 mb-6 text-lg">Create your first profit page and start earning today!</p>
             <Link href="/app/build" className="btn-gold btn-large inline-flex items-center gap-3">
               <PlusIcon />
               <span>Create My First Page</span>
             </Link>
-            <p className="mt-4 text-sm text-navy-500">
+            <p className="mt-4 text-sm text-gray-600">
               🚀 Takes only 2 minutes!
             </p>
           </div>
@@ -565,21 +515,21 @@ export default function DashboardPage() {
                 className="glass-card glass-card-hover rounded-2xl p-6 group transition-all duration-300"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 bg-violet-DEFAULT/10 rounded-xl flex items-center justify-center text-violet-DEFAULT">
+                  <div className="w-12 h-12 bg-teal-DEFAULT/10 rounded-xl flex items-center justify-center text-teal-DEFAULT">
                     <LayersIcon />
                   </div>
                   <span className={`px-3 py-1 text-sm rounded-full font-medium ${
                     page.status === 'published'
-                      ? 'bg-cash-green/10 text-cash-green border border-cash-green/20'
-                      : 'bg-navy-700 text-navy-400'
+                      ? 'bg-teal-DEFAULT/10 text-teal-DEFAULT border border-teal-DEFAULT/20'
+                      : 'bg-navy-700 text-gray-400'
                   }`}>
                     {page.status === 'published' ? '✓ Live' : page.status}
                   </span>
                 </div>
-                <h3 className="font-semibold text-white line-clamp-2 mb-3 text-lg group-hover:text-violet-DEFAULT transition-colors">
+                <h3 className="font-semibold text-white line-clamp-2 mb-3 text-lg group-hover:text-teal-DEFAULT transition-colors">
                   {page.title}
                 </h3>
-                <p className="text-base text-navy-500">
+                <p className="text-base text-gray-600">
                   Created {new Date(page.created_at).toLocaleDateString()}
                 </p>
               </Link>
@@ -591,7 +541,7 @@ export default function DashboardPage() {
       {/* Support Card */}
       <motion.div variants={item} className="glass-card rounded-2xl p-6">
         <div className="flex items-start gap-5">
-          <div className="w-14 h-14 bg-violet-DEFAULT/15 rounded-xl flex items-center justify-center text-violet-DEFAULT shrink-0">
+          <div className="w-14 h-14 bg-teal-DEFAULT/15 rounded-xl flex items-center justify-center text-teal-DEFAULT shrink-0">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
@@ -599,14 +549,14 @@ export default function DashboardPage() {
           </div>
           <div className="flex-1">
             <h3 className="text-xl font-bold text-white mb-1">Need More Help?</h3>
-            <p className="text-navy-300 mb-4">
+            <p className="text-gray-400 mb-4">
               Our support team is here to help you succeed. We typically respond within 24 hours.
             </p>
             <a
               href="https://cashformula.zendesk.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-violet-DEFAULT to-indigo-DEFAULT hover:from-violet-dark hover:to-indigo-dark text-white rounded-lg font-bold transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-teal-DEFAULT to-cyan-DEFAULT hover:from-teal-dark hover:to-cyan-dark text-white rounded-lg font-bold transition-all"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -614,37 +564,6 @@ export default function DashboardPage() {
               </svg>
               Contact Support
             </a>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Bottom Ticker - Enhanced */}
-      <motion.div variants={item} className="glass-card rounded-2xl overflow-hidden">
-        <div className="bg-cash-green/10 px-5 py-3 border-b border-cash-green/20">
-          <span className="text-base font-bold text-cash-green uppercase tracking-wider flex items-center gap-2">
-            🔥 Live Success Feed
-            <span className="w-2 h-2 bg-cash-green rounded-full animate-pulse" />
-          </span>
-        </div>
-        <div className="overflow-hidden">
-          <div className="ticker-content py-4 px-5 whitespace-nowrap">
-            {[...Array(2)].map((_, i) => (
-              <span key={i} className="inline-flex items-center">
-                {[
-                  '💰 John D. from Texas just made $127',
-                  '🎉 Sarah M. earned commission on Smart Watch',
-                  '🚀 Mike R. made $89 on Kitchen Gadget',
-                  '✨ Emma L. just got her first sale!',
-                  '🎯 David K. hit $500 milestone today',
-                  '💵 Lisa P. earned $156 this morning',
-                  '🔥 Chris W. made $203 on Fitness Tracker',
-                ].map((text, j) => (
-                  <span key={j} className="mx-8 text-base text-navy-300">
-                    {text}
-                  </span>
-                ))}
-              </span>
-            ))}
           </div>
         </div>
       </motion.div>

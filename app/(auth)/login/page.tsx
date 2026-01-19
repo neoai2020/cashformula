@@ -71,7 +71,7 @@ export default function LoginPage() {
           <h1 className="text-2xl font-display font-bold text-white mb-2 text-center">
             Welcome Back
           </h1>
-          <p className="text-navy-400 text-center mb-8">
+          <p className="text-gray-400 text-center mb-8">
             Sign in to access your dashboard
           </p>
 
@@ -114,9 +114,9 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-navy-400 text-sm">
+          <p className="mt-6 text-center text-gray-400 text-sm">
             Don&apos;t have an account?{' '}
-            <Link href="/signup" className="text-violet-DEFAULT hover:text-violet-light hover:underline transition-colors">
+            <Link href="/signup" className="text-teal-DEFAULT hover:text-teal-bright hover:underline transition-colors">
               Sign up
             </Link>
           </p>

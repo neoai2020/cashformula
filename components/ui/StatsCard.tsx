@@ -11,29 +11,34 @@ interface StatsCardProps {
     value: string;
     positive: boolean;
   };
-  color?: 'cyan' | 'purple' | 'gold' | 'green';
+  color?: 'cyan' | 'purple' | 'gold' | 'green' | 'teal';
 }
 
 const colorClasses = {
   cyan: {
-    bg: 'bg-accent-primary/20',
-    text: 'text-accent-primary',
-    border: 'border-accent-primary/30',
+    bg: 'bg-cyan-DEFAULT/20',
+    text: 'text-cyan-DEFAULT',
+    border: 'border-cyan-DEFAULT/30',
   },
   purple: {
-    bg: 'bg-accent-secondary/20',
-    text: 'text-accent-secondary',
-    border: 'border-accent-secondary/30',
+    bg: 'bg-teal-DEFAULT/20',
+    text: 'text-teal-DEFAULT',
+    border: 'border-teal-DEFAULT/30',
   },
   gold: {
-    bg: 'bg-accent-gold/20',
-    text: 'text-accent-gold',
-    border: 'border-accent-gold/30',
+    bg: 'bg-gold-DEFAULT/20',
+    text: 'text-gold-DEFAULT',
+    border: 'border-gold-DEFAULT/30',
   },
   green: {
-    bg: 'bg-accent-success/20',
-    text: 'text-accent-success',
-    border: 'border-accent-success/30',
+    bg: 'bg-teal-DEFAULT/20',
+    text: 'text-teal-DEFAULT',
+    border: 'border-teal-DEFAULT/30',
+  },
+  teal: {
+    bg: 'bg-teal-DEFAULT/20',
+    text: 'text-teal-DEFAULT',
+    border: 'border-teal-DEFAULT/30',
   },
 };
 
@@ -42,14 +47,14 @@ export default function StatsCard({
   value,
   icon: Icon,
   trend,
-  color = 'cyan',
+  color = 'teal',
 }: StatsCardProps) {
   const colors = colorClasses[color];
 
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
-      className={`glass rounded-xl p-5 border ${colors.border} transition-all duration-300`}
+      className={`glass-card rounded-xl p-5 border ${colors.border} transition-all duration-300`}
     >
       <div className="flex items-start justify-between mb-4">
         <div className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center`}>
@@ -59,17 +64,16 @@ export default function StatsCard({
           <span
             className={`text-xs font-semibold px-2 py-1 rounded-full ${
               trend.positive
-                ? 'bg-accent-success/20 text-accent-success'
-                : 'bg-accent-danger/20 text-accent-danger'
+                ? 'bg-teal-DEFAULT/20 text-teal-DEFAULT'
+                : 'bg-rose-DEFAULT/20 text-rose-DEFAULT'
             }`}
           >
             {trend.positive ? '+' : ''}{trend.value}
           </span>
         )}
       </div>
-      <p className="text-3xl font-display font-bold text-white mb-1">{value}</p>
+      <p className="text-3xl font-display font-bold text-teal-DEFAULT mb-1">{value}</p>
       <p className="text-sm text-gray-400">{title}</p>
     </motion.div>
   );
 }
-
