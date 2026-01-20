@@ -168,6 +168,14 @@ export default function BuildPage() {
 
     try {
       const res = await fetch(`/api/amazon/search?query=${encodeURIComponent(searchQuery)}`);
+      
+      // Check if response is JSON before parsing
+      const contentType = res.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        console.error('Invalid response type:', contentType);
+        throw new Error('Search service temporarily unavailable. Please try again.');
+      }
+      
       const data = await res.json();
 
       if (!res.ok) {
@@ -181,7 +189,8 @@ export default function BuildPage() {
         setError('No products found. Try a different search term.');
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Search failed');
+      console.error('Search error:', err);
+      setError(err instanceof Error ? err.message : 'Search failed. Please try again.');
     } finally {
       setLoading(false);
     }

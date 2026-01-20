@@ -38,34 +38,54 @@ export async function GET(request: NextRequest) {
 
     // Call RapidAPI
     const rapidApiKey = process.env.RAPIDAPI_KEY;
-    const rapidApiHost = process.env.RAPIDAPI_AMAZON_HOST || 'amazon-online-data-api.p.rapidapi.com';
+    const rapidApiHost = process.env.RAPIDAPI_AMAZON_HOST || 'real-time-amazon-data.p.rapidapi.com';
 
     if (!rapidApiKey) {
+      console.error('RAPIDAPI_KEY not configured');
       return NextResponse.json(
-        { error: 'API configuration error' },
+        { error: 'Search service not configured. Please contact support.' },
+        { status: 500 }
+      );
+    }
+    
+    console.log('Calling Amazon API with host:', rapidApiHost);
+
+    // Build the API URL based on the host being used
+    let apiUrl: string;
+    if (rapidApiHost.includes('real-time-amazon-data')) {
+      apiUrl = `https://${rapidApiHost}/search?query=${encodeURIComponent(query!)}&page=1&country=US`;
+    } else {
+      apiUrl = `https://${rapidApiHost}/search?query=${encodeURIComponent(query!)}&page=1&geo=US`;
+    }
+    
+    console.log('Fetching from:', apiUrl);
+
+    const response = await fetch(apiUrl, {
+      headers: {
+        'x-rapidapi-key': rapidApiKey,
+        'x-rapidapi-host': rapidApiHost,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Amazon API error:', response.status, errorText);
+      return NextResponse.json(
+        { error: 'Product search temporarily unavailable. Please try again later.' },
         { status: 500 }
       );
     }
 
-    const response = await fetch(
-      `https://${rapidApiHost}/search?query=${encodeURIComponent(query!)}&page=1&geo=US`,
-      {
-        headers: {
-          'x-rapidapi-key': rapidApiKey,
-          'x-rapidapi-host': rapidApiHost,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      console.error('Amazon API error:', response.status, await response.text());
+    let data;
+    try {
+      data = await response.json();
+    } catch (parseError) {
+      console.error('Failed to parse API response:', parseError);
       return NextResponse.json(
-        { error: 'Failed to search products' },
-        { status: response.status }
+        { error: 'Invalid response from product search. Please try again.' },
+        { status: 500 }
       );
     }
-
-    const data = await response.json();
     
     // Log raw response for debugging
     console.log('Amazon API raw response:', JSON.stringify(data).slice(0, 500));
