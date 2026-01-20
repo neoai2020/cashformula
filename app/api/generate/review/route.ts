@@ -79,7 +79,7 @@ ${reviewSummary}
 
 Generate a JSON response with this EXACT structure (no markdown, just valid JSON):
 {
-  "title": "A SHORT catchy headline (max 60 characters) - Use action words like 'Game-Changer', 'Must-Have', 'Best', 'Ultimate' - Example: 'The Ultimate Kitchen Gadget You Need' or 'This Air Fryer Changed Everything'",
+  "title": "A SHORT catchy headline (max 60 characters) - NEVER start with 'Why'. Use action words like 'Game-Changer', 'Must-Have', 'Best', 'Ultimate'. Examples: 'The Ultimate Kitchen Gadget You Need', 'This Air Fryer Changed Everything', 'Best Yoga Mat I Ever Owned', 'Game-Changer for Home Workouts'",
   "overview": "2-3 paragraphs explaining what this product is and why it's great",
   "pros": ["5-6 specific benefits as short bullet points"],
   "cons": ["1-2 minor drawbacks to seem balanced"],
@@ -95,6 +95,8 @@ Generate a JSON response with this EXACT structure (no markdown, just valid JSON
   ],
   "recommended_copy": "A short 1-sentence strong recommendation with CTA"
 }
+
+IMPORTANT: The title must NOT start with "Why". Start with action words instead.
 
 Return ONLY valid JSON, no explanation or markdown.`;
 
@@ -133,10 +135,10 @@ Return ONLY valid JSON, no explanation or markdown.`;
       generatedContent = JSON.parse(content);
     } catch {
       console.error('Failed to parse AI response:', content);
-      // Return fallback content
+      // Return fallback content - NO "Why" in the title
       generatedContent = {
-        title: `Why ${productData.title} Is Worth Every Penny`,
-        overview: `The ${productData.title} has quickly become a fan favorite in the ${keyword} space. With thousands of positive reviews and a reputation for quality, this product delivers on its promises.`,
+        title: `The ${keyword} Game-Changer You Need`,
+        overview: `The ${safeProductData.title} has quickly become a fan favorite in the ${keyword} space. With thousands of positive reviews and a reputation for quality, this product delivers on its promises.`,
         pros: [
           'High quality construction',
           'Great value for money',

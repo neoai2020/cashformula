@@ -243,6 +243,7 @@ export default function BuildPage() {
             price: selectedProduct.price,
             rating: selectedProduct.rating,
             reviews_count: selectedProduct.reviews_count,
+            image: selectedProduct.image, // Include the product image
           },
           affiliateLink,
         }),
@@ -829,12 +830,39 @@ export default function BuildPage() {
                 </div>
               </motion.div>
 
+              {/* Build Another Page Button */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.85 }}
+                className="mt-8 pt-6 border-t border-navy-700"
+              >
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    // Reset all state and go back to search
+                    setStep('search');
+                    setSearchQuery('');
+                    setProducts([]);
+                    setSelectedProduct(null);
+                    setAffiliateLink('');
+                    setCreatedSlug('');
+                    setShowConfetti(false);
+                    setError('');
+                  }}
+                  className="text-lg px-8 py-3"
+                >
+                  <span className="mr-2">🔄</span>
+                  Build Another Page
+                </Button>
+              </motion.div>
+
               {/* Social proof */}
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9 }}
-                className="mt-8 text-sm text-navy-500"
+                className="mt-6 text-sm text-navy-500"
               >
                 🔥 Join 12,847+ members making money with their profit pages
               </motion.p>
