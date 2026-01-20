@@ -291,7 +291,7 @@ If your current equipment is gathering dust, it might not be your fault. It migh
 
 Comment "WORKS" if you want to know what finally worked for me after years of failed purchases. This one actually stays out of the corner. 💪`,
     hashtags: '#povfitness #homegym #fitnessequipment #workoutwin #nomoredust #actuallyworks #fitnesstransformation #homeworkout #fitnesshumor #relatable #fitnessjourney #gymequipment #workoutmotivation #fitnesstips #realresults',
-    imageUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c149a?w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80',
     imageDescription: 'Person happily using workout equipment in bright home setting',
   },
   {
@@ -1826,7 +1826,7 @@ What is holding YOU back from cooking more? Be honest in the comments 👇
 
 I bet I felt the same way.`,
     hashtags: '#learntocook #cookingconfidence #anyonecancook #kitchentools #notacook #cookingjourney #homechef #easycooking #cookingmadeeasy #youcancook #kitchenhelp #cookingforbeginners #kitchenconfidence #chefathome #cookingmyth',
-    imageUrl: 'https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
     imageDescription: 'Person confidently cooking in home kitchen',
   },
   {
@@ -3288,7 +3288,7 @@ Your tools are not expenses. They are investments.
 
 What is one tool upgrade that paid for itself in your productivity? Share below 👇`,
     hashtags: '#investinyourself #techinvestment #productivity #timeismoney #worthit #techROI #smartspending #worksetup #mindsetshift #productivityinvestment #upgradelife #qualityoverquantity #techvalue #homeoffice #careerInvestment',
-    imageUrl: 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80',
     imageDescription: 'Quality tech setup investment concept',
   },
   {
@@ -4877,7 +4877,7 @@ You work hard. You show up for everyone else. Friday night is when you show up f
 
 What does YOUR self-care Friday look like? Share your rituals! 🛁`,
     hashtags: '#selfcarefriday #fridaynight #selfcaresunday #pampertime #treatyourself #selflove #selfcareroutine #relaxation #beautynight #youdeserveit #selfcarerituals #metime #weekendselfcare #selfcareroutine #winddown',
-    imageUrl: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800&q=80',
     imageDescription: 'Self care bath with candles and products',
   },
   {
