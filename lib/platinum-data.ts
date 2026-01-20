@@ -6826,7 +6826,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B0B BJMVSST',
         price: '$179',
         rating: 4.8,
-        image: 'https://images.unsplash.com/photo-1585515320310-259814833e62?w=800',
+        image: 'https://m.media-amazon.com/images/I/71aBdEDkZEL._AC_SL1500_.jpg',
         badge: 'Best Overall',
         why: 'Two independent baskets mean you can cook chicken and fries at different temperatures simultaneously. Game-changer for families.',
         pros: [
@@ -6842,7 +6842,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B0B56ZGVLW',
         price: '$119',
         rating: 4.7,
-        image: 'https://images.unsplash.com/photo-1585515320310-259814833e62?w=800',
+        image: 'https://m.media-amazon.com/images/I/71HhMLfE3xL._AC_SL1500_.jpg',
         badge: 'Best Value',
         why: 'Incredible performance at a budget price. My most-recommended air fryer for beginners.',
         pros: [
@@ -6858,7 +6858,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B07VHFMZHJ',
         price: '$139',
         rating: 4.6,
-        image: 'https://images.unsplash.com/photo-1585515320310-259814833e62?w=800',
+        image: 'https://m.media-amazon.com/images/I/81GsWoCqIEL._AC_SL1500_.jpg',
         badge: 'Best for Small Kitchens',
         why: 'Compact footprint without sacrificing cooking power. Perfect for apartments or small counter spaces.',
         pros: [
@@ -6874,7 +6874,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B088HS37RH',
         price: '$79',
         rating: 4.5,
-        image: 'https://images.unsplash.com/photo-1585515320310-259814833e62?w=800',
+        image: 'https://m.media-amazon.com/images/I/71C-EiC8ezL._AC_SL1500_.jpg',
         badge: 'Best Budget',
         why: 'Under $80 and still delivers crispy results. Perfect first air fryer if you are testing the waters.',
         pros: [
@@ -6890,7 +6890,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B01N5UPTZS',
         price: '$399',
         rating: 4.7,
-        image: 'https://images.unsplash.com/photo-1585515320310-259814833e62?w=800',
+        image: 'https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_SL1500_.jpg',
         badge: 'Best Premium',
         why: 'Yes it is expensive. But this replaces your toaster oven, air fryer, and more. Best countertop appliance I own.',
         pros: [
@@ -6915,7 +6915,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B0CC634C4Q',
         price: '$159',
         rating: 4.5,
-        image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800',
+        image: 'https://m.media-amazon.com/images/I/61vXpJsgbCL._AC_SL1500_.jpg',
         badge: 'Best Overall',
         why: 'Most accurate heart rate tracking, 7-day battery, and built-in GPS. Best all-around tracker for the price.',
         pros: [
@@ -6931,7 +6931,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B09YKVWG47',
         price: '$149',
         rating: 4.4,
-        image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800',
+        image: 'https://m.media-amazon.com/images/I/51m5llMKyOL._AC_SL1000_.jpg',
         badge: 'Best for Athletes',
         why: 'Serious fitness metrics that athletes actually use. Body battery and stress tracking are game-changers.',
         pros: [
@@ -6947,7 +6947,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B0C5Q8ZJYP',
         price: '$49',
         rating: 4.6,
-        image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800',
+        image: 'https://m.media-amazon.com/images/I/51eREPTkpfL._AC_SL1500_.jpg',
         badge: 'Best Budget',
         why: 'Crazy value at under $50. Does 90% of what expensive trackers do for a fraction of the price.',
         pros: [
@@ -6963,7 +6963,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B09JK7R8CZ',
         price: '$199 + subscription',
         rating: 4.3,
-        image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800',
+        image: 'https://m.media-amazon.com/images/I/51yKwWxJ3yL._AC_SL1500_.jpg',
         badge: 'Best for Recovery',
         why: 'If you are serious about recovery and performance optimization, nothing beats Whoop. Used by pro athletes.',
         pros: [
@@ -6979,7 +6979,7 @@ export const bestOfLists: BestOfList[] = [
         asin: 'B0B8QLLGZX',
         price: '$49',
         rating: 4.5,
-        image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800',
+        image: 'https://m.media-amazon.com/images/I/61JZ5L8BnKL._AC_SL1500_.jpg',
         badge: 'Best Battery Life',
         why: '18 days on a single charge. Perfect if you hate charging devices constantly.',
         pros: [
