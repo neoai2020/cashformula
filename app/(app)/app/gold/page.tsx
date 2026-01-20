@@ -430,15 +430,14 @@ export default function GoldPage() {
                 key={product.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex-shrink-0 w-72 glass-card rounded-2xl overflow-hidden group"
+                className="flex-shrink-0 w-64 glass-card rounded-2xl overflow-hidden group"
               >
-                <div className="relative aspect-[4/3] bg-white">
+                <div className="relative h-36 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
                   {product.hero_image ? (
                     <img
                       src={product.hero_image}
                       alt={product.product_data.title}
-                      className="w-full h-full object-contain p-2"
-                      style={{ maxWidth: '140px', maxHeight: '120px', margin: 'auto' }}
+                      className="w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-navy-800 text-navy-600">
@@ -455,7 +454,7 @@ export default function GoldPage() {
                     {product.product_data.title}
                   </h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-cash-green font-bold">{product.commission_estimate}</span>
+                    <span className="text-cash-green font-bold text-sm">{product.commission_estimate}</span>
                     <Button
                       size="sm"
                       onClick={() => {
@@ -555,14 +554,13 @@ export default function GoldPage() {
               transition={{ delay: i * 0.03 }}
               className="glass-card rounded-2xl overflow-hidden group"
             >
-              {/* Image - Compact */}
-              <div className="relative aspect-[4/3] bg-white flex items-center justify-center">
+              {/* Image - Compact with minimal white space */}
+              <div className="relative h-48 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
                 {product.hero_image ? (
                   <img
                     src={product.hero_image}
                     alt={product.product_data.title}
-                    className="object-contain p-3"
-                    style={{ maxWidth: '160px', maxHeight: '140px' }}
+                    className="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-navy-800 text-navy-500">
@@ -570,17 +568,15 @@ export default function GoldPage() {
                   </div>
                 )}
                 
-                {/* Earnings Badge - Prominent */}
-                <div className="absolute bottom-2 left-2 right-2">
-                  <div className="bg-gradient-to-r from-cash-green to-emerald-500 text-white px-3 py-2 rounded-xl shadow-lg shadow-cash-green/30 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg">💰</span>
-                      <span className="text-xs font-medium opacity-90">Earning Potential</span>
-                    </div>
-                    <span className="font-bold text-lg">
-                      ${Math.floor((parseFloat(product.price?.replace(/[^0-9.]/g, '') || '50') * 0.06) * 20)} - ${Math.floor((parseFloat(product.price?.replace(/[^0-9.]/g, '') || '50') * 0.10) * 100)}/mo
-                    </span>
+                {/* Earnings Badge - Bottom overlay */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-cash-green to-emerald-500 text-white px-3 py-2 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-sm">💰</span>
+                    <span className="text-xs font-medium opacity-90">Earning Potential</span>
                   </div>
+                  <span className="font-bold">
+                    ${Math.floor((parseFloat(product.price?.replace(/[^0-9.]/g, '') || '50') * 0.06) * 20)} - ${Math.floor((parseFloat(product.price?.replace(/[^0-9.]/g, '') || '50') * 0.10) * 100)}/mo
+                  </span>
                 </div>
                 
                 {/* Badges */}
@@ -600,9 +596,9 @@ export default function GoldPage() {
                 {/* Competition Badge */}
                 <div className="absolute top-2 right-2">
                   <span className={`px-2 py-1 text-xs font-bold rounded-full ${
-                    product.competition_level === 'low' ? 'bg-cash-green/20 text-cash-green' :
-                    product.competition_level === 'high' ? 'bg-red-500/20 text-red-400' :
-                    'bg-gold-500/20 text-gold-400'
+                    product.competition_level === 'low' ? 'bg-cash-green/20 text-cash-green border border-cash-green/30' :
+                    product.competition_level === 'high' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
+                    'bg-gold-500/20 text-gold-400 border border-gold-500/30'
                   }`}>
                     {product.competition_level === 'low' ? '🟢 Low Comp' :
                      product.competition_level === 'high' ? '🔴 High Comp' :
