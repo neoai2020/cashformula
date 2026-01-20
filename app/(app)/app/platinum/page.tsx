@@ -710,42 +710,40 @@ export default function PlatinumPage() {
               </div>
             </div>
 
-            {/* Profit Pack Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {profitPacks.map((pack) => (
+            {/* Profit Pack Cards - Clean Grid Layout */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {profitPacks.map((pack, idx) => (
                 <motion.div
                   key={pack.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="glass-card rounded-2xl p-6 border border-purple-primary/20 hover:shadow-glow-purple transition-all"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  onClick={() => {
+                    setSelectedPack(pack);
+                    setExpandedPack(pack.id);
+                    setVisiblePosts(6);
+                  }}
+                  className="glass-card rounded-xl p-5 border border-purple-primary/20 hover:border-purple-primary/50 hover:shadow-glow-purple transition-all cursor-pointer group"
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-4xl">{pack.emoji}</span>
-                        <div>
-                          <h3 className="text-xl font-bold text-white">{pack.name}</h3>
-                          <p className="text-sm text-purple-primary/60">{pack.niche}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-purple-primary">{pack.value}</div>
-                      <div className="text-xs text-emerald-primary font-bold">{pack.commission}</div>
-                    </div>
+                  {/* Emoji Icon */}
+                  <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">
+                    {pack.emoji}
                   </div>
-
-                  <Button
-                    variant="primary"
-                    onClick={() => {
-                      setSelectedPack(pack);
-                      setExpandedPack(pack.id);
-                      setVisiblePosts(6);
-                    }}
-                    className="w-full"
-                  >
-                    View All 30 Days
-                  </Button>
+                  
+                  {/* Pack Name */}
+                  <h3 className="text-lg font-bold text-white mb-1">{pack.name}</h3>
+                  <p className="text-xs text-purple-primary/60 mb-3">{pack.niche}</p>
+                  
+                  {/* Stats Row */}
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-purple-primary font-bold">{pack.value}</span>
+                    <span className="text-emerald-primary font-bold text-xs">{pack.commission}</span>
+                  </div>
+                  
+                  {/* View indicator */}
+                  <div className="mt-3 text-center text-xs text-purple-primary/60 group-hover:text-purple-primary transition-colors">
+                    Click to view 30 days →
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -867,7 +865,7 @@ export default function PlatinumPage() {
               </div>
             </div>
 
-            {/* Product Grid */}
+            {/* Product Grid - Improved Layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {highTicketProducts.map((product) => {
                 const amazonUrl = `https://www.amazon.com/dp/${product.asin}`;
@@ -875,20 +873,25 @@ export default function PlatinumPage() {
                 return (
                   <div
                     key={product.id}
-                    className="glass-card rounded-2xl overflow-hidden border-2 border-pink-primary/30 hover:border-pink-primary transition-all hover:shadow-glow-pink"
+                    className="glass-card rounded-2xl overflow-hidden border border-white/10 hover:border-pink-primary/50 transition-all hover:shadow-glow-pink group"
                   >
-                    {/* Product Image */}
-                    <div className="relative bg-gradient-to-br from-purple-primary/20 to-pink-primary/10 p-6 flex items-center justify-center">
+                    {/* Product Image - Professional White Background */}
+                    <div className="relative bg-white p-4 flex items-center justify-center">
                       {product.isHot && (
-                        <div className="absolute top-4 left-4 px-3 py-1.5 bg-gradient-to-r from-pink-primary to-rose-primary rounded-full text-white text-xs font-bold shadow-lg flex items-center gap-1.5">
+                        <div className="absolute top-3 left-3 px-3 py-1.5 bg-gradient-to-r from-red-500 to-orange-500 rounded-full text-white text-xs font-bold shadow-lg flex items-center gap-1.5 z-10">
                           🔥 HOT SELLER
                         </div>
                       )}
-                      <img
-                        src={product.imageUrl}
-                        alt={product.title}
-                        className="w-48 h-48 object-contain"
-                      />
+                      <div className="relative w-40 h-40 flex items-center justify-center">
+                        <img
+                          src={product.imageUrl}
+                          alt={product.title}
+                          className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200x200?text=Product+Image';
+                          }}
+                        />
+                      </div>
                     </div>
 
                     {/* Product Info */}
@@ -1033,46 +1036,72 @@ export default function PlatinumPage() {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  {/* Product 1 */}
-                  <div className={`relative overflow-hidden rounded-xl p-5 border-2 ${
+                  {/* Product 1 - Professional Image Layout */}
+                  <div className={`relative overflow-hidden rounded-xl border-2 ${
                     comparison.winner === 1
-                      ? 'bg-gradient-to-br from-emerald-primary/20 to-teal-primary/10 border-emerald-primary/40'
-                      : 'bg-purple-primary/5 border-purple-primary/20'
+                      ? 'border-emerald-primary/60'
+                      : 'border-purple-primary/20'
                   }`}>
                     {comparison.winner === 1 && (
-                      <div className="absolute top-3 right-3 px-3 py-1 bg-emerald-primary rounded-full text-xs font-bold text-deep-space-black">
+                      <div className="absolute top-3 right-3 px-3 py-1 bg-emerald-primary rounded-full text-xs font-bold text-deep-space-black z-10">
                         👑 WINNER
                       </div>
                     )}
-                    <img src={comparison.product1.image} alt={comparison.product1.name} className="w-32 h-32 object-contain mx-auto mb-4" />
-                    <h5 className="font-bold text-white text-center mb-2">{comparison.product1.name}</h5>
-                    <div className="flex items-center justify-center gap-3 mb-3">
-                      <span className="text-xl font-bold text-purple-primary">{comparison.product1.price}</span>
-                      <div className="flex items-center gap-1 text-emerald-primary text-sm">
-                        <StarIcon />
-                        <span>{comparison.product1.rating}</span>
+                    {/* White background for product image */}
+                    <div className="bg-white p-4 flex items-center justify-center">
+                      <img 
+                        src={comparison.product1.image} 
+                        alt={comparison.product1.name} 
+                        className="w-28 h-28 object-contain"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150x150?text=Product';
+                        }}
+                      />
+                    </div>
+                    {/* Info section */}
+                    <div className={`p-4 ${comparison.winner === 1 ? 'bg-emerald-primary/10' : 'bg-purple-primary/5'}`}>
+                      <h5 className="font-bold text-white text-center text-sm mb-2">{comparison.product1.name}</h5>
+                      <div className="flex items-center justify-center gap-3">
+                        <span className="text-lg font-bold text-purple-primary">{comparison.product1.price}</span>
+                        <div className="flex items-center gap-1 text-emerald-primary text-sm">
+                          <StarIcon />
+                          <span>{comparison.product1.rating}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Product 2 */}
-                  <div className={`relative overflow-hidden rounded-xl p-5 border-2 ${
+                  {/* Product 2 - Professional Image Layout */}
+                  <div className={`relative overflow-hidden rounded-xl border-2 ${
                     comparison.winner === 2
-                      ? 'bg-gradient-to-br from-emerald-primary/20 to-teal-primary/10 border-emerald-primary/40'
-                      : 'bg-purple-primary/5 border-purple-primary/20'
+                      ? 'border-emerald-primary/60'
+                      : 'border-purple-primary/20'
                   }`}>
                     {comparison.winner === 2 && (
-                      <div className="absolute top-3 right-3 px-3 py-1 bg-emerald-primary rounded-full text-xs font-bold text-deep-space-black">
+                      <div className="absolute top-3 right-3 px-3 py-1 bg-emerald-primary rounded-full text-xs font-bold text-deep-space-black z-10">
                         👑 WINNER
                       </div>
                     )}
-                    <img src={comparison.product2.image} alt={comparison.product2.name} className="w-32 h-32 object-contain mx-auto mb-4" />
-                    <h5 className="font-bold text-white text-center mb-2">{comparison.product2.name}</h5>
-                    <div className="flex items-center justify-center gap-3 mb-3">
-                      <span className="text-xl font-bold text-purple-primary">{comparison.product2.price}</span>
-                      <div className="flex items-center gap-1 text-emerald-primary text-sm">
-                        <StarIcon />
-                        <span>{comparison.product2.rating}</span>
+                    {/* White background for product image */}
+                    <div className="bg-white p-4 flex items-center justify-center">
+                      <img 
+                        src={comparison.product2.image} 
+                        alt={comparison.product2.name} 
+                        className="w-28 h-28 object-contain"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150x150?text=Product';
+                        }}
+                      />
+                    </div>
+                    {/* Info section */}
+                    <div className={`p-4 ${comparison.winner === 2 ? 'bg-emerald-primary/10' : 'bg-purple-primary/5'}`}>
+                      <h5 className="font-bold text-white text-center text-sm mb-2">{comparison.product2.name}</h5>
+                      <div className="flex items-center justify-center gap-3">
+                        <span className="text-lg font-bold text-purple-primary">{comparison.product2.price}</span>
+                        <div className="flex items-center gap-1 text-emerald-primary text-sm">
+                          <StarIcon />
+                          <span>{comparison.product2.rating}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1212,8 +1241,17 @@ export default function PlatinumPage() {
                           </div>
                         </div>
 
-                        {/* Product Image */}
-                        <img src={product.image} alt={product.title} className="w-24 h-24 object-contain rounded-lg" />
+                        {/* Product Image - Professional */}
+                        <div className="w-24 h-24 bg-white rounded-lg p-2 flex items-center justify-center shrink-0">
+                          <img 
+                            src={product.image} 
+                            alt={product.title} 
+                            className="max-w-full max-h-full object-contain"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/100x100?text=Product';
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
                   ))}

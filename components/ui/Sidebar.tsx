@@ -111,8 +111,8 @@ const navItems = [
 ];
 
 const premiumItems = [
-  { name: 'Gold Package', href: '/app/gold', icon: GoldIcon, badge: 'Premium' },
-  { name: 'Platinum Package', href: '/app/platinum', icon: BoltIcon, badge: 'Premium' },
+  { name: 'Gold Package', href: '/app/gold', icon: GoldIcon, badge: '⭐ PREMIUM', isPremium: true, color: 'gold' },
+  { name: 'Platinum Package', href: '/app/platinum', icon: BoltIcon, badge: '💎 VIP', isPremium: true, color: 'purple' },
 ];
 
 export default function Sidebar() {
@@ -131,10 +131,59 @@ export default function Sidebar() {
     return pathname.startsWith(href);
   };
 
-  const NavLink = ({ item }: { item: typeof navItems[0] & { badge?: string; highlight?: boolean } }) => {
+  const NavLink = ({ item }: { item: typeof navItems[0] & { badge?: string; highlight?: boolean; isPremium?: boolean; color?: string } }) => {
     const active = isActive(item.href);
     const Icon = item.icon;
 
+    // Special styling for premium items
+    if (item.isPremium) {
+      const isGold = item.color === 'gold';
+      return (
+        <Link
+          href={item.href}
+          onClick={() => setIsMobileOpen(false)}
+          className={`group relative flex items-center gap-3 px-4 py-4 rounded-xl transition-all duration-200 overflow-hidden ${
+            active
+              ? isGold 
+                ? 'bg-gradient-to-r from-yellow-500/30 to-amber-500/20 border-2 border-yellow-500/50' 
+                : 'bg-gradient-to-r from-purple-500/30 to-pink-500/20 border-2 border-purple-500/50'
+              : isGold
+                ? 'bg-gradient-to-r from-yellow-500/10 to-amber-500/5 border-2 border-yellow-500/30 hover:border-yellow-500/50 hover:from-yellow-500/20'
+                : 'bg-gradient-to-r from-purple-500/10 to-pink-500/5 border-2 border-purple-500/30 hover:border-purple-500/50 hover:from-purple-500/20'
+          }`}
+        >
+          {/* Glow effect */}
+          <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity ${
+            isGold ? 'bg-yellow-500/10' : 'bg-purple-500/10'
+          }`} />
+          
+          {/* Icon */}
+          <div className={`relative z-10 ${
+            isGold ? 'text-yellow-400' : 'text-purple-400'
+          }`}>
+            <Icon />
+          </div>
+          
+          {/* Text */}
+          <span className={`relative z-10 flex-1 text-base font-bold leading-tight ${
+            isGold ? 'text-yellow-300' : 'text-purple-300'
+          }`}>{item.name}</span>
+          
+          {/* Badge */}
+          {item.badge && (
+            <span className={`relative z-10 px-2.5 py-1 text-xs font-bold rounded-full ${
+              isGold 
+                ? 'bg-yellow-500/30 text-yellow-200 border border-yellow-500/50' 
+                : 'bg-purple-500/30 text-purple-200 border border-purple-500/50'
+            }`}>
+              {item.badge}
+            </span>
+          )}
+        </Link>
+      );
+    }
+
+    // Regular nav items
     return (
       <Link
         href={item.href}
@@ -231,15 +280,14 @@ export default function Sidebar() {
               ))}
             </ul>
 
-            {/* Premium Features */}
+            {/* Premium Features - HIGHLIGHTED */}
             <div className="px-4 py-3 mt-6">
-              <span className="text-xs font-semibold text-teal-500 uppercase tracking-wider flex items-center gap-2">
-                <GoldIcon />
-                Premium Features
+              <span className="text-xs font-bold text-yellow-400 uppercase tracking-wider flex items-center gap-2">
+                ⭐ Premium Features
               </span>
             </div>
 
-            <ul className="space-y-1">
+            <ul className="space-y-2">
               {premiumItems.map((item) => (
                 <li key={item.href}>
                   <NavLink item={item} />

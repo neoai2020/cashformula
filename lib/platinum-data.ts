@@ -6240,7 +6240,7 @@ export const highTicketProducts: HighTicketProduct[] = [
     imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800',
     profitPage: {
       headline: 'The MacBook Pro M3 Changed How I Work Forever',
-      subheadline: 'Why creative professionals are calling this the most powerful laptop ever made',
+      subheadline: 'The laptop creative professionals are calling the most powerful ever made',
       overview: `After spending 3 months with the new MacBook Pro 16" with M3 Pro chip, I can confidently say this is the most impressive laptop I have ever used. The performance is absolutely mind-blowing - I can edit 4K video while running multiple apps without a single stutter. The battery life is insane - I regularly get 15-18 hours on a single charge with real-world usage. The display is gorgeous with ProMotion technology making everything buttery smooth. If you do any kind of creative work - video editing, music production, photography, design, or development - this machine will transform your workflow.`,
       pros: [
         'Unmatched performance for creative tasks',
@@ -6286,7 +6286,7 @@ export const highTicketProducts: HighTicketProduct[] = [
     ],
     imageUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800',
     profitPage: {
-      headline: 'The Sony A7 IV: Why Photographers Are Switching in Droves',
+      headline: 'The Sony A7 IV: The Camera That Changed Everything For Me',
       subheadline: 'The hybrid camera that finally does photos AND video at a professional level',
       overview: `After shooting with the Sony A7 IV for 6 months across weddings, portraits, and content creation, I understand why this camera has taken over the industry. The 33MP sensor delivers stunning detail while the autofocus system is borderline magical - it locks onto eyes and tracks subjects like nothing I have used before. What really sets it apart is the video capability. 4K 60fps with 10-bit color depth means this one camera can do everything. No more carrying separate bodies for photo and video work.`,
       pros: [
@@ -6428,7 +6428,7 @@ export const highTicketProducts: HighTicketProduct[] = [
     imageUrl: 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=800',
     profitPage: {
       headline: 'The Vitamix A3500 Made Me Stop Buying Smoothies Forever',
-      subheadline: 'Why this blender is worth 10x what you pay for it',
+      subheadline: 'This blender is worth 10x what you pay for it',
       overview: `I used to spend $8-12 per day on smoothies and juices. That is $240-360 per month. The Vitamix A3500 paid for itself in less than 3 months, and now I save that money every single month. But it is not just about savings - the quality is better than any smoothie shop. This thing pulverizes anything. Frozen fruit, ice, nuts, leafy greens - all silky smooth in 60 seconds. The touchscreen makes it dead simple, and the self-cleaning cycle means cleanup takes 30 seconds. I have used this every single day for 18 months and it still works like new.`,
       pros: [
         'Restaurant-quality results at home',
@@ -6475,7 +6475,7 @@ export const highTicketProducts: HighTicketProduct[] = [
     imageUrl: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=800',
     profitPage: {
       headline: 'The LG C3 OLED Ruined Every Other TV For Me',
-      subheadline: 'Why once you go OLED, you never go back',
+      subheadline: 'Once you go OLED, you never go back',
       overview: `I have owned a lot of TVs. LED, QLED, different brands. But nothing prepared me for OLED. The LG C3 displays the deepest blacks I have ever seen because each pixel produces its own light - when something is supposed to be black, those pixels just turn off completely. The contrast is infinite. Colors pop like nothing else. And for gaming, the 120Hz refresh rate with G-Sync support makes everything buttery smooth with zero screen tearing. Movies look like you are watching through a window. Gaming feels like cheating. I cannot go back to regular LED TVs anymore.`,
       pros: [
         'Perfect blacks with OLED technology',

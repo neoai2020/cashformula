@@ -79,7 +79,7 @@ ${reviewSummary}
 
 Generate a JSON response with this EXACT structure (no markdown, just valid JSON):
 {
-  "title": "A SHORT catchy headline (max 60 characters) - example: 'Why This Air Fryer Is a Game Changer'",
+  "title": "A SHORT catchy headline (max 60 characters) - Use action words like 'Game-Changer', 'Must-Have', 'Best', 'Ultimate' - Example: 'The Ultimate Kitchen Gadget You Need' or 'This Air Fryer Changed Everything'",
   "overview": "2-3 paragraphs explaining what this product is and why it's great",
   "pros": ["5-6 specific benefits as short bullet points"],
   "cons": ["1-2 minor drawbacks to seem balanced"],

@@ -56,26 +56,6 @@ const PlusIcon = () => (
   </svg>
 );
 
-const SparkleIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-  </svg>
-);
-
-const CheckCircleIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-    <polyline points="22,4 12,14.01 9,11.01" />
-  </svg>
-);
-
-const MapPinIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-    <circle cx="12" cy="10" r="3" />
-  </svg>
-);
-
 const stagger = {
   hidden: { opacity: 0 },
   show: {
@@ -91,25 +71,22 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-// US States for social proof
-const usStates = ['Texas', 'California', 'Florida', 'New York', 'Ohio', 'Georgia', 'Arizona', 'Michigan', 'North Carolina', 'Pennsylvania'];
-
-// Names for social proof
-const names = [
-  'Sarah M.', 'John D.', 'Emily R.', 'Michael T.', 'Jessica K.', 'David L.', 'Amanda S.', 'Robert W.',
-  'Jennifer H.', 'Chris P.', 'Lisa B.', 'Kevin M.', 'Michelle N.', 'Brian J.', 'Ashley G.', 'Jason R.'
-];
-
-// Generate random earnings between $27 and $247 - only call on client
-const generateEarnings = () => `$${Math.floor(Math.random() * 220) + 27}`;
-
 export default function DashboardPage() {
   const [pages, setPages] = useState<Page[]>([]);
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState('');
-  const [liveActivities, setLiveActivities] = useState<Array<{name: string; amount: string; location: string; time: string}>>([]);
   const [mounted, setMounted] = useState(false);
   const [dynamicStats, setDynamicStats] = useState({ clicks: 0, revenue: '0' });
+  
+  // Live stats that update randomly
+  const [liveStats, setLiveStats] = useState({
+    articlesToday: 1291,
+    avgFastCash: 3.8,
+    clicksTracked: 10898,
+    activeThisWeek: 2990,
+    totalMoneyToday: 45070,
+  });
+  
   const supabase = createClient();
 
   useEffect(() => {
@@ -125,7 +102,6 @@ export default function DashboardPage() {
 
       if (pagesData) {
         setPages(pagesData as Page[]);
-        // Set dynamic stats after pages load - only on client
         const totalPages = pagesData.length;
         setDynamicStats({
           clicks: Math.floor(totalPages * 127 + Math.random() * 50),
@@ -136,7 +112,6 @@ export default function DashboardPage() {
       // Get user info
       const { data: { user } } = await supabase.auth.getUser();
       if (user?.email) {
-        // Extract first name from email or use friendly default
         const emailName = user.email.split('@')[0];
         const firstName = emailName.charAt(0).toUpperCase() + emailName.slice(1).split(/[._-]/)[0];
         setUserName(firstName);
@@ -147,37 +122,20 @@ export default function DashboardPage() {
 
     fetchData();
     
-    // Generate initial live activities - only on client
-    const initialActivities = Array.from({ length: 3 }, () => ({
-      name: names[Math.floor(Math.random() * names.length)],
-      amount: generateEarnings(),
-      location: usStates[Math.floor(Math.random() * usStates.length)],
-      time: 'just now'
-    }));
-    setLiveActivities(initialActivities);
+    // Live stats update interval - random updates every 2-5 seconds
+    const statsInterval = setInterval(() => {
+      setLiveStats(prev => ({
+        articlesToday: prev.articlesToday + Math.floor(Math.random() * 3),
+        avgFastCash: Math.round((prev.avgFastCash + (Math.random() * 0.2 - 0.1)) * 10) / 10,
+        clicksTracked: prev.clicksTracked + Math.floor(Math.random() * 15) + 1,
+        activeThisWeek: prev.activeThisWeek + Math.floor(Math.random() * 2),
+        totalMoneyToday: prev.totalMoneyToday + Math.floor(Math.random() * 150) + 20,
+      }));
+    }, 2000 + Math.random() * 3000);
 
-    // Update live activities periodically
-    const activityInterval = setInterval(() => {
-      setLiveActivities(prev => {
-        const newActivity = {
-          name: names[Math.floor(Math.random() * names.length)],
-          amount: generateEarnings(),
-          location: usStates[Math.floor(Math.random() * usStates.length)],
-          time: 'just now'
-        };
-        // Update old times
-        const updated = prev.map((a, i) => ({
-          ...a,
-          time: i === 0 ? '1 min ago' : `${i + 1} min ago`
-        }));
-        return [newActivity, ...updated.slice(0, 2)];
-      });
-    }, 8000);
-
-    return () => clearInterval(activityInterval);
+    return () => clearInterval(statsInterval);
   }, [supabase]);
 
-  // Calculate dynamic stats - use state for hydration safety
   const totalPages = pages.length;
 
   const stats = [
@@ -236,13 +194,6 @@ export default function DashboardPage() {
     },
   ];
 
-  // Daily checklist items
-  const dailyTasks = [
-    { label: 'Log in today', done: true },
-    { label: 'Create a page', done: totalPages > 0 },
-    { label: 'Share on social', done: false },
-  ];
-
   return (
     <motion.div
       variants={stagger}
@@ -265,51 +216,7 @@ export default function DashboardPage() {
         </div>
       </motion.div>
 
-      {/* Live Social Proof Banner - Above the Fold */}
-      <motion.div variants={item} className="glass-card rounded-2xl p-4 border border-teal-500/20">
-        <div className="flex items-center gap-4 overflow-hidden">
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="w-3 h-3 bg-teal-500 rounded-full animate-pulse" />
-            <span className="text-teal-500 font-bold text-base">LIVE</span>
-          </div>
-          <div className="flex-1 overflow-hidden">
-            <div className="flex gap-6 animate-marquee">
-              {liveActivities.map((activity, i) => (
-                <div key={`banner-${activity.name}-${i}`} className="flex items-center gap-3 shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center text-white text-sm font-bold">
-                    {activity.name[0]}
-                  </div>
-                  <span className="text-base">
-                    <span className="font-semibold text-white">{activity.name}</span>
-                    <span className="text-gray-500"> earned </span>
-                    <span className="text-teal-500 font-bold">{activity.amount}</span>
-                    <span className="text-gray-600"> · {activity.location}</span>
-                  </span>
-                </div>
-              ))}
-              {/* Duplicate for seamless scroll */}
-              {liveActivities.map((activity, i) => (
-                <div key={`banner2-${activity.name}-${i}`} className="flex items-center gap-3 shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center text-white text-sm font-bold">
-                    {activity.name[0]}
-                  </div>
-                  <span className="text-base">
-                    <span className="font-semibold text-white">{activity.name}</span>
-                    <span className="text-gray-500"> earned </span>
-                    <span className="text-teal-500 font-bold">{activity.amount}</span>
-                    <span className="text-gray-600"> · {activity.location}</span>
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <span className="shrink-0 px-3 py-1 bg-teal-500/10 text-teal-500 text-sm font-bold rounded-full">
-            🔥 847 earning today
-          </span>
-        </div>
-      </motion.div>
-
-      {/* Stats Grid - Enhanced with animations */}
+      {/* Stats Grid */}
       <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {stats.map((stat, i) => {
           const Icon = stat.icon;
@@ -343,7 +250,7 @@ export default function DashboardPage() {
         })}
       </motion.div>
 
-      {/* Welcome Video Card - HERO */}
+      {/* Welcome Video Card with LIVE STATS next to it */}
       <motion.div variants={item} className="glass-hero rounded-3xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-5">
           {/* Video Player */}
@@ -371,117 +278,91 @@ export default function DashboardPage() {
             </div>
           </div>
           
-          {/* Video Info */}
-          <div className="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-transparent to-teal-500/5">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-teal-500/15 border border-teal-500/25 rounded-full text-teal-500 text-sm font-bold uppercase tracking-wider mb-4 w-fit">
-              <span className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
-              Getting Started
+          {/* LIVE Stats Panel - What's Happening Right Now */}
+          <div className="lg:col-span-2 p-6 lg:p-8 flex flex-col justify-center bg-gradient-to-br from-navy-900/90 to-navy-950/90 border-l border-white/5">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-3 h-3 bg-teal-500 rounded-full animate-pulse" />
+              <span className="text-teal-500 font-bold text-lg">LIVE</span>
+              <span className="text-gray-400 text-sm ml-2">What&apos;s Happening Right Now</span>
             </div>
             
-            <h3 className="text-2xl lg:text-3xl font-display font-bold text-white mb-4 leading-tight">
-              How to Make Your First <span className="text-teal-500">$100</span> Today
-            </h3>
+            <p className="text-gray-500 text-sm mb-4">Members are generating real results every single day.</p>
             
-            <p className="text-gray-400 mb-8 text-lg leading-relaxed">
-              Watch this quick training to create your first profit page and start earning commissions within 24 hours.
-            </p>
-            
-            <div className="space-y-4">
-              <Link 
-                href="/app/training"
-                className="btn-gold btn-large w-full sm:w-auto inline-flex items-center justify-center gap-3"
-              >
-                <PlayIcon />
-                <span>Watch Now</span>
-              </Link>
-              
-              <div className="flex items-center gap-6 text-base text-gray-400">
-                <span className="flex items-center gap-2">
-                  ⏱️ 5 min watch
-                </span>
-                <span className="flex items-center gap-2">
-                  👀 12.5k views
-                </span>
+            {/* Live Stats Grid */}
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="bg-navy-800/50 rounded-xl p-4 text-center border border-teal-500/20">
+                <p className="text-xs text-gray-500 mb-1">📄 Articles Today</p>
+                <p className="text-2xl font-bold text-teal-500 tabular-nums">
+                  {mounted ? liveStats.articlesToday.toLocaleString() : '—'}
+                </p>
               </div>
+              <div className="bg-navy-800/50 rounded-xl p-4 text-center border border-teal-500/20">
+                <p className="text-xs text-gray-500 mb-1">⚡ Avg Fast Cash</p>
+                <p className="text-2xl font-bold text-teal-500 tabular-nums">
+                  {mounted ? liveStats.avgFastCash.toFixed(1) : '—'}
+                </p>
+              </div>
+              <div className="bg-navy-800/50 rounded-xl p-4 text-center border border-teal-500/20">
+                <p className="text-xs text-gray-500 mb-1">🎯 Clicks Tracked</p>
+                <p className="text-2xl font-bold text-teal-500 tabular-nums">
+                  {mounted ? liveStats.clicksTracked.toLocaleString() : '—'}
+                </p>
+              </div>
+              <div className="bg-navy-800/50 rounded-xl p-4 text-center border border-teal-500/20">
+                <p className="text-xs text-gray-500 mb-1">👥 Active This Week</p>
+                <p className="text-2xl font-bold text-teal-500 tabular-nums">
+                  {mounted ? liveStats.activeThisWeek.toLocaleString() : '—'}
+                </p>
+              </div>
+            </div>
+            
+            {/* Total Money Generated - BIG Number */}
+            <div className="bg-gradient-to-r from-teal-500/20 to-cyan-500/20 rounded-xl p-5 text-center border border-teal-500/30">
+              <p className="text-xs text-gray-500 mb-1">TOTAL MONEY GENERATED TODAY</p>
+              <p className="text-3xl font-bold text-teal-500 tabular-nums">
+                ${mounted ? liveStats.totalMoneyToday.toLocaleString() : '—'} 
+                <span className="text-lg">📈</span>
+              </p>
             </div>
           </div>
         </div>
       </motion.div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Quick Actions */}
-        <motion.div variants={item} className="lg:col-span-2 space-y-4">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <span className="w-3 h-3 bg-teal-500 rounded-full" />
-            What Would You Like To Do?
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {quickActions.map((action) => (
-              <Link
-                key={action.title}
-                href={action.href}
-                className={`glass-card glass-card-hover rounded-2xl p-6 group transition-all duration-300 relative overflow-hidden ${
-                  action.highlight ? 'border border-teal-500/25' : ''
-                }`}
-              >
-                {action.badge && (
-                  <span className="absolute top-3 right-3 px-2 py-1 bg-gradient-to-r from-gold-500 to-gold-bright text-black text-xs font-bold rounded-full">
-                    {action.badge}
-                  </span>
-                )}
-                <div className={`w-14 h-14 ${action.iconBg} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <div className={`w-4 h-4 rounded-full bg-gradient-to-r ${action.color}`} />
-                </div>
-                <h3 className="font-bold text-white mb-2 text-lg group-hover:text-teal-500 transition-colors">
-                  {action.title}
-                </h3>
-                <p className="text-gray-500 text-base">{action.description}</p>
-                <div className="mt-4 flex items-center gap-2 text-teal-500 text-base opacity-0 group-hover:opacity-100 transition-opacity font-medium">
-                  <span>Get started</span>
-                  <ArrowRightIcon />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* What's Happening Right Now */}
-        <motion.div variants={item} className="space-y-4">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            📊 What&apos;s Happening Right Now
-          </h2>
-          <div className="glass-card rounded-2xl p-5 space-y-4">
-            <p className="text-gray-500 text-sm">Members are generating real results every single day through their accounts.</p>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-navy-800/30 rounded-xl p-4 text-center">
-                <p className="text-xs text-gray-500 mb-1">📄 Articles Today</p>
-                <p className="text-2xl font-bold text-teal-500">1,291</p>
+      {/* Quick Actions */}
+      <motion.div variants={item} className="space-y-4">
+        <h2 className="text-xl font-bold text-white flex items-center gap-2">
+          <span className="w-3 h-3 bg-teal-500 rounded-full" />
+          What Would You Like To Do?
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {quickActions.map((action) => (
+            <Link
+              key={action.title}
+              href={action.href}
+              className={`glass-card glass-card-hover rounded-2xl p-6 group transition-all duration-300 relative overflow-hidden ${
+                action.highlight ? 'border border-teal-500/25' : ''
+              }`}
+            >
+              {action.badge && (
+                <span className="absolute top-3 right-3 px-2 py-1 bg-gradient-to-r from-gold-500 to-gold-bright text-black text-xs font-bold rounded-full">
+                  {action.badge}
+                </span>
+              )}
+              <div className={`w-14 h-14 ${action.iconBg} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                <div className={`w-4 h-4 rounded-full bg-gradient-to-r ${action.color}`} />
               </div>
-              <div className="bg-navy-800/30 rounded-xl p-4 text-center">
-                <p className="text-xs text-gray-500 mb-1">⚡ Avg Fast Cash</p>
-                <p className="text-2xl font-bold text-teal-500">3.8</p>
+              <h3 className="font-bold text-white mb-2 text-lg group-hover:text-teal-500 transition-colors">
+                {action.title}
+              </h3>
+              <p className="text-gray-500 text-base">{action.description}</p>
+              <div className="mt-4 flex items-center gap-2 text-teal-500 text-base opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                <span>Get started</span>
+                <ArrowRightIcon />
               </div>
-              <div className="bg-navy-800/30 rounded-xl p-4 text-center">
-                <p className="text-xs text-gray-500 mb-1">🎯 Clicks Tracked</p>
-                <p className="text-2xl font-bold text-teal-500">10,898</p>
-              </div>
-              <div className="bg-navy-800/30 rounded-xl p-4 text-center">
-                <p className="text-xs text-gray-500 mb-1">👥 Active This Week</p>
-                <p className="text-2xl font-bold text-teal-500">2,990</p>
-              </div>
-            </div>
-            <div className="bg-gradient-to-r from-teal-500/10 to-cyan-500/10 rounded-xl p-4 text-center border border-teal-500/20">
-              <p className="text-xs text-gray-500 mb-1">TOTAL MONEY GENERATED TODAY</p>
-              <p className="text-3xl font-bold text-teal-500">$45,070 <span className="text-lg">📈</span></p>
-            </div>
-            <div className="flex items-center justify-center gap-2 text-xs text-teal-500">
-              <span className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
-              LIVE
-            </div>
-          </div>
-        </motion.div>
-      </div>
+            </Link>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Recent Pages */}
       <motion.div variants={item} className="space-y-4">

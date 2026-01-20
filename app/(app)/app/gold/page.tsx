@@ -324,7 +324,7 @@ export default function GoldPage() {
                       VIP ACCESS
                     </span>
                   </div>
-                  <p className="text-navy-300 text-lg">
+                  <p className="text-gray-900 text-lg font-medium">
                     {products.length} Done-For-You Profit Pages Ready to Deploy
                   </p>
                 </div>
@@ -379,8 +379,8 @@ export default function GoldPage() {
               transition={{ delay: video.id * 0.1 }}
               className="glass-card rounded-2xl overflow-hidden group cursor-pointer hover:border-gold-500/30 transition-all"
             >
-              {/* Video Thumbnail */}
-              <div className="relative aspect-video bg-gradient-to-br from-navy-800 to-navy-900">
+              {/* Video Thumbnail - Smaller */}
+              <div className="relative aspect-[16/10] bg-gradient-to-br from-navy-800 to-navy-900">
                 {/* Placeholder gradient background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-gold-500/10 to-purple-500/10" />
                 
@@ -432,13 +432,13 @@ export default function GoldPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex-shrink-0 w-72 glass-card rounded-2xl overflow-hidden group"
               >
-                <div className="relative aspect-square bg-white">
+                <div className="relative aspect-[4/3] bg-white">
                   {product.hero_image ? (
                     <img
                       src={product.hero_image}
                       alt={product.product_data.title}
-                      className="w-full h-full object-contain p-3"
-                      style={{ maxWidth: '180px', maxHeight: '180px', margin: 'auto' }}
+                      className="w-full h-full object-contain p-2"
+                      style={{ maxWidth: '140px', maxHeight: '120px', margin: 'auto' }}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-navy-800 text-navy-600">
@@ -555,14 +555,14 @@ export default function GoldPage() {
               transition={{ delay: i * 0.03 }}
               className="glass-card rounded-2xl overflow-hidden group"
             >
-              {/* Image */}
-              <div className="relative aspect-square bg-white flex items-center justify-center">
+              {/* Image - Compact */}
+              <div className="relative aspect-[4/3] bg-white flex items-center justify-center">
                 {product.hero_image ? (
                   <img
                     src={product.hero_image}
                     alt={product.product_data.title}
-                    className="object-contain p-4"
-                    style={{ maxWidth: '200px', maxHeight: '200px' }}
+                    className="object-contain p-3"
+                    style={{ maxWidth: '160px', maxHeight: '140px' }}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-navy-800 text-navy-500">
