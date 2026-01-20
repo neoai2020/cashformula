@@ -37,10 +37,10 @@ export default function PromoCard() {
           
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <h3 className="text-xl sm:text-2xl font-display font-bold text-gold-400 leading-tight mb-3">
+            <h3 className="text-2xl sm:text-3xl font-display font-bold text-gold-400 leading-tight mb-4">
               Want To Multiply Your Earnings To $1,000 – $5,000 A Day?
             </h3>
-            <p className="text-navy-300 text-sm leading-relaxed mb-5">
+            <p className="text-gray-200 text-base sm:text-lg leading-relaxed mb-6">
               Cash Formula Is Great, but if you want to scale to truly life-changing income, you need to watch this training which shows how to make the serious big boy big girl money. And guess what? This training is free if you&apos;re a Cash Formula member. So, if you want to watch the training, just tap the yellow button below.
             </p>
             <a
