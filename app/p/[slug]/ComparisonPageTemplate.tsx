@@ -254,7 +254,7 @@ export default function ComparisonPageTemplate({ page }: ComparisonPageTemplateP
                   <Gift className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">
-                  Wait! Don't Miss Out! 🎁
+                  Wait! Don&apos;t Miss Out! 🎁
                 </h3>
                 <p className="text-gray-300 mb-6">
                   These prices are only available for a limited time. Make your choice now before the deals expire!
@@ -281,7 +281,7 @@ export default function ComparisonPageTemplate({ page }: ComparisonPageTemplateP
                   onClick={() => setShowExitPopup(false)}
                   className="mt-4 text-gray-400 hover:text-white text-sm"
                 >
-                  No thanks, I'll pass
+                  No thanks, I&apos;ll pass
                 </button>
               </div>
             </motion.div>

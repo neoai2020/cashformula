@@ -231,10 +231,10 @@ export default function BestOfPageTemplate({ page }: BestOfPageTemplateProps) {
                   <Gift className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">
-                  Wait! Don't Leave Yet! 🎁
+                  Wait! Don&apos;t Leave Yet! 🎁
                 </h3>
                 <p className="text-gray-300 mb-6">
-                  You're about to miss our top picks! Check out the best deals before prices change.
+                  You&apos;re about to miss our top picks! Check out the best deals before prices change.
                 </p>
                 {topProduct && (
                   <a
@@ -250,7 +250,7 @@ export default function BestOfPageTemplate({ page }: BestOfPageTemplateProps) {
                   onClick={() => setShowExitPopup(false)}
                   className="text-gray-400 hover:text-white text-sm"
                 >
-                  No thanks, I'll pass
+                  No thanks, I&apos;ll pass
                 </button>
               </div>
             </motion.div>
