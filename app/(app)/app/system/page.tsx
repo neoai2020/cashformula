@@ -20,10 +20,10 @@ export default function SystemPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight"
+          className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-white leading-snug"
         >
           Watch The Bonus Training That Took Me To Earning{' '}
-          <span className="text-cash-green">$1,000-5,000 Per Day</span>...
+          <span className="text-teal-500">$1,000-5,000 Per Day</span>...
         </motion.h1>
 
         {/* Video Container */}
