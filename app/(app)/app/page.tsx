@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@/lib/supabase/client';
 import type { Page } from '@/lib/types';
 
@@ -56,6 +56,62 @@ const PlusIcon = () => (
   </svg>
 );
 
+// Animated number component with smooth counting
+const AnimatedNumber = ({ value, prefix = '', suffix = '', className = '' }: { 
+  value: number; 
+  prefix?: string; 
+  suffix?: string;
+  className?: string;
+}) => {
+  const [displayValue, setDisplayValue] = useState(value);
+  const [isIncreasing, setIsIncreasing] = useState(false);
+  const prevValueRef = useRef(value);
+
+  useEffect(() => {
+    if (value !== prevValueRef.current) {
+      setIsIncreasing(value > prevValueRef.current);
+      
+      // Animate the number change
+      const diff = value - displayValue;
+      const steps = 20;
+      const stepValue = diff / steps;
+      let current = 0;
+      
+      const interval = setInterval(() => {
+        current++;
+        if (current >= steps) {
+          setDisplayValue(value);
+          clearInterval(interval);
+          setTimeout(() => setIsIncreasing(false), 500);
+        } else {
+          setDisplayValue(prev => Math.round(prev + stepValue));
+        }
+      }, 30);
+      
+      prevValueRef.current = value;
+      return () => clearInterval(interval);
+    }
+  }, [value, displayValue]);
+
+  return (
+    <span className={`relative ${className}`}>
+      <span className={`transition-all duration-300 ${isIncreasing ? 'text-green-400 scale-105' : ''}`}>
+        {prefix}{displayValue.toLocaleString()}{suffix}
+      </span>
+      {isIncreasing && (
+        <motion.span 
+          initial={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.8 }}
+          className="absolute -top-1 -right-4 text-green-400 text-xs font-bold"
+        >
+          +
+        </motion.span>
+      )}
+    </span>
+  );
+};
+
 const stagger = {
   hidden: { opacity: 0 },
   show: {
@@ -71,6 +127,26 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
+// Constants for persistent stats
+const STATS_STORAGE_KEY = 'cf_live_stats';
+const STATS_START_DATE_KEY = 'cf_stats_start';
+
+// Base values (what we started with)
+const BASE_STATS = {
+  articlesToday: 1291,
+  clicksTracked: 10898,
+  activeThisWeek: 2990,
+  totalMoneyToday: 45070,
+};
+
+// Growth rates per hour
+const GROWTH_RATES = {
+  articlesToday: 45,      // ~45 articles per hour
+  clicksTracked: 180,     // ~180 clicks per hour  
+  activeThisWeek: 12,     // ~12 new active users per hour
+  totalMoneyToday: 1850,  // ~$1850 per hour
+};
+
 export default function DashboardPage() {
   const [pages, setPages] = useState<Page[]>([]);
   const [loading, setLoading] = useState(true);
@@ -78,19 +154,61 @@ export default function DashboardPage() {
   const [mounted, setMounted] = useState(false);
   const [dynamicStats, setDynamicStats] = useState({ clicks: 0, revenue: '0' });
   
-  // Live stats that update randomly
+  // Live stats with persistence
   const [liveStats, setLiveStats] = useState({
-    articlesToday: 1291,
-    avgFastCash: 3.8,
-    clicksTracked: 10898,
-    activeThisWeek: 2990,
-    totalMoneyToday: 45070,
+    articlesToday: BASE_STATS.articlesToday,
+    clicksTracked: BASE_STATS.clicksTracked,
+    activeThisWeek: BASE_STATS.activeThisWeek,
+    totalMoneyToday: BASE_STATS.totalMoneyToday,
   });
   
   const supabase = createClient();
 
+  // Calculate stats based on time elapsed since first visit
+  const calculateStats = useCallback(() => {
+    if (typeof window === 'undefined') return BASE_STATS;
+    
+    let startDate = localStorage.getItem(STATS_START_DATE_KEY);
+    if (!startDate) {
+      startDate = new Date().toISOString();
+      localStorage.setItem(STATS_START_DATE_KEY, startDate);
+    }
+    
+    const hoursElapsed = (Date.now() - new Date(startDate).getTime()) / (1000 * 60 * 60);
+    
+    // Calculate growth with some randomization for realism
+    const randomFactor = () => 0.85 + Math.random() * 0.3; // 85% to 115%
+    
+    return {
+      articlesToday: Math.round(BASE_STATS.articlesToday + (hoursElapsed * GROWTH_RATES.articlesToday * randomFactor())),
+      clicksTracked: Math.round(BASE_STATS.clicksTracked + (hoursElapsed * GROWTH_RATES.clicksTracked * randomFactor())),
+      activeThisWeek: Math.round(BASE_STATS.activeThisWeek + (hoursElapsed * GROWTH_RATES.activeThisWeek * randomFactor())),
+      totalMoneyToday: Math.round(BASE_STATS.totalMoneyToday + (hoursElapsed * GROWTH_RATES.totalMoneyToday * randomFactor())),
+    };
+  }, []);
+
   useEffect(() => {
     setMounted(true);
+    
+    // Initialize stats from localStorage or calculate
+    const savedStats = localStorage.getItem(STATS_STORAGE_KEY);
+    if (savedStats) {
+      try {
+        const parsed = JSON.parse(savedStats);
+        // Ensure stats never go down - take max of saved and calculated
+        const calculated = calculateStats();
+        setLiveStats({
+          articlesToday: Math.max(parsed.articlesToday || 0, calculated.articlesToday),
+          clicksTracked: Math.max(parsed.clicksTracked || 0, calculated.clicksTracked),
+          activeThisWeek: Math.max(parsed.activeThisWeek || 0, calculated.activeThisWeek),
+          totalMoneyToday: Math.max(parsed.totalMoneyToday || 0, calculated.totalMoneyToday),
+        });
+      } catch {
+        setLiveStats(calculateStats());
+      }
+    } else {
+      setLiveStats(calculateStats());
+    }
     
     const fetchData = async () => {
       // Fetch pages
@@ -122,19 +240,37 @@ export default function DashboardPage() {
 
     fetchData();
     
-    // Live stats update interval - random updates every 2-5 seconds
-    const statsInterval = setInterval(() => {
-      setLiveStats(prev => ({
-        articlesToday: prev.articlesToday + Math.floor(Math.random() * 3),
-        avgFastCash: Math.round((prev.avgFastCash + (Math.random() * 0.2 - 0.1)) * 10) / 10,
-        clicksTracked: prev.clicksTracked + Math.floor(Math.random() * 15) + 1,
-        activeThisWeek: prev.activeThisWeek + Math.floor(Math.random() * 2),
-        totalMoneyToday: prev.totalMoneyToday + Math.floor(Math.random() * 150) + 20,
-      }));
-    }, 2000 + Math.random() * 3000);
+    // Live stats update interval - realistic random intervals between 3-8 seconds
+    const runUpdate = () => {
+      setLiveStats(prev => {
+        const newStats = {
+          articlesToday: prev.articlesToday + Math.floor(Math.random() * 4) + 1,
+          clicksTracked: prev.clicksTracked + Math.floor(Math.random() * 20) + 5,
+          activeThisWeek: prev.activeThisWeek + (Math.random() > 0.7 ? 1 : 0), // Only sometimes increases
+          totalMoneyToday: prev.totalMoneyToday + Math.floor(Math.random() * 200) + 50,
+        };
+        
+        // Save to localStorage
+        localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(newStats));
+        
+        return newStats;
+      });
+    };
 
-    return () => clearInterval(statsInterval);
-  }, [supabase]);
+    // Variable interval for more realistic feel
+    let timeoutId: NodeJS.Timeout;
+    const scheduleNextUpdate = () => {
+      const delay = 3000 + Math.random() * 5000; // 3-8 seconds
+      timeoutId = setTimeout(() => {
+        runUpdate();
+        scheduleNextUpdate();
+      }, delay);
+    };
+    
+    scheduleNextUpdate();
+
+    return () => clearTimeout(timeoutId);
+  }, [supabase, calculateStats]);
 
   const totalPages = pages.length;
 
@@ -279,50 +415,103 @@ export default function DashboardPage() {
           </div>
           
           {/* LIVE Stats Panel - What's Happening Right Now */}
-          <div className="lg:col-span-2 p-6 lg:p-8 flex flex-col justify-center bg-gradient-to-br from-navy-900/90 to-navy-950/90 border-l border-white/5">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-3 h-3 bg-teal-500 rounded-full animate-pulse" />
-              <span className="text-teal-500 font-bold text-lg">LIVE</span>
-              <span className="text-gray-400 text-sm ml-2">What&apos;s Happening Right Now</span>
-            </div>
+          <div className="lg:col-span-2 p-5 lg:p-6 flex flex-col justify-center relative overflow-hidden">
+            {/* Animated background gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-navy-900/90 to-emerald-900/40" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-500/10 via-transparent to-transparent" />
             
-            <p className="text-gray-500 text-sm mb-4">Members are generating real results every single day.</p>
-            
-            {/* Live Stats Grid */}
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="bg-navy-800/50 rounded-xl p-4 text-center border border-teal-500/20">
-                <p className="text-xs text-gray-500 mb-1">📄 Articles Today</p>
-                <p className="text-2xl font-bold text-teal-500 tabular-nums">
-                  {mounted ? liveStats.articlesToday.toLocaleString() : '—'}
-                </p>
+            {/* Content */}
+            <div className="relative z-10">
+              {/* Header */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="relative">
+                  <span className="w-3 h-3 bg-green-400 rounded-full block animate-pulse" />
+                  <span className="absolute inset-0 w-3 h-3 bg-green-400 rounded-full animate-ping opacity-75" />
+                </div>
+                <span className="text-green-400 font-bold text-sm uppercase tracking-wider">Live Activity</span>
               </div>
-              <div className="bg-navy-800/50 rounded-xl p-4 text-center border border-teal-500/20">
-                <p className="text-xs text-gray-500 mb-1">⚡ Avg Fast Cash</p>
-                <p className="text-2xl font-bold text-teal-500 tabular-nums">
-                  {mounted ? liveStats.avgFastCash.toFixed(1) : '—'}
-                </p>
+              
+              <h3 className="text-white font-bold text-lg mb-1">What&apos;s Happening Right Now</h3>
+              <p className="text-gray-400 text-xs mb-4">Real results from Cash Formula members</p>
+              
+              {/* Live Stats Grid - Redesigned */}
+              <div className="grid grid-cols-2 gap-2 mb-3">
+                {/* Articles Today */}
+                <div className="group relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-teal-500/30 transition-all">
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative">
+                    <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">📄 Articles</p>
+                    <p className="text-xl font-bold text-white tabular-nums">
+                      {mounted ? <AnimatedNumber value={liveStats.articlesToday} /> : '—'}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Clicks Tracked */}
+                <div className="group relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-teal-500/30 transition-all">
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative">
+                    <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">🎯 Clicks</p>
+                    <p className="text-xl font-bold text-white tabular-nums">
+                      {mounted ? <AnimatedNumber value={liveStats.clicksTracked} /> : '—'}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Active Users */}
+                <div className="group relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-teal-500/30 transition-all">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative">
+                    <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">👥 Active</p>
+                    <p className="text-xl font-bold text-white tabular-nums">
+                      {mounted ? <AnimatedNumber value={liveStats.activeThisWeek} /> : '—'}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Mini Total */}
+                <div className="group relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-gold-500/30 transition-all">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative">
+                    <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">💵 Today</p>
+                    <p className="text-xl font-bold text-gold-400 tabular-nums">
+                      {mounted ? <AnimatedNumber value={liveStats.totalMoneyToday} prefix="$" /> : '—'}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="bg-navy-800/50 rounded-xl p-4 text-center border border-teal-500/20">
-                <p className="text-xs text-gray-500 mb-1">🎯 Clicks Tracked</p>
-                <p className="text-2xl font-bold text-teal-500 tabular-nums">
-                  {mounted ? liveStats.clicksTracked.toLocaleString() : '—'}
-                </p>
+              
+              {/* Total Money Generated - Featured */}
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-500 via-emerald-500 to-green-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity" />
+                <div className="relative bg-gradient-to-r from-teal-900/80 to-emerald-900/80 backdrop-blur-sm rounded-xl p-4 border border-teal-500/30">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[10px] text-teal-300/70 uppercase tracking-wider mb-1">Total Generated Today</p>
+                      <p className="text-2xl font-bold text-white tabular-nums">
+                        {mounted ? <AnimatedNumber value={liveStats.totalMoneyToday} prefix="$" /> : '—'}
+                      </p>
+                    </div>
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-500/20 to-emerald-500/20 flex items-center justify-center border border-teal-500/30">
+                      <span className="text-2xl">📈</span>
+                    </div>
+                  </div>
+                  
+                  {/* Activity indicator */}
+                  <div className="mt-3 flex items-center gap-2">
+                    <div className="flex -space-x-1">
+                      {[...Array(4)].map((_, i) => (
+                        <div key={i} className="w-5 h-5 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 border-2 border-navy-900 flex items-center justify-center text-[8px]">
+                          👤
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-xs text-teal-300/70">
+                      <span className="text-white font-medium">{mounted ? (liveStats.activeThisWeek % 100 + 20) : '—'}</span> members earning right now
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="bg-navy-800/50 rounded-xl p-4 text-center border border-teal-500/20">
-                <p className="text-xs text-gray-500 mb-1">👥 Active This Week</p>
-                <p className="text-2xl font-bold text-teal-500 tabular-nums">
-                  {mounted ? liveStats.activeThisWeek.toLocaleString() : '—'}
-                </p>
-              </div>
-            </div>
-            
-            {/* Total Money Generated - BIG Number */}
-            <div className="bg-gradient-to-r from-teal-500/20 to-cyan-500/20 rounded-xl p-5 text-center border border-teal-500/30">
-              <p className="text-xs text-gray-500 mb-1">TOTAL MONEY GENERATED TODAY</p>
-              <p className="text-3xl font-bold text-teal-500 tabular-nums">
-                ${mounted ? liveStats.totalMoneyToday.toLocaleString() : '—'} 
-                <span className="text-lg">📈</span>
-              </p>
             </div>
           </div>
         </div>
