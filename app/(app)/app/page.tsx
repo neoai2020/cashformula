@@ -56,58 +56,94 @@ const PlusIcon = () => (
   </svg>
 );
 
-// Animated number component with smooth counting
-const AnimatedNumber = ({ value, prefix = '', suffix = '', className = '' }: { 
+// Animated number component with impressive effects
+const AnimatedNumber = ({ value, prefix = '', suffix = '', className = '', color = 'text-white' }: { 
   value: number; 
   prefix?: string; 
   suffix?: string;
   className?: string;
+  color?: string;
 }) => {
   const [displayValue, setDisplayValue] = useState(value);
   const [isIncreasing, setIsIncreasing] = useState(false);
+  const [incrementAmount, setIncrementAmount] = useState(0);
   const prevValueRef = useRef(value);
 
   useEffect(() => {
     if (value !== prevValueRef.current) {
-      setIsIncreasing(value > prevValueRef.current);
+      const diff = value - prevValueRef.current;
+      setIncrementAmount(diff);
+      setIsIncreasing(true);
       
-      // Animate the number change
-      const diff = value - displayValue;
-      const steps = 20;
-      const stepValue = diff / steps;
-      let current = 0;
+      // Smooth counting animation
+      const startValue = displayValue;
+      const endValue = value;
+      const duration = 800;
+      const startTime = performance.now();
       
-      const interval = setInterval(() => {
-        current++;
-        if (current >= steps) {
-          setDisplayValue(value);
-          clearInterval(interval);
-          setTimeout(() => setIsIncreasing(false), 500);
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth deceleration
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentValue = Math.round(startValue + (endValue - startValue) * easeOut);
+        
+        setDisplayValue(currentValue);
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
         } else {
-          setDisplayValue(prev => Math.round(prev + stepValue));
+          setTimeout(() => setIsIncreasing(false), 1000);
         }
-      }, 30);
+      };
       
+      requestAnimationFrame(animate);
       prevValueRef.current = value;
-      return () => clearInterval(interval);
     }
   }, [value, displayValue]);
 
   return (
-    <span className={`relative ${className}`}>
-      <span className={`transition-all duration-300 ${isIncreasing ? 'text-green-400 scale-105' : ''}`}>
+    <span className={`relative inline-block ${className}`}>
+      {/* Glow effect on increment */}
+      <AnimatePresence>
+        {isIncreasing && (
+          <motion.span
+            initial={{ opacity: 0.8, scale: 1 }}
+            animate={{ opacity: 0, scale: 1.5 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="absolute inset-0 bg-green-400/30 rounded-lg blur-xl"
+          />
+        )}
+      </AnimatePresence>
+      
+      {/* Main number */}
+      <motion.span 
+        className={`relative z-10 tabular-nums ${color}`}
+        animate={isIncreasing ? { 
+          scale: [1, 1.08, 1],
+          textShadow: ['0 0 0px transparent', '0 0 20px rgba(74, 222, 128, 0.8)', '0 0 0px transparent']
+        } : {}}
+        transition={{ duration: 0.5 }}
+      >
         {prefix}{displayValue.toLocaleString()}{suffix}
-      </span>
-      {isIncreasing && (
-        <motion.span 
-          initial={{ opacity: 1, y: 0 }}
-          animate={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.8 }}
-          className="absolute -top-1 -right-4 text-green-400 text-xs font-bold"
-        >
-          +
-        </motion.span>
-      )}
+      </motion.span>
+      
+      {/* Floating increment badge */}
+      <AnimatePresence>
+        {isIncreasing && incrementAmount > 0 && (
+          <motion.span 
+            initial={{ opacity: 0, y: 10, x: '-50%', scale: 0.5 }}
+            animate={{ opacity: 1, y: -25, x: '-50%', scale: 1 }}
+            exit={{ opacity: 0, y: -40, scale: 0.8 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="absolute -top-2 left-1/2 px-2 py-0.5 bg-green-500 text-white text-xs font-bold rounded-full shadow-lg shadow-green-500/50 whitespace-nowrap"
+          >
+            +{incrementAmount.toLocaleString()}
+          </motion.span>
+        )}
+      </AnimatePresence>
     </span>
   );
 };
@@ -415,100 +451,159 @@ export default function DashboardPage() {
           </div>
           
           {/* LIVE Stats Panel - What's Happening Right Now */}
-          <div className="lg:col-span-2 p-5 lg:p-6 flex flex-col justify-center relative overflow-hidden">
-            {/* Animated background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-navy-900/90 to-emerald-900/40" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-500/10 via-transparent to-transparent" />
+          <div className="lg:col-span-2 p-6 lg:p-8 flex flex-col justify-center relative overflow-hidden">
+            {/* Animated gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/60 via-teal-900/80 to-cyan-900/60" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-cyan-400/10 via-transparent to-transparent" />
+            
+            {/* Animated particles effect */}
+            <div className="absolute inset-0 overflow-hidden">
+              {[...Array(6)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-green-400/40 rounded-full"
+                  initial={{ 
+                    x: Math.random() * 100 + '%', 
+                    y: '100%',
+                    opacity: 0 
+                  }}
+                  animate={{ 
+                    y: '-20%',
+                    opacity: [0, 1, 0]
+                  }}
+                  transition={{
+                    duration: 3 + Math.random() * 2,
+                    repeat: Infinity,
+                    delay: i * 0.8,
+                    ease: 'linear'
+                  }}
+                />
+              ))}
+            </div>
             
             {/* Content */}
             <div className="relative z-10">
-              {/* Header */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className="relative">
-                  <span className="w-3 h-3 bg-green-400 rounded-full block animate-pulse" />
-                  <span className="absolute inset-0 w-3 h-3 bg-green-400 rounded-full animate-ping opacity-75" />
+              {/* Header with pulsing indicator */}
+              <div className="flex items-center gap-3 mb-5">
+                <div className="relative flex items-center justify-center">
+                  <span className="w-4 h-4 bg-green-400 rounded-full block" />
+                  <span className="absolute w-4 h-4 bg-green-400 rounded-full animate-ping" />
+                  <span className="absolute w-8 h-8 bg-green-400/20 rounded-full animate-pulse" />
                 </div>
-                <span className="text-green-400 font-bold text-sm uppercase tracking-wider">Live Activity</span>
-              </div>
-              
-              <h3 className="text-white font-bold text-lg mb-1">What&apos;s Happening Right Now</h3>
-              <p className="text-gray-400 text-xs mb-4">Real results from Cash Formula members</p>
-              
-              {/* Live Stats Grid - Redesigned */}
-              <div className="grid grid-cols-2 gap-2 mb-3">
-                {/* Articles Today */}
-                <div className="group relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-teal-500/30 transition-all">
-                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="relative">
-                    <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">📄 Articles</p>
-                    <p className="text-xl font-bold text-white tabular-nums">
-                      {mounted ? <AnimatedNumber value={liveStats.articlesToday} /> : '—'}
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Clicks Tracked */}
-                <div className="group relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-teal-500/30 transition-all">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="relative">
-                    <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">🎯 Clicks</p>
-                    <p className="text-xl font-bold text-white tabular-nums">
-                      {mounted ? <AnimatedNumber value={liveStats.clicksTracked} /> : '—'}
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Active Users */}
-                <div className="group relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-teal-500/30 transition-all">
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="relative">
-                    <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">👥 Active</p>
-                    <p className="text-xl font-bold text-white tabular-nums">
-                      {mounted ? <AnimatedNumber value={liveStats.activeThisWeek} /> : '—'}
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Mini Total */}
-                <div className="group relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-gold-500/30 transition-all">
-                  <div className="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="relative">
-                    <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">💵 Today</p>
-                    <p className="text-xl font-bold text-gold-400 tabular-nums">
-                      {mounted ? <AnimatedNumber value={liveStats.totalMoneyToday} prefix="$" /> : '—'}
-                    </p>
-                  </div>
+                <div>
+                  <span className="text-green-400 font-bold text-base uppercase tracking-wider">Live Activity</span>
+                  <p className="text-gray-400 text-xs">Real-time member results</p>
                 </div>
               </div>
               
-              {/* Total Money Generated - Featured */}
-              <div className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-500 via-emerald-500 to-green-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity" />
-                <div className="relative bg-gradient-to-r from-teal-900/80 to-emerald-900/80 backdrop-blur-sm rounded-xl p-4 border border-teal-500/30">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-[10px] text-teal-300/70 uppercase tracking-wider mb-1">Total Generated Today</p>
-                      <p className="text-2xl font-bold text-white tabular-nums">
-                        {mounted ? <AnimatedNumber value={liveStats.totalMoneyToday} prefix="$" /> : '—'}
-                      </p>
-                    </div>
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-500/20 to-emerald-500/20 flex items-center justify-center border border-teal-500/30">
-                      <span className="text-2xl">📈</span>
+              {/* Main Stats - Bigger & Bolder */}
+              <div className="space-y-4">
+                {/* Top Row - 2 big stats */}
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Articles Created */}
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-500/10 rounded-2xl blur-sm group-hover:blur-md transition-all" />
+                    <div className="relative bg-black/30 backdrop-blur-sm rounded-2xl p-4 border border-cyan-400/20 group-hover:border-cyan-400/40 transition-all">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-lg">📄</span>
+                        <span className="text-cyan-300 text-xs font-medium uppercase tracking-wider">Articles</span>
+                      </div>
+                      <div className="text-3xl font-bold">
+                        {mounted ? <AnimatedNumber value={liveStats.articlesToday} color="text-cyan-400" /> : '—'}
+                      </div>
                     </div>
                   </div>
                   
-                  {/* Activity indicator */}
-                  <div className="mt-3 flex items-center gap-2">
-                    <div className="flex -space-x-1">
-                      {[...Array(4)].map((_, i) => (
-                        <div key={i} className="w-5 h-5 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 border-2 border-navy-900 flex items-center justify-center text-[8px]">
-                          👤
-                        </div>
-                      ))}
+                  {/* Clicks Tracked */}
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/10 rounded-2xl blur-sm group-hover:blur-md transition-all" />
+                    <div className="relative bg-black/30 backdrop-blur-sm rounded-2xl p-4 border border-purple-400/20 group-hover:border-purple-400/40 transition-all">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-lg">🎯</span>
+                        <span className="text-purple-300 text-xs font-medium uppercase tracking-wider">Clicks</span>
+                      </div>
+                      <div className="text-3xl font-bold">
+                        {mounted ? <AnimatedNumber value={liveStats.clicksTracked} color="text-purple-400" /> : '—'}
+                      </div>
                     </div>
-                    <p className="text-xs text-teal-300/70">
-                      <span className="text-white font-medium">{mounted ? (liveStats.activeThisWeek % 100 + 20) : '—'}</span> members earning right now
-                    </p>
+                  </div>
+                </div>
+                
+                {/* Bottom Row - 2 big stats */}
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Active Members */}
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/10 rounded-2xl blur-sm group-hover:blur-md transition-all" />
+                    <div className="relative bg-black/30 backdrop-blur-sm rounded-2xl p-4 border border-blue-400/20 group-hover:border-blue-400/40 transition-all">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-lg">👥</span>
+                        <span className="text-blue-300 text-xs font-medium uppercase tracking-wider">Active</span>
+                      </div>
+                      <div className="text-3xl font-bold">
+                        {mounted ? <AnimatedNumber value={liveStats.activeThisWeek} color="text-blue-400" /> : '—'}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Today's Earnings */}
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-orange-500/10 rounded-2xl blur-sm group-hover:blur-md transition-all" />
+                    <div className="relative bg-black/30 backdrop-blur-sm rounded-2xl p-4 border border-amber-400/20 group-hover:border-amber-400/40 transition-all">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-lg">💰</span>
+                        <span className="text-amber-300 text-xs font-medium uppercase tracking-wider">Earned</span>
+                      </div>
+                      <div className="text-3xl font-bold">
+                        {mounted ? <AnimatedNumber value={liveStats.totalMoneyToday} prefix="$" color="text-amber-400" /> : '—'}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Featured Total - The Big Number */}
+                <div className="relative group mt-2">
+                  <motion.div 
+                    className="absolute -inset-1 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 rounded-2xl opacity-50 blur-lg"
+                    animate={{ opacity: [0.4, 0.6, 0.4] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  <div className="relative bg-gradient-to-r from-green-900/90 to-emerald-900/90 backdrop-blur-sm rounded-2xl p-5 border border-green-400/30">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-green-300/80 text-sm font-medium uppercase tracking-wider mb-2">💵 Total Generated Today</p>
+                        <div className="text-4xl sm:text-5xl font-bold">
+                          {mounted ? <AnimatedNumber value={liveStats.totalMoneyToday} prefix="$" color="text-green-400" /> : '—'}
+                        </div>
+                      </div>
+                      <motion.div 
+                        className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400/30 to-emerald-500/20 flex items-center justify-center border border-green-400/30"
+                        animate={{ scale: [1, 1.05, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <span className="text-4xl">📈</span>
+                      </motion.div>
+                    </div>
+                    
+                    {/* Members earning indicator */}
+                    <div className="mt-4 pt-4 border-t border-green-500/20 flex items-center gap-3">
+                      <div className="flex -space-x-2">
+                        {['🧑', '👩', '👨', '🧑‍💼', '👩‍💼'].map((emoji, i) => (
+                          <motion.div 
+                            key={i} 
+                            className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 border-2 border-green-900 flex items-center justify-center text-sm"
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: i * 0.1 }}
+                          >
+                            {emoji}
+                          </motion.div>
+                        ))}
+                      </div>
+                      <p className="text-sm text-green-300/80">
+                        <span className="text-white font-bold">{mounted ? (liveStats.activeThisWeek % 100 + 50) : '—'}</span> members earning right now
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
