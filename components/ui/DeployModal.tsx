@@ -18,7 +18,7 @@ interface DeployModalProps {
     generatedContent?: Record<string, unknown>;
     productData?: Record<string, unknown>;
   };
-  onDeploy: (affiliateLink: string) => Promise<void>;
+  onDeploy: (affiliateLink: string) => Promise<string>; // Returns the page slug
 }
 
 const CloseIcon = () => (
@@ -48,6 +48,7 @@ export default function DeployModal({ isOpen, onClose, product, onDeploy }: Depl
   const [deployed, setDeployed] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [error, setError] = useState('');
+  const [createdPageSlug, setCreatedPageSlug] = useState('');
 
   const handleDeploy = async () => {
     if (!affiliateLink.trim()) {
@@ -59,7 +60,8 @@ export default function DeployModal({ isOpen, onClose, product, onDeploy }: Depl
     setDeploying(true);
 
     try {
-      await onDeploy(affiliateLink);
+      const slug = await onDeploy(affiliateLink);
+      setCreatedPageSlug(slug);
       setDeployed(true);
       setShowConfetti(true);
     } catch (err) {
@@ -74,6 +76,7 @@ export default function DeployModal({ isOpen, onClose, product, onDeploy }: Depl
     setDeployed(false);
     setShowConfetti(false);
     setError('');
+    setCreatedPageSlug('');
     onClose();
   };
 
@@ -195,10 +198,10 @@ export default function DeployModal({ isOpen, onClose, product, onDeploy }: Depl
                     </p>
                     <div className="flex gap-3">
                       <Button
-                        onClick={() => window.location.href = '/app/pages'}
+                        onClick={() => window.open(`/p/${createdPageSlug}`, '_blank')}
                         className="flex-1"
                       >
-                        View My Pages
+                        👁️ View Page
                       </Button>
                       <Button
                         onClick={() => window.location.href = '/app/traffic'}
@@ -208,6 +211,12 @@ export default function DeployModal({ isOpen, onClose, product, onDeploy }: Depl
                         Share Now
                       </Button>
                     </div>
+                    <button
+                      onClick={handleClose}
+                      className="mt-4 text-sm text-navy-400 hover:text-white transition-colors"
+                    >
+                      ← Back to Gold Package
+                    </button>
                   </div>
                 )}
               </div>

@@ -228,9 +228,9 @@ export default function GoldPage() {
   // Calculate total value
   const totalValue = products.length * 97; // $97 per page value
 
-  // Handle deploy
-  const handleDeploy = async (affiliateLink: string) => {
-    if (!selectedProduct) return;
+  // Handle deploy - returns the created page slug
+  const handleDeploy = async (affiliateLink: string): Promise<string> => {
+    if (!selectedProduct) throw new Error('No product selected');
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('Please log in first');
@@ -254,6 +254,8 @@ export default function GoldPage() {
       });
 
     if (error) throw new Error('Failed to create page');
+    
+    return slug; // Return the slug so DeployModal can open the page
   };
 
   const copyCaption = (caption: string, index: string) => {
