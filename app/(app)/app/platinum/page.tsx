@@ -1916,7 +1916,7 @@ export default function PlatinumPage() {
                         { id: 'countdown', label: '⏰ Countdown Timer' },
                         { id: 'visitors', label: '👥 Live Visitors' },
                         { id: 'recent-sales', label: '💰 Recent Sales' },
-                        { id: 'urgency', label: '🔥 Urgency Banner' },
+                        { id: 'urgency-banner', label: '🔥 Urgency Banner' },
                         { id: 'trust-badges', label: '✅ Trust Badges' },
                         { id: 'exit-popup', label: '🚪 Exit Intent' },
                       ].map((booster) => (

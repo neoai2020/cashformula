@@ -7,7 +7,7 @@ const CONVERSION_BOOSTERS = [
   { id: 'countdown', name: 'Countdown Timer', description: 'Creates urgency' },
   { id: 'visitors', name: 'Live Visitors Counter', description: 'Shows viewers' },
   { id: 'recent-sales', name: 'Recent Purchase Alerts', description: 'Displays purchases' },
-  { id: 'urgency', name: 'Urgency Banner', description: 'Stock/sale alerts' },
+  { id: 'urgency-banner', name: 'Urgency Banner', description: 'Stock/sale alerts' },
   { id: 'trust-badges', name: 'Trust Badges', description: 'Security badges' },
   { id: 'exit-popup', name: 'Exit Intent Message', description: 'Last chance offer' },
 ];

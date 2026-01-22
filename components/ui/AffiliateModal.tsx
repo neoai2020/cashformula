@@ -45,7 +45,7 @@ const CONVERSION_BOOSTERS: ConversionBooster[] = [
     enabled: false,
   },
   {
-    id: 'urgency',
+    id: 'urgency-banner',
     name: 'Urgency Banner',
     description: 'Eye-catching stock/sale alerts',
     enabled: false,
