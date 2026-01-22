@@ -14,34 +14,64 @@ function getSupabaseAdmin() {
   });
 }
 
-// Fix "Why" headlines in titles
+// Fix "Why" headlines and awkward phrases in titles
 function fixTitle(title: string, productTitle?: string): string {
   if (!title) return title;
   
-  // If title starts with "Why", replace it
-  if (title.toLowerCase().startsWith('why ')) {
-    // Get the rest of the title after "Why"
-    const rest = title.slice(4);
-    
-    // Generate a better title
-    const alternatives = [
-      `The ${rest}`,
-      `Discover ${rest}`,
-      `Meet ${rest}`,
-      `Get ${rest}`,
-      `This ${rest}`,
-    ];
-    
-    // Pick one based on what sounds best
-    if (rest.toLowerCase().includes('is ') || rest.toLowerCase().includes('are ')) {
-      // "Why X Is Amazing" -> "X Is Amazing"
-      return rest.charAt(0).toUpperCase() + rest.slice(1);
-    }
-    
-    return alternatives[Math.floor(Math.random() * alternatives.length)];
+  let newTitle = title;
+  
+  // Remove "Why " from the beginning
+  if (newTitle.toLowerCase().startsWith('why ')) {
+    newTitle = newTitle.slice(4);
   }
   
-  return title;
+  // Remove awkward endings like "Is Amazing", "Is Worth Every Penny", etc.
+  const awkwardEndings = [
+    / is amazing$/i,
+    / are amazing$/i,
+    / is worth every penny$/i,
+    / is worth it$/i,
+    / is the best$/i,
+    / is incredible$/i,
+    / is fantastic$/i,
+  ];
+  
+  for (const ending of awkwardEndings) {
+    newTitle = newTitle.replace(ending, '');
+  }
+  
+  // Clean up the title
+  newTitle = newTitle.trim();
+  
+  // If we have the product title, use it to create a better headline
+  if (productTitle && productTitle.length > 5) {
+    // Extract a short version of product name (first 6 words max)
+    const shortName = productTitle.split(' ').slice(0, 6).join(' ');
+    
+    // Create engaging headline variations
+    const headlines = [
+      `${shortName} - Honest Review`,
+      `${shortName} Review: Is It Worth It?`,
+      `The Truth About ${shortName}`,
+      `${shortName} - Complete Buyer's Guide`,
+    ];
+    
+    // Return a random good headline
+    return headlines[Math.floor(Math.random() * headlines.length)];
+  }
+  
+  // If no product title, just clean up what we have
+  if (newTitle.length > 0) {
+    // Capitalize first letter
+    newTitle = newTitle.charAt(0).toUpperCase() + newTitle.slice(1);
+    
+    // Add a suffix if title is too short
+    if (newTitle.length < 30 && !newTitle.toLowerCase().includes('review')) {
+      newTitle = `${newTitle} - Complete Review`;
+    }
+  }
+  
+  return newTitle;
 }
 
 export async function POST() {
@@ -66,25 +96,33 @@ export async function POST() {
       
       const oldTitle = String(content.title);
       
-      // Check if title starts with "Why"
-      if (oldTitle.toLowerCase().startsWith('why ')) {
+      // Check if title needs fixing (starts with "Why" or has awkward phrases)
+      const needsFixing = 
+        oldTitle.toLowerCase().startsWith('why ') ||
+        oldTitle.toLowerCase().includes(' is amazing') ||
+        oldTitle.toLowerCase().includes(' is worth every penny') ||
+        oldTitle.toLowerCase().includes(' is worth it');
+      
+      if (needsFixing) {
         const productTitle = (page.product_data as Record<string, unknown>)?.title as string;
         const newTitle = fixTitle(oldTitle, productTitle);
         
-        // Update the generated_content with new title
-        const updatedContent = {
-          ...content,
-          title: newTitle,
-        };
-        
-        const { error: updateError } = await supabase
-          .from('dfy_pages')
-          .update({ generated_content: updatedContent })
-          .eq('id', page.id);
-        
-        if (!updateError) {
-          fixedCount++;
-          results.push({ id: page.id, oldTitle, newTitle });
+        // Only update if title actually changed
+        if (newTitle !== oldTitle) {
+          const updatedContent = {
+            ...content,
+            title: newTitle,
+          };
+          
+          const { error: updateError } = await supabase
+            .from('dfy_pages')
+            .update({ generated_content: updatedContent })
+            .eq('id', page.id);
+          
+          if (!updateError) {
+            fixedCount++;
+            results.push({ id: page.id, oldTitle, newTitle });
+          }
         }
       }
     }
@@ -101,23 +139,32 @@ export async function POST() {
         
         const oldTitle = String(content.title);
         
-        if (oldTitle.toLowerCase().startsWith('why ')) {
+        // Check if title needs fixing
+        const needsFixing = 
+          oldTitle.toLowerCase().startsWith('why ') ||
+          oldTitle.toLowerCase().includes(' is amazing') ||
+          oldTitle.toLowerCase().includes(' is worth every penny') ||
+          oldTitle.toLowerCase().includes(' is worth it');
+        
+        if (needsFixing) {
           const productTitle = (page.product_data as Record<string, unknown>)?.title as string;
           const newTitle = fixTitle(oldTitle, productTitle);
           
-          const updatedContent = {
-            ...content,
-            title: newTitle,
-          };
-          
-          const { error: updateError } = await supabase
-            .from('pages')
-            .update({ generated_content: updatedContent })
-            .eq('id', page.id);
-          
-          if (!updateError) {
-            fixedCount++;
-            results.push({ id: page.id, oldTitle, newTitle });
+          if (newTitle !== oldTitle) {
+            const updatedContent = {
+              ...content,
+              title: newTitle,
+            };
+            
+            const { error: updateError } = await supabase
+              .from('pages')
+              .update({ generated_content: updatedContent })
+              .eq('id', page.id);
+            
+            if (!updateError) {
+              fixedCount++;
+              results.push({ id: page.id, oldTitle, newTitle });
+            }
           }
         }
       }

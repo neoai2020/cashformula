@@ -215,7 +215,7 @@ Return ONLY valid JSON, no explanation or markdown.`;
               console.error(`  Failed to parse ChatGPT response for ${searchTerm}`);
               // Use fallback content
               generatedContent = {
-                title: `Why ${title.split(' ').slice(0, 5).join(' ')} Is Amazing`,
+                title: `${title.split(' ').slice(0, 5).join(' ')} - Honest Review`,
                 overview: `The ${title} has quickly become a favorite in the ${category.name} space. With thousands of positive reviews and excellent ratings, this product delivers exceptional value.`,
                 pros: ['High quality', 'Great value', 'Easy to use', 'Fast shipping', 'Excellent reviews'],
                 cons: ['Popular item - may sell out'],
@@ -233,7 +233,7 @@ Return ONLY valid JSON, no explanation or markdown.`;
           } else {
             console.error(`  ChatGPT API failed for ${searchTerm}`);
             generatedContent = {
-              title: `Why ${title.split(' ').slice(0, 5).join(' ')} Is Amazing`,
+              title: `${title.split(' ').slice(0, 5).join(' ')} - Complete Review`,
               overview: `This ${title} is highly rated with excellent reviews.`,
               pros: ['High quality', 'Great value', 'Easy to use'],
               cons: ['Popular item'],
