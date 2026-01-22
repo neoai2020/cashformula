@@ -182,9 +182,11 @@ Category: ${category}
 Price: ${price}
 Rating: ${rating}
 
+IMPORTANT: The headline must NOT start with "Why" - use action words like "The", "This", "Get", "Discover", "Meet", etc.
+
 Generate a JSON response with this EXACT structure (no markdown, just valid JSON):
 {
-  "title": "A SHORT catchy headline (max 60 characters)",
+  "title": "A SHORT catchy headline (max 60 chars, NEVER start with 'Why')",
   "overview": "2-3 paragraphs explaining what this product is and why it's great",
   "pros": ["5-6 specific benefits as short bullet points"],
   "cons": ["1-2 minor drawbacks to seem balanced"],
@@ -235,8 +237,9 @@ Return ONLY valid JSON, no explanation or markdown.`;
 
 // Fallback content if ChatGPT fails
 function getFallbackContent(title: string, category: string): any {
+  const shortTitle = title.split(' ').slice(0, 4).join(' ');
   return {
-    title: `Why ${title.split(' ').slice(0, 5).join(' ')} Is Amazing`,
+    title: `The ${shortTitle} You've Been Looking For`,
     overview: `The ${title} has quickly become a favorite in the ${category} space. With thousands of positive reviews and excellent ratings, this product delivers exceptional value for your money.`,
     pros: ['High quality materials', 'Great value for money', 'Easy to use', 'Fast shipping with Prime', 'Excellent customer reviews'],
     cons: ['Popular item - may sell out quickly'],
