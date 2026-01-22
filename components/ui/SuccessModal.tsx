@@ -96,11 +96,23 @@ export default function SuccessModal({
               
               {/* Content */}
               <div className="relative m-[3px] rounded-3xl bg-gradient-to-b from-navy-800 to-navy-900 p-8 text-center">
+                {/* Close Button - Top Right */}
+                <button
+                  onClick={onClose}
+                  className="absolute top-4 right-4 z-10 w-10 h-10 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-red-500/50 transition-all hover:scale-110 active:scale-95"
+                  aria-label="Close"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+
                 {/* Floating sparkles */}
                 <div className="absolute top-4 left-4 text-gold-400 animate-pulse opacity-60">
                   <SparkleIcon />
                 </div>
-                <div className="absolute top-8 right-8 text-gold-400 animate-pulse opacity-40 scale-75">
+                <div className="absolute top-16 right-8 text-gold-400 animate-pulse opacity-40 scale-75">
                   <SparkleIcon />
                 </div>
                 <div className="absolute bottom-12 left-8 text-gold-400 animate-pulse opacity-50 scale-50">
