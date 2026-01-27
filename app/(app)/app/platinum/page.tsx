@@ -15,7 +15,6 @@ import {
 } from '@/lib/platinum-data';
 import Button from '@/components/ui/Button';
 import Confetti from '@/components/ui/Confetti';
-import VideoPlaceholder from '@/components/ui/VideoPlaceholder';
 import AffiliateModal from '@/components/ui/AffiliateModal';
 import MultiProductModal from '@/components/ui/MultiProductModal';
 import SuccessModal from '@/components/ui/SuccessModal';
@@ -103,31 +102,31 @@ const CalendarIcon = () => (
   </svg>
 );
 
-// Training videos placeholder data
+// Training videos with Vimeo embeds
 const trainingVideos = [
   {
     title: 'Platinum Mastery: Your First $1,000',
     description: 'Complete walkthrough of the Platinum system - from setup to your first commission.',
-    duration: '24:15',
     badge: 'START HERE',
-    thumbnail: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=800&h=450&fit=crop',
-    videoUrl: '#',
+    vimeoId: '1158738460',
   },
   {
     title: 'High-Ticket Promotion Secrets',
     description: 'Advanced strategies for promoting high-ticket products and maximizing commissions.',
-    duration: '18:42',
     badge: 'ADVANCED',
-    thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop',
-    videoUrl: '#',
+    vimeoId: '1158738584',
   },
   {
     title: '30-Day Content Calendar Strategy',
     description: 'How to use your profit pack content for maximum engagement and consistent sales.',
-    duration: '15:30',
     badge: 'STRATEGY',
-    thumbnail: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=450&fit=crop',
-    videoUrl: '#',
+    vimeoId: '1158738723',
+  },
+  {
+    title: 'Scaling Your Platinum Business',
+    description: 'Take your affiliate business to the next level with advanced scaling techniques.',
+    badge: 'PRO',
+    vimeoId: '1158738825',
   },
 ];
 
@@ -427,7 +426,7 @@ export default function PlatinumPage() {
           <span className="text-purple-primary"><BoltIcon /></span>
           Platinum Training Vault
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {trainingVideos.map((video, i) => (
             <motion.div
               key={i}
@@ -436,14 +435,23 @@ export default function PlatinumPage() {
               transition={{ delay: i * 0.1 }}
               className="glass-card rounded-2xl overflow-hidden hover:shadow-glow-purple transition-all"
             >
-              <VideoPlaceholder
-                thumbnail={video.thumbnail}
-                title={video.title}
-                duration={video.duration}
-                badge={video.badge}
-                videoUrl={video.videoUrl}
-                accentColor="purple"
-              />
+              {/* Video Embed */}
+              <div className="relative aspect-video bg-navy-800">
+                <iframe
+                  src={`https://player.vimeo.com/video/${video.vimeoId}?badge=0&autopause=0&player_id=0&app_id=58479`}
+                  className="absolute inset-0 w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                  allowFullScreen
+                  title={video.title}
+                />
+                
+                {/* Badge */}
+                <div className="absolute top-3 left-3 px-3 py-1 bg-gradient-to-r from-purple-primary to-pink-primary text-white text-xs font-bold rounded-full z-10 pointer-events-none">
+                  {video.badge}
+                </div>
+              </div>
+              
               <div className="p-5">
                 <h3 className="font-bold text-white text-lg mb-2">
                   {video.title}

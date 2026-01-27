@@ -438,26 +438,19 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-5">
           {/* Video Player */}
           <div className="relative lg:col-span-3 aspect-video lg:aspect-[16/10] bg-gradient-to-br from-navy-800/80 to-navy-900/80">
-            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-navy-950/30" />
-            
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <button className="w-28 h-28 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 flex items-center justify-center text-white hover:scale-105 transition-all duration-300 mb-4 mx-auto group animate-pulse-glow">
-                  <PlayIcon />
-                </button>
-                <p className="text-white/80 text-base font-medium">Click to play video</p>
-              </div>
-            </div>
+            <iframe
+              src="https://player.vimeo.com/video/1158728161?badge=0&autopause=0&player_id=0&app_id=58479"
+              className="absolute inset-0 w-full h-full"
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+              allowFullScreen
+              title="Welcome to Cash Formula"
+            />
             
             {/* Live badge */}
-            <div className="absolute top-6 left-6 px-4 py-2 bg-red-500 rounded-full text-white text-base font-bold flex items-center gap-2 shadow-lg">
+            <div className="absolute top-6 left-6 px-4 py-2 bg-red-500 rounded-full text-white text-base font-bold flex items-center gap-2 shadow-lg z-10 pointer-events-none">
               <span className="w-3 h-3 bg-white rounded-full animate-pulse" />
               MUST WATCH FIRST
-            </div>
-            
-            {/* Duration badge */}
-            <div className="absolute bottom-6 right-6 px-4 py-2 bg-black/60 backdrop-blur-sm rounded-lg text-white text-base font-medium">
-              5:32
             </div>
           </div>
           

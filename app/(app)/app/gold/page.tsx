@@ -82,14 +82,13 @@ const ClockIcon = () => (
   </svg>
 );
 
-// Training videos data
+// Training videos data with Vimeo embeds
 const trainingVideos = [
   {
     id: 1,
     title: 'How to Pick Winning Gold Pages',
     description: 'Learn how to identify the highest-converting pages in your Gold Package',
-    duration: '8:24',
-    thumbnail: null, // placeholder
+    vimeoId: '1158721735',
     badge: 'ESSENTIAL',
     badgeColor: 'bg-gold-500',
   },
@@ -97,19 +96,9 @@ const trainingVideos = [
     id: 2,
     title: 'Deploy & Customize Your Page',
     description: 'Step-by-step guide to deploying and personalizing your profit pages',
-    duration: '12:15',
-    thumbnail: null,
+    vimeoId: '1158728009',
     badge: 'STEP-BY-STEP',
     badgeColor: 'bg-purple-500',
-  },
-  {
-    id: 3,
-    title: 'Maximize Your Commissions',
-    description: 'Advanced strategies to drive traffic and increase your earnings',
-    duration: '15:42',
-    thumbnail: null,
-    badge: 'ADVANCED',
-    badgeColor: 'bg-cash-green',
   },
 ];
 
@@ -372,42 +361,35 @@ export default function GoldPage() {
         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
           🎬 Gold Package Training
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {trainingVideos.map((video) => (
             <motion.div
               key={video.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: video.id * 0.1 }}
-              className="glass-card rounded-2xl overflow-hidden group cursor-pointer hover:border-gold-500/30 transition-all"
+              className="glass-card rounded-2xl overflow-hidden hover:border-gold-500/30 transition-all"
             >
-              {/* Video Thumbnail - Smaller */}
-              <div className="relative aspect-[16/10] bg-gradient-to-br from-navy-800 to-navy-900">
-                {/* Placeholder gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gold-500/10 to-purple-500/10" />
-                
-                {/* Play button */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-gold-400 to-gold-500 flex items-center justify-center text-navy-950 shadow-lg shadow-gold-500/30 group-hover:scale-110 transition-transform">
-                    <PlayIcon />
-                  </div>
-                </div>
+              {/* Video Embed */}
+              <div className="relative aspect-video bg-navy-800">
+                <iframe
+                  src={`https://player.vimeo.com/video/${video.vimeoId}?badge=0&autopause=0&player_id=0&app_id=58479`}
+                  className="absolute inset-0 w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                  allowFullScreen
+                  title={video.title}
+                />
                 
                 {/* Badge */}
-                <div className={`absolute top-3 left-3 px-2 py-1 ${video.badgeColor} text-white text-xs font-bold rounded-full`}>
+                <div className={`absolute top-3 left-3 px-2 py-1 ${video.badgeColor} text-white text-xs font-bold rounded-full z-10 pointer-events-none`}>
                   {video.badge}
-                </div>
-                
-                {/* Duration */}
-                <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/70 text-white text-xs font-medium rounded-md flex items-center gap-1">
-                  <ClockIcon />
-                  {video.duration}
                 </div>
               </div>
               
               {/* Video Info */}
               <div className="p-4">
-                <h3 className="font-semibold text-white mb-1 group-hover:text-gold-400 transition-colors">
+                <h3 className="font-semibold text-white mb-1">
                   {video.title}
                 </h3>
                 <p className="text-sm text-navy-400 line-clamp-2">

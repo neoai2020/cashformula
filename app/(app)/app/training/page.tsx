@@ -48,6 +48,34 @@ const UsersIcon = () => (
   </svg>
 );
 
+// Training videos with Vimeo embeds
+const trainingVideos = [
+  {
+    id: 1,
+    title: 'Setting Up Your Goals',
+    description: 'Learn how to set realistic goals and create your success roadmap',
+    vimeoId: '1158728316',
+  },
+  {
+    id: 2,
+    title: 'Creating Your Amazon Account',
+    description: 'Step-by-step guide to creating your Amazon Associates account',
+    vimeoId: '1158728379',
+  },
+  {
+    id: 3,
+    title: 'Building Your First Page',
+    description: 'Create your first profit page in just minutes',
+    vimeoId: '1158728432',
+  },
+  {
+    id: 4,
+    title: 'Promoting Your Page',
+    description: 'Traffic strategies that work to drive visitors to your pages',
+    vimeoId: '1158728547',
+  },
+];
+
 export default function TrainingPage() {
   const [watchedSections, setWatchedSections] = useState<number[]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -61,13 +89,7 @@ export default function TrainingPage() {
     'Bonus: Private community access included',
   ];
 
-  const videoSections = [
-    { id: 1, title: 'Introduction & Overview', duration: '2:15' },
-    { id: 2, title: 'The 3-Step System Explained', duration: '4:30' },
-    { id: 3, title: 'Creating Your First Page', duration: '6:45' },
-    { id: 4, title: 'Traffic Strategies That Work', duration: '8:20' },
-    { id: 5, title: 'Scaling to $5K/Day', duration: '5:10' },
-  ];
+  const videoSections = trainingVideos;
 
   const toggleWatched = (sectionId: number) => {
     const newWatched = watchedSections.includes(sectionId)
@@ -143,102 +165,85 @@ export default function TrainingPage() {
         </div>
       </div>
 
-      {/* Video Player Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Video */}
-        <div className="lg:col-span-2 glass-card rounded-3xl overflow-hidden">
-          <div className="aspect-video bg-navy-800 flex items-center justify-center relative group cursor-pointer">
-            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent" />
-            <a
-              href="https://freedomescapexcelerator.com/2k-per-day"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative z-10 text-center"
-            >
-              <div className="w-24 h-24 bg-gold-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-gold-lg animate-pulse-glow">
-                <PlayIcon />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Free Training Video
-              </h3>
-              <p className="text-navy-300 text-lg">
-                Click to watch the full system walkthrough
-              </p>
-            </a>
-          </div>
-
-          {/* Social proof bar */}
-          <div className="p-5 border-t border-navy-700 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1 text-gold-400">
-                {[1,2,3,4,5].map(i => <StarIcon key={i} />)}
-              </div>
-              <span className="text-navy-300">4.9/5 rating</span>
-            </div>
-            <div className="flex items-center gap-2 text-navy-400">
-              <UsersIcon />
-              <span><strong className="text-white">12,847</strong> members watched</span>
-            </div>
-          </div>
+      {/* Training Videos Section */}
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+          🎬 Training Videos
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {trainingVideos.map((video, idx) => {
+            const isWatched = watchedSections.includes(video.id);
+            return (
+              <motion.div
+                key={video.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="glass-card rounded-2xl overflow-hidden"
+              >
+                {/* Video Embed */}
+                <div className="relative aspect-video bg-navy-800">
+                  <iframe
+                    src={`https://player.vimeo.com/video/${video.vimeoId}?badge=0&autopause=0&player_id=0&app_id=58479`}
+                    className="absolute inset-0 w-full h-full"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                    allowFullScreen
+                    title={video.title}
+                  />
+                </div>
+                
+                {/* Video Info */}
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="px-2 py-1 bg-gold-500/20 text-gold-400 text-xs font-bold rounded-full">
+                          STEP {video.id}
+                        </span>
+                      </div>
+                      <h3 className="font-bold text-white text-lg mb-1">
+                        {video.title}
+                      </h3>
+                      <p className="text-navy-400 text-sm">{video.description}</p>
+                    </div>
+                    <button
+                      onClick={() => toggleWatched(video.id)}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${
+                        isWatched 
+                          ? 'bg-cash-green text-white' 
+                          : 'bg-navy-700 text-navy-400 hover:bg-navy-600'
+                      }`}
+                    >
+                      {isWatched ? <CheckIcon /> : <span className="text-lg">○</span>}
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Video Sections Checklist */}
+        {/* Progress Bar */}
         <div className="glass-card rounded-2xl p-6">
-          <h3 className="font-bold text-white mb-4 text-lg flex items-center gap-2">
-            📋 Training Sections
-          </h3>
-          
-          <div className="space-y-3">
-            {videoSections.map((section) => {
-              const isWatched = watchedSections.includes(section.id);
-              return (
-                <button
-                  key={section.id}
-                  onClick={() => toggleWatched(section.id)}
-                  className={`w-full flex items-center gap-3 p-4 rounded-xl transition-all text-left ${
-                    isWatched 
-                      ? 'bg-cash-green/10 border border-cash-green/20' 
-                      : 'bg-navy-800/50 border border-navy-700 hover:border-navy-600'
-                  }`}
-                >
-                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                    isWatched ? 'bg-cash-green text-white' : 'border-2 border-navy-600'
-                  }`}>
-                    {isWatched && <CheckIcon />}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className={`font-medium truncate ${isWatched ? 'text-white' : 'text-navy-300'}`}>
-                      {section.title}
-                    </p>
-                  </div>
-                  <span className={`text-sm ${isWatched ? 'text-cash-green' : 'text-navy-500'}`}>
-                    {section.duration}
-                  </span>
-                </button>
-              );
-            })}
+          <div className="flex justify-between text-sm mb-3">
+            <span className="text-navy-400 font-medium">Your Progress</span>
+            <span className={allWatched ? 'text-cash-green font-bold' : 'text-white font-bold'}>
+              {watchedSections.length}/{videoSections.length} Complete
+            </span>
           </div>
-
-          {/* Progress */}
-          <div className="mt-6 pt-4 border-t border-navy-700">
-            <div className="flex justify-between text-sm mb-2">
-              <span className="text-navy-400">Progress</span>
-              <span className={allWatched ? 'text-cash-green font-bold' : 'text-white'}>
-                {watchedSections.length}/{videoSections.length}
-              </span>
-            </div>
-            <div className="progress-bar">
-              <div 
-                className="progress-bar-fill"
-                style={{ width: `${(watchedSections.length / videoSections.length) * 100}%` }}
-              />
-            </div>
-            {allWatched && (
-              <p className="text-cash-green font-bold mt-3 text-center">
-                🎉 Training Complete! You&apos;re ready!
-              </p>
-            )}
+          <div className="progress-bar">
+            <div 
+              className="progress-bar-fill"
+              style={{ width: `${(watchedSections.length / videoSections.length) * 100}%` }}
+            />
           </div>
+          {allWatched && (
+            <p className="text-cash-green font-bold mt-4 text-center text-lg">
+              🎉 Training Complete! You&apos;re ready to start earning!
+            </p>
+          )}
         </div>
       </div>
 
