@@ -15,8 +15,9 @@ export const config = {
      * - public folder
      * - p/ (public pages)
      * - api/ (API routes)
+     * - cf-admin-8x7k/ (admin panel - has its own auth)
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|p/|api/).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|p/|api/|cf-admin-8x7k/).*)',
   ],
 };
 
