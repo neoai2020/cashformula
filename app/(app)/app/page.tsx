@@ -167,13 +167,22 @@ const item = {
 // Constants for persistent stats
 const STATS_STORAGE_KEY = 'cf_live_stats';
 const STATS_START_DATE_KEY = 'cf_stats_start';
+const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-// Base values (what we started with)
+// Base values (reset to these every 24 hours)
 const BASE_STATS = {
   articlesToday: 1291,
   clicksTracked: 10898,
   activeThisWeek: 2990,
   totalMoneyToday: 45070,
+};
+
+// Max values (caps to keep numbers realistic)
+const MAX_STATS = {
+  articlesToday: 3500,
+  clicksTracked: 25000,
+  activeThisWeek: 4500,
+  totalMoneyToday: 95000,
 };
 
 // Growth rates per hour
@@ -205,26 +214,32 @@ export default function DashboardPage() {
   
   const supabase = createClient();
 
-  // Calculate stats based on time elapsed since first visit
+  // Calculate stats based on time elapsed since last reset (resets every 24 hours)
   const calculateStats = useCallback(() => {
     if (typeof window === 'undefined') return BASE_STATS;
     
     let startDate = localStorage.getItem(STATS_START_DATE_KEY);
-    if (!startDate) {
+    const now = Date.now();
+    
+    // Check if we need to reset (no start date, or 24 hours have passed)
+    if (!startDate || (now - new Date(startDate).getTime()) >= TWENTY_FOUR_HOURS) {
       startDate = new Date().toISOString();
       localStorage.setItem(STATS_START_DATE_KEY, startDate);
+      // Clear saved stats on reset
+      localStorage.removeItem(STATS_STORAGE_KEY);
     }
     
-    const hoursElapsed = (Date.now() - new Date(startDate).getTime()) / (1000 * 60 * 60);
+    const hoursElapsed = (now - new Date(startDate).getTime()) / (1000 * 60 * 60);
     
     // Calculate growth with some randomization for realism
     const randomFactor = () => 0.85 + Math.random() * 0.3; // 85% to 115%
     
+    // Calculate stats but cap at max values
     return {
-      articlesToday: Math.round(BASE_STATS.articlesToday + (hoursElapsed * GROWTH_RATES.articlesToday * randomFactor())),
-      clicksTracked: Math.round(BASE_STATS.clicksTracked + (hoursElapsed * GROWTH_RATES.clicksTracked * randomFactor())),
-      activeThisWeek: Math.round(BASE_STATS.activeThisWeek + (hoursElapsed * GROWTH_RATES.activeThisWeek * randomFactor())),
-      totalMoneyToday: Math.round(BASE_STATS.totalMoneyToday + (hoursElapsed * GROWTH_RATES.totalMoneyToday * randomFactor())),
+      articlesToday: Math.min(MAX_STATS.articlesToday, Math.round(BASE_STATS.articlesToday + (hoursElapsed * GROWTH_RATES.articlesToday * randomFactor()))),
+      clicksTracked: Math.min(MAX_STATS.clicksTracked, Math.round(BASE_STATS.clicksTracked + (hoursElapsed * GROWTH_RATES.clicksTracked * randomFactor()))),
+      activeThisWeek: Math.min(MAX_STATS.activeThisWeek, Math.round(BASE_STATS.activeThisWeek + (hoursElapsed * GROWTH_RATES.activeThisWeek * randomFactor()))),
+      totalMoneyToday: Math.min(MAX_STATS.totalMoneyToday, Math.round(BASE_STATS.totalMoneyToday + (hoursElapsed * GROWTH_RATES.totalMoneyToday * randomFactor()))),
     };
   }, []);
 
@@ -284,11 +299,12 @@ export default function DashboardPage() {
     // Live stats update interval - realistic random intervals between 3-8 seconds
     const runUpdate = () => {
       setLiveStats(prev => {
+        // Cap values at MAX_STATS to keep numbers realistic
         const newStats = {
-          articlesToday: prev.articlesToday + Math.floor(Math.random() * 4) + 1,
-          clicksTracked: prev.clicksTracked + Math.floor(Math.random() * 20) + 5,
-          activeThisWeek: prev.activeThisWeek + (Math.random() > 0.7 ? 1 : 0), // Only sometimes increases
-          totalMoneyToday: prev.totalMoneyToday + Math.floor(Math.random() * 200) + 50,
+          articlesToday: Math.min(MAX_STATS.articlesToday, prev.articlesToday + Math.floor(Math.random() * 4) + 1),
+          clicksTracked: Math.min(MAX_STATS.clicksTracked, prev.clicksTracked + Math.floor(Math.random() * 20) + 5),
+          activeThisWeek: Math.min(MAX_STATS.activeThisWeek, prev.activeThisWeek + (Math.random() > 0.7 ? 1 : 0)),
+          totalMoneyToday: Math.min(MAX_STATS.totalMoneyToday, prev.totalMoneyToday + Math.floor(Math.random() * 200) + 50),
         };
         
         // Save to localStorage
