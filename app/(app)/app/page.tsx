@@ -165,32 +165,48 @@ const item = {
 };
 
 // Constants for persistent stats
-const STATS_STORAGE_KEY = 'cf_live_stats';
-const STATS_START_DATE_KEY = 'cf_stats_start';
-const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+const STATS_STORAGE_KEY = 'cf_live_stats_v2';
+const STATS_DATE_KEY = 'cf_stats_date_v2';
 
-// Base values (reset to these every 24 hours)
+// Base values (start of day - around $40k)
 const BASE_STATS = {
-  articlesToday: 1291,
-  clicksTracked: 10898,
-  activeThisWeek: 2990,
-  totalMoneyToday: 45070,
+  articlesToday: 850,
+  clicksTracked: 8500,
+  activeThisWeek: 2100,
+  totalMoneyToday: 38000,
 };
 
-// Max values (caps to keep numbers realistic)
+// Max values (end of day - max $150k)
 const MAX_STATS = {
-  articlesToday: 3500,
-  clicksTracked: 25000,
-  activeThisWeek: 4500,
-  totalMoneyToday: 95000,
+  articlesToday: 5500,
+  clicksTracked: 55000,
+  activeThisWeek: 6500,
+  totalMoneyToday: 150000,
 };
 
-// Growth rates per hour
+// Growth rates per hour (spread over ~24 hours to reach max)
 const GROWTH_RATES = {
-  articlesToday: 45,      // ~45 articles per hour
-  clicksTracked: 180,     // ~180 clicks per hour  
-  activeThisWeek: 12,     // ~12 new active users per hour
-  totalMoneyToday: 1850,  // ~$1850 per hour
+  articlesToday: 195,      // ~195 articles per hour to reach 5500
+  clicksTracked: 1940,     // ~1940 clicks per hour to reach 55000
+  activeThisWeek: 185,     // ~185 active per hour to reach 6500
+  totalMoneyToday: 4670,   // ~$4670 per hour to reach $150k
+};
+
+// Get today's date string in EST timezone
+const getTodayEST = () => {
+  const now = new Date();
+  const estOffset = -5 * 60; // EST is UTC-5
+  const utcOffset = now.getTimezoneOffset();
+  const estTime = new Date(now.getTime() + (utcOffset + estOffset) * 60 * 1000);
+  return estTime.toISOString().split('T')[0]; // Returns YYYY-MM-DD
+};
+
+// Check if we should reset (new day in EST)
+const shouldResetStats = () => {
+  if (typeof window === 'undefined') return false;
+  const savedDate = localStorage.getItem(STATS_DATE_KEY);
+  const todayEST = getTodayEST();
+  return savedDate !== todayEST;
 };
 
 const BUILD_STAMP = 'dash-2026-01-26-remove-members-strip';
@@ -214,25 +230,26 @@ export default function DashboardPage() {
   
   const supabase = createClient();
 
-  // Calculate stats based on time elapsed since last reset (resets every 24 hours)
+  // Calculate stats based on time elapsed since midnight EST
   const calculateStats = useCallback(() => {
     if (typeof window === 'undefined') return BASE_STATS;
     
-    let startDate = localStorage.getItem(STATS_START_DATE_KEY);
-    const now = Date.now();
-    
-    // Check if we need to reset (no start date, or 24 hours have passed)
-    if (!startDate || (now - new Date(startDate).getTime()) >= TWENTY_FOUR_HOURS) {
-      startDate = new Date().toISOString();
-      localStorage.setItem(STATS_START_DATE_KEY, startDate);
-      // Clear saved stats on reset
+    // Check if it's a new day in EST - if so, reset
+    if (shouldResetStats()) {
+      localStorage.setItem(STATS_DATE_KEY, getTodayEST());
       localStorage.removeItem(STATS_STORAGE_KEY);
+      return BASE_STATS;
     }
     
-    const hoursElapsed = (now - new Date(startDate).getTime()) / (1000 * 60 * 60);
+    // Calculate hours since midnight EST
+    const now = new Date();
+    const estOffset = -5 * 60;
+    const utcOffset = now.getTimezoneOffset();
+    const estTime = new Date(now.getTime() + (utcOffset + estOffset) * 60 * 1000);
+    const hoursElapsed = estTime.getHours() + (estTime.getMinutes() / 60);
     
     // Calculate growth with some randomization for realism
-    const randomFactor = () => 0.85 + Math.random() * 0.3; // 85% to 115%
+    const randomFactor = () => 0.9 + Math.random() * 0.2; // 90% to 110%
     
     // Calculate stats but cap at max values
     return {
@@ -298,13 +315,21 @@ export default function DashboardPage() {
     
     // Live stats update interval - realistic random intervals between 3-8 seconds
     const runUpdate = () => {
+      // Check if we need to reset for new day (11:59 PM EST passed)
+      if (shouldResetStats()) {
+        localStorage.setItem(STATS_DATE_KEY, getTodayEST());
+        localStorage.removeItem(STATS_STORAGE_KEY);
+        setLiveStats(BASE_STATS);
+        return;
+      }
+      
       setLiveStats(prev => {
-        // Cap values at MAX_STATS to keep numbers realistic
+        // Small incremental updates - realistic growth
         const newStats = {
-          articlesToday: Math.min(MAX_STATS.articlesToday, prev.articlesToday + Math.floor(Math.random() * 4) + 1),
-          clicksTracked: Math.min(MAX_STATS.clicksTracked, prev.clicksTracked + Math.floor(Math.random() * 20) + 5),
-          activeThisWeek: Math.min(MAX_STATS.activeThisWeek, prev.activeThisWeek + (Math.random() > 0.7 ? 1 : 0)),
-          totalMoneyToday: Math.min(MAX_STATS.totalMoneyToday, prev.totalMoneyToday + Math.floor(Math.random() * 200) + 50),
+          articlesToday: Math.min(MAX_STATS.articlesToday, prev.articlesToday + Math.floor(Math.random() * 3) + 1),
+          clicksTracked: Math.min(MAX_STATS.clicksTracked, prev.clicksTracked + Math.floor(Math.random() * 15) + 5),
+          activeThisWeek: Math.min(MAX_STATS.activeThisWeek, prev.activeThisWeek + (Math.random() > 0.6 ? 1 : 0)),
+          totalMoneyToday: Math.min(MAX_STATS.totalMoneyToday, prev.totalMoneyToday + Math.floor(Math.random() * 150) + 30),
         };
         
         // Save to localStorage
@@ -450,10 +475,16 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* Welcome Video Card with LIVE STATS next to it */}
-      <motion.div variants={item} className="flex flex-col lg:flex-row justify-center items-stretch gap-6 lg:gap-8">
+      <motion.div variants={item} className="flex flex-col lg:flex-row justify-center items-stretch gap-5">
         {/* Video Player Card */}
-        <div className="w-full lg:w-[40%] glass-hero rounded-3xl overflow-hidden">
-          <div className="relative aspect-video bg-gradient-to-br from-navy-800/80 to-navy-900/80">
+        <div className="w-full lg:w-[52%] glass-hero rounded-3xl overflow-hidden shadow-2xl shadow-emerald-500/10">
+          <div className="p-4 pb-0">
+            <h3 className="text-lg font-semibold text-white flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+              Getting Started
+            </h3>
+          </div>
+          <div className="relative aspect-video bg-gradient-to-br from-navy-800/80 to-navy-900/80 m-4 mt-0 rounded-2xl overflow-hidden">
             <iframe
               src="https://player.vimeo.com/video/1158728161?badge=0&autopause=0&player_id=0&app_id=58479"
               className="absolute inset-0 w-full h-full"
@@ -464,15 +495,15 @@ export default function DashboardPage() {
             />
             
             {/* Live badge */}
-            <div className="absolute top-4 left-4 px-3 py-1.5 bg-red-500 rounded-full text-white text-sm font-bold flex items-center gap-2 shadow-lg z-10 pointer-events-none">
-              <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
+            <div className="absolute top-3 left-3 px-3 py-1.5 bg-red-500 rounded-full text-white text-xs font-bold flex items-center gap-2 shadow-lg z-10 pointer-events-none">
+              <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
               MUST WATCH FIRST
             </div>
           </div>
         </div>
         
         {/* LIVE Stats Panel - What's Happening Right Now */}
-        <div className="w-full lg:w-[40%] glass-hero rounded-3xl p-5 lg:p-6 flex flex-col justify-center relative overflow-hidden">
+        <div className="w-full lg:w-[38%] glass-hero rounded-3xl p-5 lg:p-6 flex flex-col justify-center relative overflow-hidden shadow-2xl shadow-green-500/10">
             {/* Animated gradient background */}
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/60 via-teal-900/80 to-cyan-900/60" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent" />
