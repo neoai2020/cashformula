@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { isOpenRouterConfigured, openRouterChat, setLastAiProvider } from '@/lib/openrouter';
 import { generateReviewSchema } from '@/lib/validations';
 import { checkRateLimit } from '@/lib/utils';
 
@@ -100,31 +101,45 @@ IMPORTANT: The title must NOT start with "Why". Start with action words instead.
 
 Return ONLY valid JSON, no explanation or markdown.`;
 
-    const response = await fetch(`https://${rapidApiHost}/gpt4`, {
-      method: 'POST',
-      headers: {
-        'x-rapidapi-key': rapidApiKey,
-        'x-rapidapi-host': rapidApiHost,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        messages: [{ role: 'user', content: prompt }],
-        web_access: false,
-      }),
-    });
-
-    if (!response.ok) {
-      console.error('ChatGPT API error:', response.status, await response.text());
-      return NextResponse.json(
-        { error: 'Failed to generate content' },
-        { status: response.status }
-      );
+    let content = '';
+    if (isOpenRouterConfigured()) {
+      try {
+        content = await openRouterChat([{ role: 'user', content: prompt }]);
+        setLastAiProvider('openrouter');
+      } catch (error) {
+        console.warn('[ai] OpenRouter failed, using RapidAPI:', error instanceof Error ? error.message : error);
+      }
     }
 
-    const data = await response.json();
+    if (!content) {
+      const response = await fetch(`https://${rapidApiHost}/gpt4`, {
+        method: 'POST',
+        headers: {
+          'x-rapidapi-key': rapidApiKey,
+          'x-rapidapi-host': rapidApiHost,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: prompt }],
+          web_access: false,
+        }),
+        signal: AbortSignal.timeout(90000),
+      });
+
+      if (!response.ok) {
+        console.error('ChatGPT API error:', response.status, await response.text());
+        return NextResponse.json(
+          { error: 'Failed to generate content' },
+          { status: response.status }
+        );
+      }
+
+      const data = await response.json();
     
-    // Extract content from response
-    let content = data?.result || data?.message || data?.choices?.[0]?.message?.content || '';
+      // Extract content from response
+      content = data?.result || data?.message || data?.choices?.[0]?.message?.content || '';
+      setLastAiProvider('rapidapi');
+    }
     
     // Clean up any markdown code blocks
     content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();

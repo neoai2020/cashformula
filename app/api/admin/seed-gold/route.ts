@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { isOpenRouterConfigured, openRouterChat, setLastAiProvider } from '@/lib/openrouter';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300; // 5 minutes timeout
@@ -190,7 +191,17 @@ Generate a JSON response with this EXACT structure (no markdown, just valid JSON
 
 Return ONLY valid JSON, no explanation or markdown.`;
 
-          const chatResponse = await fetch(`https://${chatgptHost}/gpt4`, {
+          let aiContent = '';
+          if (isOpenRouterConfigured()) {
+            try {
+              aiContent = await openRouterChat([{ role: 'user', content: prompt }]);
+              setLastAiProvider('openrouter');
+            } catch (error) {
+              console.warn('[ai] OpenRouter failed, using RapidAPI:', error instanceof Error ? error.message : error);
+            }
+          }
+
+          const chatResponse = aiContent ? null : await fetch(`https://${chatgptHost}/gpt4`, {
             method: 'POST',
             headers: {
               'x-rapidapi-key': rapidApiKey,
@@ -201,12 +212,14 @@ Return ONLY valid JSON, no explanation or markdown.`;
               messages: [{ role: 'user', content: prompt }],
               web_access: false,
             }),
+            signal: AbortSignal.timeout(90000),
           });
 
           let generatedContent;
-          if (chatResponse.ok) {
-            const chatData = await chatResponse.json();
-            let content = chatData?.result || chatData?.message || chatData?.choices?.[0]?.message?.content || '';
+          if (aiContent || chatResponse?.ok) {
+            const chatData = chatResponse ? await chatResponse.json() : null;
+            if (chatResponse) setLastAiProvider('rapidapi');
+            let content = aiContent || chatData?.result || chatData?.message || chatData?.choices?.[0]?.message?.content || '';
             content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
             
             try {
