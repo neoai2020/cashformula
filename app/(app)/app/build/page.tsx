@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Confetti from '@/components/ui/Confetti';
+import { useSmoothProgress } from '@/lib/useSmoothProgress';
 
 // Icons
 const SearchIcon = () => (
@@ -129,9 +130,16 @@ export default function BuildPage() {
   const [createdSlug, setCreatedSlug] = useState('');
   
   // AI generation animation state
-  const [aiProgress, setAiProgress] = useState(0);
+  const [aiDone, setAiDone] = useState(false);
   const [currentAiMessage, setCurrentAiMessage] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
+  const smoothAiProgress = useSmoothProgress({
+    floor: 4,
+    ceiling: 85,
+    running: generating && !aiDone,
+    expectedMs: 25_000,
+  });
+  const aiProgress = aiDone ? 100 : smoothAiProgress;
 
   // AI message rotation during generation
   useEffect(() => {
@@ -139,20 +147,12 @@ export default function BuildPage() {
       const messageInterval = setInterval(() => {
         setCurrentAiMessage((prev) => (prev + 1) % aiMessages.length);
       }, 1500);
-      
-      const progressInterval = setInterval(() => {
-        setAiProgress((prev) => {
-          if (prev >= 95) return prev;
-          return prev + Math.random() * 8 + 2;
-        });
-      }, 500);
 
       return () => {
         clearInterval(messageInterval);
-        clearInterval(progressInterval);
       };
     } else {
-      setAiProgress(0);
+      setAiDone(false);
       setCurrentAiMessage(0);
     }
   }, [generating]);
@@ -225,7 +225,7 @@ export default function BuildPage() {
     if (!selectedProduct) return;
 
     setGenerating(true);
-    setAiProgress(0);
+    setAiDone(false);
     setError('');
 
     try {
@@ -258,7 +258,7 @@ export default function BuildPage() {
       }
       
       // Final progress push
-      setAiProgress(100);
+      setAiDone(true);
       await new Promise(resolve => setTimeout(resolve, 500));
 
       if (!res.ok) {
@@ -674,7 +674,7 @@ export default function BuildPage() {
                       transition={{ duration: 0.3 }}
                     />
                   </div>
-                  <p className="text-right text-gold-400 font-bold mt-2">{Math.round(aiProgress)}%</p>
+                  <p className="text-right text-gold-400 font-bold mt-2">{aiProgress >= 100 ? 100 : aiProgress.toFixed(1)}%</p>
                 </div>
 
                 {/* Rotating AI messages */}
