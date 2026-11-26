@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { normalizeWebUrl } from '@/lib/normalize-url';
 
 const CONVERSION_BOOSTERS = [
   { id: 'countdown', name: 'Countdown Timer', description: 'Creates urgency' },
@@ -67,14 +68,13 @@ export default function MultiProductModal({
         return;
       }
 
-      const urlPattern = /^https?:\/\/.+/;
-      const invalidLinks = affiliateLinks.filter(link => !urlPattern.test(link));
-      if (invalidLinks.length > 0) {
-        setError('All links must be valid URLs starting with http:// or https://');
+      const normalizedLinks = affiliateLinks.map(link => normalizeWebUrl(link));
+      if (normalizedLinks.some(link => !link)) {
+        setError('All links must be valid links, e.g. google.com');
         return;
       }
 
-      onGenerate({ affiliateLinks, boosters: selectedBoosters });
+      onGenerate({ affiliateLinks: normalizedLinks, boosters: selectedBoosters });
     } else if (type === 'seasonal') {
       if (!asin.trim()) {
         setError('Please enter the product ASIN');
@@ -85,15 +85,15 @@ export default function MultiProductModal({
         return;
       }
 
-      const urlPattern = /^https?:\/\/.+/;
-      if (!urlPattern.test(affiliateLinks[0])) {
-        setError('Please enter a valid URL starting with http:// or https://');
+      const link1 = normalizeWebUrl(affiliateLinks[0]);
+      if (!link1) {
+        setError('Enter a valid link, e.g. google.com');
         return;
       }
 
       onGenerate({ 
         asin, 
-        affiliateLink1: affiliateLinks[0], 
+        affiliateLink1: link1, 
         boosters: selectedBoosters 
       });
     }
@@ -174,7 +174,11 @@ export default function MultiProductModal({
                           #{index + 1} - {name}
                         </label>
                         <input
-                          type="url"
+                          type="text"
+                          inputMode="url"
+                          autoCapitalize="off"
+                          autoCorrect="off"
+                          spellCheck={false}
                           value={affiliateLinks[index] || ''}
                           onChange={(e) => updateAffiliateLink(index, e.target.value)}
                           placeholder="https://www.amazon.com/dp/ASIN?tag=your-tag-20"
@@ -218,7 +222,11 @@ export default function MultiProductModal({
                         Your Affiliate Link
                       </label>
                       <input
-                        type="url"
+                        type="text"
+                        inputMode="url"
+                        autoCapitalize="off"
+                        autoCorrect="off"
+                        spellCheck={false}
                         value={affiliateLinks[0]}
                         onChange={(e) => updateAffiliateLink(0, e.target.value)}
                         placeholder="https://www.amazon.com/dp/ASIN?tag=your-tag-20"

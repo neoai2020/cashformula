@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Confetti from '@/components/ui/Confetti';
 import { useSmoothProgress } from '@/lib/useSmoothProgress';
+import { normalizeWebUrl } from '@/lib/normalize-url';
 
 // Icons
 const SearchIcon = () => (
@@ -210,6 +211,12 @@ export default function BuildPage() {
       setError('Please enter your affiliate link');
       return;
     }
+    const normalizedLink = normalizeWebUrl(affiliateLink);
+    if (!normalizedLink) {
+      setError('Enter a valid link, e.g. google.com');
+      return;
+    }
+    setAffiliateLink(normalizedLink);
     setError('');
     setStep('generate');
   };
@@ -574,6 +581,11 @@ export default function BuildPage() {
                   Your Affiliate Link
                 </label>
                 <Input
+                  type="text"
+                  inputMode="url"
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  spellCheck={false}
                   placeholder="https://your-affiliate-link.com/product"
                   value={affiliateLink}
                   onChange={(e) => setAffiliateLink(e.target.value)}

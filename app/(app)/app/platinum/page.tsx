@@ -14,6 +14,7 @@ import {
   type ComparisonPage,
 } from '@/lib/platinum-data';
 import Button from '@/components/ui/Button';
+import { normalizeWebUrl } from '@/lib/normalize-url';
 import Confetti from '@/components/ui/Confetti';
 import AffiliateModal from '@/components/ui/AffiliateModal';
 import MultiProductModal from '@/components/ui/MultiProductModal';
@@ -1891,7 +1892,12 @@ export default function PlatinumPage() {
                     const affiliateLink = formData.get('affiliateLink') as string;
                     const boosters = Array.from(formData.getAll('boosters')) as string[];
                     if (affiliateLink) {
-                      handleGenerateHighTicket(affiliateLink, boosters);
+                      const normalizedLink = normalizeWebUrl(affiliateLink);
+                      if (!normalizedLink) {
+                        alert('Enter a valid link, e.g. google.com');
+                        return;
+                      }
+                      handleGenerateHighTicket(normalizedLink, boosters);
                     }
                   }}
                   className="p-8 space-y-6"
@@ -1903,7 +1909,11 @@ export default function PlatinumPage() {
                     </label>
                     <input
                       name="affiliateLink"
-                      type="url"
+                      type="text"
+                      inputMode="url"
+                      autoCapitalize="off"
+                      autoCorrect="off"
+                      spellCheck={false}
                       required
                       placeholder={`https://www.amazon.com/dp/${selectedHighTicket.asin}?tag=YOUR-TAG`}
                       className="w-full px-5 py-4 text-lg border-3 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-200 outline-none bg-gray-50 text-gray-900 placeholder-gray-400"

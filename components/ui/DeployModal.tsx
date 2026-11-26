@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Button from './Button';
 import Input from './Input';
 import Confetti from './Confetti';
+import { normalizeWebUrl } from '@/lib/normalize-url';
 
 interface DeployModalProps {
   isOpen: boolean;
@@ -55,12 +56,17 @@ export default function DeployModal({ isOpen, onClose, product, onDeploy }: Depl
       setError('Please enter your affiliate link');
       return;
     }
+    const normalizedLink = normalizeWebUrl(affiliateLink);
+    if (!normalizedLink) {
+      setError('Enter a valid link, e.g. google.com');
+      return;
+    }
 
     setError('');
     setDeploying(true);
 
     try {
-      const slug = await onDeploy(affiliateLink);
+      const slug = await onDeploy(normalizedLink);
       setCreatedPageSlug(slug);
       setDeployed(true);
       setShowConfetti(true);
@@ -149,6 +155,11 @@ export default function DeployModal({ isOpen, onClose, product, onDeploy }: Depl
                           Your Amazon Affiliate Link
                         </label>
                         <Input
+                          type="text"
+                          inputMode="url"
+                          autoCapitalize="off"
+                          autoCorrect="off"
+                          spellCheck={false}
                           placeholder="https://amzn.to/your-affiliate-link"
                           value={affiliateLink}
                           onChange={(e) => setAffiliateLink(e.target.value)}

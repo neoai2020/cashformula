@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { normalizeWebUrl } from '@/lib/normalize-url';
 
 interface ConversionBooster {
   id: string;
@@ -100,20 +101,21 @@ export default function AffiliateModal({
       return;
     }
 
-    const urlPattern = /^https?:\/\/.+/;
-    if (!urlPattern.test(affiliateLink1)) {
-      setError('Please enter a valid URL starting with http:// or https://');
+    const link1 = normalizeWebUrl(affiliateLink1);
+    if (!link1) {
+      setError('Enter a valid link, e.g. google.com');
       return;
     }
 
-    if (type === 'comparison' && !urlPattern.test(affiliateLink2)) {
-      setError('Please enter a valid URL for the second product');
+    const link2 = normalizeWebUrl(affiliateLink2);
+    if (type === 'comparison' && !link2) {
+      setError('Enter a valid link for the second product, e.g. google.com');
       return;
     }
 
     onGenerate({
-      affiliateLink1,
-      affiliateLink2: type === 'comparison' ? affiliateLink2 : undefined,
+      affiliateLink1: link1,
+      affiliateLink2: type === 'comparison' ? link2 : undefined,
       boosters: selectedBoosters,
     });
   };
@@ -193,7 +195,11 @@ export default function AffiliateModal({
                       {productName1} Affiliate Link
                     </label>
                     <input
-                      type="url"
+                      type="text"
+                      inputMode="url"
+                      autoCapitalize="off"
+                      autoCorrect="off"
+                      spellCheck={false}
                       value={affiliateLink1}
                       onChange={(e) => setAffiliateLink1(e.target.value)}
                       placeholder="https://www.amazon.com/dp/ASIN?tag=your-tag-20"
@@ -209,7 +215,11 @@ export default function AffiliateModal({
                         {productName2} Affiliate Link
                       </label>
                       <input
-                        type="url"
+                        type="text"
+                        inputMode="url"
+                        autoCapitalize="off"
+                        autoCorrect="off"
+                        spellCheck={false}
                         value={affiliateLink2}
                         onChange={(e) => setAffiliateLink2(e.target.value)}
                         placeholder="https://www.amazon.com/dp/ASIN?tag=your-tag-20"
